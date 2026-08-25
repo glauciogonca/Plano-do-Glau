@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano Alimentar — Gláucio Gonçalves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16211D;--ink-2:#31423B;--paper:#ECEFE6;--card:#FFFFFF;--line:#CFD6C8;
+    --turmeric:#C07C14;--teal:#1F5E5B;--clay:#8A3A2E;--muted:#6C7A6F;--shade:#E1E6D9;--r:10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:64px;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Source Sans 3",system-ui,-apple-system,sans-serif;
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:940px;margin:0 auto;padding:0 18px 80px;}
+
+  .masthead{padding:44px 0 22px;border-bottom:2px solid var(--ink);}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--turmeric);font-weight:600;margin:0 0 12px;}
+  h1{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;font-weight:800;
+    font-size:clamp(34px,7vw,58px);line-height:.98;letter-spacing:-.025em;margin:0 0 14px;}
+  h1 em{font-style:normal;color:var(--turmeric);}
+  .sub{color:var(--ink-2);max-width:56ch;margin:0 0 22px;font-size:17px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;
+    background:var(--ink);color:var(--paper);padding:5px 11px;border-radius:100px;}
+  .chip.alt{background:transparent;color:var(--ink);border:1px solid var(--line);}
+
+  nav{position:sticky;top:0;z-index:40;background:rgba(236,239,230,.94);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin:0 -18px;padding:0 18px;}
+  .navrow{display:flex;gap:4px;overflow-x:auto;max-width:940px;margin:0 auto;
+    scrollbar-width:none;-ms-overflow-style:none;}
+  .navrow::-webkit-scrollbar{display:none;}
+  .navrow a{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-2);text-decoration:none;padding:13px 10px;
+    white-space:nowrap;border-bottom:2px solid transparent;}
+  .navrow a:hover,.navrow a:focus-visible{color:var(--turmeric);border-bottom-color:var(--turmeric);}
+
+  .daystrip{margin:34px 0 8px;}
+  .strip{position:relative;height:96px;border-left:1px solid var(--ink);
+    border-right:1px solid var(--ink);margin-top:26px;}
+  .band{position:absolute;left:0;right:0;height:26px;border-radius:3px;}
+  .band-caf{top:6px;background:var(--shade);border:1px solid var(--line);}
+  .band-fill{position:absolute;top:0;bottom:0;left:0;background:#D8C08C;
+    border-right:2px solid var(--turmeric);border-radius:3px 0 0 3px;}
+  .band-label{position:absolute;top:11px;font-family:"IBM Plex Mono",monospace;font-size:10px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;}
+  .rule{position:absolute;left:0;right:0;top:46px;border-top:1px dashed var(--line);}
+  .pt{position:absolute;top:38px;transform:translateX(-50%);text-align:center;width:70px;}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);margin:0 auto 5px;}
+  .dot.big{width:13px;height:13px;background:var(--clay);}
+  .dot.sleep{background:var(--ink);}
+  .pt span{display:block;font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    color:var(--ink-2);line-height:1.25;}
+  .pt b{display:block;font-family:"Source Sans 3";font-size:10.5px;font-weight:700;color:var(--ink);}
+  .train{position:absolute;top:70px;height:16px;background:var(--teal);border-radius:3px;
+    display:flex;align-items:center;justify-content:center;}
+  .train span{font-family:"IBM Plex Mono",monospace;font-size:9.5px;color:#fff;letter-spacing:.1em;}
+
+  section{padding-top:52px;}
+  h2{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;font-weight:800;
+    font-size:clamp(22px,3.6vw,30px);letter-spacing:-.015em;margin:0 0 6px;}
+  .sec-note{color:var(--muted);font-size:15px;margin:0 0 22px;max-width:62ch;}
+  .marker{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--turmeric);font-weight:600;display:block;margin-bottom:8px;}
+
+  .meal{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:22px;margin-bottom:16px;}
+  .meal-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:4px;}
+  .time{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:15px;
+    color:#fff;background:var(--ink);padding:3px 9px;border-radius:5px;}
+  .meal-head h3{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;font-weight:600;
+    font-size:20px;margin:0;letter-spacing:-.01em;}
+  .meal-tot{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2);}
+  .meal-tot b{color:var(--turmeric);}
+  table{width:100%;border-collapse:collapse;margin:14px 0 0;font-size:15px;}
+  th{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);font-weight:500;text-align:left;
+    padding:0 8px 7px 0;border-bottom:1px solid var(--line);}
+  th.n,td.n{text-align:right;padding-right:0;white-space:nowrap;}
+  td{padding:9px 8px 9px 0;border-bottom:1px solid #EDF0E8;vertical-align:top;}
+  td.n{font-family:"IBM Plex Mono",monospace;font-size:13.5px;color:var(--ink-2);}
+  tr.sum td{border-bottom:none;font-weight:700;padding-top:11px;}
+  tr.sum td.n{color:var(--ink);}
+  .note{margin-top:16px;padding:13px 15px;border-left:3px solid var(--teal);
+    background:#F2F5EF;border-radius:0 6px 6px 0;font-size:14.5px;color:var(--ink-2);}
+  .note b{color:var(--ink);}
+  .note.why{border-left-color:var(--turmeric);}
+  .note.warn{border-left-color:var(--clay);background:#F9F1EF;}
+  .alt-tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;
+    letter-spacing:.1em;text-transform:uppercase;background:var(--shade);color:var(--ink-2);
+    padding:3px 8px;border-radius:4px;}
+
+  .macros{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+  .macro{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 14px;}
+  .macro .v{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;font-weight:800;
+    font-size:27px;line-height:1;letter-spacing:-.02em;}
+  .macro .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);margin-top:7px;}
+  .macro .p{font-size:12.5px;color:var(--ink-2);margin-top:3px;}
+  .macro.kcal .v{color:var(--turmeric);}
+
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;}
+  .box h4{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--teal);margin:0 0 12px;font-weight:600;}
+  .check{list-style:none;margin:0;padding:0;}
+  .check li{margin-bottom:9px;font-size:15px;}
+  .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;}
+  .check input{appearance:none;width:16px;height:16px;flex:0 0 16px;margin-top:3px;
+    border:1.5px solid var(--muted);border-radius:4px;background:#fff;cursor:pointer;}
+  .check input:checked{background:var(--teal);border-color:var(--teal);}
+  .check input:checked + span{text-decoration:line-through;color:var(--muted);}
+  .check input:focus-visible{outline:2px solid var(--turmeric);outline-offset:2px;}
+  .qty{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);}
+
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:0;}
+  ol.steps li{counter-increment:s;position:relative;padding-left:42px;margin-bottom:16px;font-size:15.5px;}
+  ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:1px;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--turmeric);
+    border:1px solid var(--line);border-radius:5px;width:28px;height:24px;
+    display:flex;align-items:center;justify-content:center;background:#fff;}
+
+  .rules{display:grid;gap:12px;}
+  .rule-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--clay);
+    border-radius:0 var(--r) var(--r) 0;padding:16px 18px;}
+  .rule-card h4{font-size:16px;margin:0 0 5px;font-weight:700;}
+  .rule-card p{margin:0;font-size:14.5px;color:var(--ink-2);}
+
+  .alert{background:#F9F1EF;border:1px solid #E2C4BC;border-left:5px solid var(--clay);
+    border-radius:0 var(--r) var(--r) 0;padding:20px 22px;margin-bottom:18px;}
+  .alert h3{margin:0 0 8px;font-size:19px;font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;
+    font-weight:700;color:var(--clay);}
+  .alert p{margin:0 0 10px;font-size:15px;color:var(--ink-2);}
+  .alert p:last-child{margin-bottom:0;}
+
+  .labs td:first-child{font-weight:600;}
+  .flag{font-family:"IBM Plex Mono",monospace;font-size:10px;padding:2px 7px;border-radius:4px;
+    letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;}
+  .flag.ok{background:#DCE8DA;color:#28513F;}
+  .flag.watch{background:#F5E3C4;color:#7A5410;}
+  .flag.act{background:#F3DAD5;color:#7C3225;}
+
+  footer{margin-top:64px;padding-top:22px;border-top:2px solid var(--ink);
+    font-size:13.5px;color:var(--muted);}
+  footer b{color:var(--ink-2);}
+
+  @media (max-width:620px){
+    .macros{grid-template-columns:repeat(2,1fr);}
+    .meal{padding:17px;}
+    .meal-tot{margin-left:0;width:100%;}
+    .strip{height:118px;}
+    .pt{width:56px;}
+    .pt span{font-size:8.5px;}
+    .pt b{font-size:9.5px;}
+    td,table{font-size:14px;}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  @media print{nav{display:none;}body{background:#fff;}
+    .meal,.box,.macro,.rule-card,.alert{break-inside:avoid;}}
+  .counter{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);
+    float:right;font-weight:400;letter-spacing:.04em;}
+  .box.done{border-color:var(--teal);background:#F5F8F3;}
+  .box.done h4{color:var(--muted);}
+  .clearbar{display:flex;justify-content:flex-end;margin-bottom:12px;}
+  .clearbar button{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;background:transparent;color:var(--ink-2);
+    border:1px solid var(--line);border-radius:100px;padding:8px 16px;cursor:pointer;}
+  .clearbar button:hover{border-color:var(--turmeric);color:var(--turmeric);}
+  .clearbar button:active{background:var(--shade);}
+  @supports (padding:max(0px)){
+    body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);}
+    .masthead{padding-top:max(44px,calc(env(safe-area-inset-top) + 24px));}
+  }
+  @media print{.clearbar{display:none;}}
+</style>
+<meta name="description" content="Plano alimentar pessoal — refeições, prep semanal, lista de compras e critérios de acompanhamento.">
+<meta name="theme-color" content="#16211D">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Plano">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Plano alimentar · versão 2.1 · agosto 2026</p>
+    <h1>Comer para <em>construir</em>,<br>não para caber.</h1>
+    <p class="sub">Cinco refeições fixas, ~2.550 kcal, montadas em torno do treino das 21h e da meta de dormir até meia-noite. Feito para repetição: mesma estrutura todos os dias úteis, uma preparação semanal.</p>
+    <div class="chips">
+      <span class="chip">58,1 kg · 1,64 m</span>
+      <span class="chip">39 anos</span>
+      <span class="chip alt">Objetivo: massa com definição</span>
+      <span class="chip alt">Marmita seg–sex</span>
+    </div>
+  </header>
+
+  <nav>
+    <div class="navrow">
+      <a href="#dia">Linha do dia</a>
+      <a href="#metas">Metas</a>
+      <a href="#refeicoes">Refeições</a>
+      <a href="#descanso">Dia sem treino</a>
+      <a href="#micro">Micronutrientes</a>
+      <a href="#prep">Prep de domingo</a>
+      <a href="#compras">Compras</a>
+      <a href="#comprarbem">Como comprar</a>
+      <a href="#suplementos">Suplementos</a>
+      <a href="#regras">Regras</a>
+      <a href="#exames">Exames</a>
+    </div>
+  </nav>
+
+  <!-- ================= DAY STRIP ================= -->
+  <section id="dia" class="daystrip" style="padding-top:34px;">
+    <span class="marker">A linha do dia</span>
+    <h2>Das 7h à meia-noite</h2>
+    <p class="sec-note">Tudo neste plano é ancorado em horário. A faixa clara mostra a janela em que a cafeína é permitida — ela fecha às 13h para que o sono às 00h seja possível.</p>
+
+    <div class="strip" role="img" aria-label="Linha do dia: café 7h30, almoço 12h, cafeína liberada até 13h, lanche 17h, pré-treino 20h15, treino das 21h às 23h, ceia 23h15, dormir 00h.">
+      <div class="band band-caf"><div class="band-fill" style="width:33.3%"></div></div>
+      <div class="band-label" style="left:6px;">Cafeína liberada</div>
+      <div class="band-label" style="left:35%;">Corte às 13h</div>
+      <div class="rule"></div>
+      <div class="pt" style="left:2.8%"><div class="dot"></div><b>Café</b><span>07:30</span></div>
+      <div class="pt" style="left:27.8%"><div class="dot"></div><b>Almoço</b><span>12:00</span></div>
+      <div class="pt" style="left:55.6%"><div class="dot"></div><b>Lanche</b><span>17:00</span></div>
+      <div class="pt" style="left:73.6%"><div class="dot big"></div><b>Pré</b><span>20:15</span></div>
+      <div class="pt" style="left:90.3%"><div class="dot"></div><b>Ceia</b><span>23:15</span></div>
+      <div class="pt" style="left:98%"><div class="dot sleep"></div><b>Dormir</b><span>00:00</span></div>
+      <div class="train" style="left:77.8%;width:11.1%"><span>TREINO</span></div>
+    </div>
+  </section>
+
+  <!-- ================= METAS ================= -->
+  <section id="metas">
+    <span class="marker">Alvo diário</span>
+    <h2>Os números</h2>
+    <p class="sec-note">Superávit calórico moderado. O objetivo não é subir rápido — é subir devagar o suficiente para que o ganho seja músculo, e não a gordura abdominal que você quer eliminar.</p>
+
+    <div class="macros">
+      <div class="macro kcal"><div class="v">2.550</div><div class="k">kcal / dia</div><div class="p">faixa 2.500–2.650</div></div>
+      <div class="macro"><div class="v">165 g</div><div class="k">proteína</div><div class="p">2,8 g por kg</div></div>
+      <div class="macro"><div class="v">275 g</div><div class="k">carboidrato</div><div class="p">4,7 g por kg</div></div>
+      <div class="macro"><div class="v">92 g</div><div class="k">gordura</div><div class="p">azeite, ovos, castanhas</div></div>
+    </div>
+
+    <div class="note why">
+      <b>Por que a proteína caiu e o carboidrato subiu na v2:</b> a meta-análise de Morton et al. (<i>Br J Sports Med</i>, 2018 — 49 estudos, 1.863 participantes) encontra platô de ganho muscular em torno de 1,6 g/kg, com limite superior do intervalo de confiança em 2,2 g/kg. A versão anterior tinha 3,1 g/kg: seguro, mas ineficiente — cada grama de proteína excedente era uma caloria que não virou combustível de treino. Carboidrato é o substrato principal do treino resistido, e glicogênio baixo reduz o volume total de trabalho, que é justamente o que determina hipertrofia.
+    </div>
+    <div class="note warn">
+      <b>2.400 kcal provavelmente era manutenção, não superávit.</b> TMB estimada de 1.416 kcal, com fator de atividade ~1,7 (trabalho sedentário + 5 a 6 treinos semanais), dá TDEE ≈ 2.400. Equações de gasto energético carregam erro de ±15%, então isso é hipótese — mas o correto é começar acima e deixar a balança arbitrar. Daí os 2.550.
+    </div>
+    <div class="note">
+      <b>Ritmo esperado:</b> +0,2 a 0,3 kg por mês. Parece pouco, mas é o ritmo em que o ganho é predominantemente muscular. Nos 8 meses anteriores você <i>perdeu</i> 6 kg treinando — isso era déficit calórico, não falta de treino.
+    </div>
+  </section>
+
+  <!-- ================= REFEIÇÕES ================= -->
+  <section id="refeicoes">
+    <span class="marker">O dia, refeição por refeição</span>
+    <h2>As cinco refeições</h2>
+    <p class="sec-note">Valores são estimativas a partir das porções. Pequenas variações no dia a dia não importam; o que importa é a média da semana.</p>
+
+    <div class="alert">
+      <h3>Correção da v1 — castanha-do-pará</h3>
+      <p>A versão anterior sugeria "30 g de castanhas ≈ 5 castanhas-do-pará". Isso estava errado. Uma única castanha-do-pará contém entre 68 e 91 mcg de selênio; a recomendação diária é 55 mcg e o limite superior tolerável é 400 mcg. Cinco por dia colocariam você em 340–455 mcg de forma contínua — faixa de risco para selenose crônica (queda de cabelo, unhas quebradiças, hálito de alho, sintomas neurológicos).</p>
+      <p><b>Regra corrigida:</b> castanha-do-pará, <b>1 unidade por dia, no máximo</b> — o que já cobre 100% da sua necessidade de selênio. Os 30 g de castanhas do café da manhã devem ser caju, amêndoa ou mix <b>sem</b> castanha-do-pará. Trate a do Pará como suplemento à parte, não como oleaginosa de volume.</p>
+    </div>
+
+    <!-- CAFÉ A -->
+    <article class="meal">
+      <div class="meal-head">
+        <span class="time">07:30</span>
+        <h3>Café da manhã <span class="alt-tag">Opção A · padrão</span></h3>
+        <span class="meal-tot"><b>780 kcal</b> · 49 g ptn</span>
+      </div>
+      <table>
+        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
+        <tr><td>4 ovos mexidos <span class="qty">sem óleo, antiaderente</span></td><td class="n">280</td><td class="n">24 g</td></tr>
+        <tr><td>Metade da pasta de sardinha <span class="qty">preparada na véspera</span></td><td class="n">145</td><td class="n">14 g</td></tr>
+        <tr><td>2 fatias de pão integral</td><td class="n">140</td><td class="n">6 g</td></tr>
+        <tr><td>30 g de castanhas <span class="qty">caju, amêndoa — sem castanha-do-pará</span></td><td class="n">180</td><td class="n">4 g</td></tr>
+        <tr><td>1 castanha-do-pará <span class="qty">uma. só uma.</span></td><td class="n">35</td><td class="n">1 g</td></tr>
+        <tr><td>Chá verde <span class="qty">hibisco, hortelã, canela ou gengibre</span></td><td class="n">0</td><td class="n">—</td></tr>
+        <tr class="sum"><td>Total</td><td class="n">780</td><td class="n">49 g</td></tr>
+      </table>
+      <div class="note">
+        <b>A pasta de sardinha</b> — feita na noite anterior, rende duas refeições:<br>
+        1 lata inteira de sardinha (escorra o excesso de óleo) + 1 ovo cozido + limão. Amasse tudo com garfo. Divida em dois potes: um fica na geladeira para o café, o outro vai na bolsa para o lanche das 17h.<br>
+        Tempo: 3 minutos, enquanto o chá da noite esquenta.
+      </div>
+      <div class="note why">
+        <b>Por que ovo e não maionese:</b> a gema é rica em lecitina — o mesmo emulsificante que faz a maionese existir. O ovo dá a liga que impede a sardinha de cair do pão, e ainda adiciona proteína. Óleo sozinho não liga, apenas lubrifica.<br>
+        <b>Formato é livre.</b> Enquanto os ingredientes e as quantidades forem os mesmos, monte como quiser: ovos mexidos com a pasta no pão, pasta na colher com pão à parte, omelete com pasta de acompanhamento. Variar o formato é o que evita o enjoo sem exigir decisão nova.
+      </div>
+    </article>
+
+    <!-- CAFÉ B -->
+    <article class="meal">
+      <div class="meal-head">
+        <span class="time">07:30</span>
+        <h3>Café da manhã <span class="alt-tag">Opção B · dia corrido</span></h3>
+        <span class="meal-tot"><b>760 kcal</b> · 46 g ptn</span>
+      </div>
+      <table>
+        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
+        <tr><td>60 g de aveia em flocos</td><td class="n">230</td><td class="n">8 g</td></tr>
+        <tr><td>300 ml de leite integral</td><td class="n">180</td><td class="n">10 g</td></tr>
+        <tr><td>1 scoop de whey <span class="qty">30 g</span></td><td class="n">120</td><td class="n">24 g</td></tr>
+        <tr><td>1 banana média</td><td class="n">105</td><td class="n">1 g</td></tr>
+        <tr><td>15 g de castanhas picadas + canela</td><td class="n">90</td><td class="n">2 g</td></tr>
+        <tr><td>1 castanha-do-pará</td><td class="n">35</td><td class="n">1 g</td></tr>
+        <tr class="sum"><td>Total</td><td class="n">760</td><td class="n">46 g</td></tr>
+      </table>
+      <div class="note">
+        <b>Preparo — é um mingau, tudo junto, comido de colher.</b><br>
+        <i>Quente:</i> aveia + leite na panela, fogo médio, 3–4 min mexendo. Tire do fogo, <b>espere amornar</b> e só então misture o whey — no leite fervendo a proteína coagula e vira grumos. Banana, castanhas e canela por cima.<br>
+        <i>Frio (overnight):</i> na véspera, aveia + leite + whey num pote, mexe, tampa, geladeira. De manhã só adiciona banana e castanhas. 30 segundos.
+      </div>
+      <div class="note why">
+        <b>Por que a aveia:</b> a beta-glucana é fibra solúvel com evidência consistente para atenuar o pico glicêmico pós-refeição e reduzir LDL. Com HbA1c em 6,1%, é escolha estratégica, não só calórica.<br>
+        <b>Por que o whey fica só aqui:</b> a aveia tem pouca proteína, então o whey resolve um buraco real. No pré-treino ele saiu — veja o card das 20h15.
+      </div>
+    </article>
+
+    <!-- ALMOÇO -->
+    <article class="meal">
+      <div class="meal-head">
+        <span class="time">12:00</span>
+        <h3>Almoço · marmita</h3>
+        <span class="meal-tot"><b>795 kcal</b> · 57 g ptn</span>
+      </div>
+      <table>
+        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
+        <tr><td>Frango desfiado ou carne moída <span class="qty">150 g</span></td><td class="n">250</td><td class="n">45 g</td></tr>
+        <tr><td>Arroz integral com cenoura e açafrão <span class="qty">200 g — subiu de 150 g na v2</span></td><td class="n">265</td><td class="n">5 g</td></tr>
+        <tr><td>Feijão carioca com legumes <span class="qty">1 concha</span></td><td class="n">70</td><td class="n">4 g</td></tr>
+        <tr><td>Berinjela + 1 legume rotativo <span class="qty">150 g</span></td><td class="n">90</td><td class="n">3 g</td></tr>
+        <tr><td>Azeite <span class="qty">1–1½ col. sopa, contando o do preparo</span></td><td class="n">120</td><td class="n">—</td></tr>
+        <tr class="sum"><td>Total</td><td class="n">795</td><td class="n">57 g</td></tr>
+      </table>
+      <div class="note">
+        <b>Salada em pote separado, com meio limão espremido.</b> Folhas, tomate, pepino. Vai crua, não aquece junto, tempera na hora. O limão não é só sabor: é a correção do único gap de micronutriente do plano (veja a seção de micronutrientes) e melhora a absorção do ferro do feijão.<br>
+        Se o azeite for junto desde cedo, o arroz absorve tudo e fica pastoso — leve num potinho e regue na hora.
+      </div>
+      <div class="note why">
+        <b>Conte o azeite, não o evite.</b> Você está em superávit: gordura de qualidade é aliada, porque entrega 9 kcal/g sem ocupar volume no estômago. A berinjela absorve e não solta — o azeite vai junto para a marmita. Regra: se a berinjela veio encharcada, corte o azeite avulso; se veio seca, adicione.
+      </div>
+      <div class="note">
+        <b>Rotação semanal.</b> Proteína: frango seg/qua/sex, carne moída ou peixe ter/qui. Carboidrato: alterne arroz integral e batata-doce. Legumes: puxe crucíferas (brócolis, couve-flor) ao lado da berinjela — elas têm sulforafano, que a berinjela não tem.<br>
+        <b>Detalhe grátis:</b> uma pitada de pimenta-do-reino no arroz com açafrão. A piperina inibe o metabolismo hepático da curcumina e aumenta muito sua absorção.
+      </div>
+    </article>
+
+    <!-- LANCHE -->
+    <article class="meal">
+      <div class="meal-head">
+        <span class="time">17:00</span>
+        <h3>Lanche da tarde <span class="alt-tag">no trabalho</span></h3>
+        <span class="meal-tot"><b>600 kcal</b> · 39 g ptn</span>
+      </div>
+      <table>
+        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
+        <tr><td>2 fatias de pão integral <span class="qty">em saco separado</span></td><td class="n">140</td><td class="n">6 g</td></tr>
+        <tr><td>Metade da pasta de sardinha <span class="qty">pote pequeno</span></td><td class="n">145</td><td class="n">14 g</td></tr>
+        <tr><td>1 fruta <span class="qty">ver rotação na seção de micronutrientes</span></td><td class="n">90</td><td class="n">1 g</td></tr>
+        <tr><td>Quark Nuuv + 1 col. chá de psyllium</td><td class="n">105</td><td class="n">15 g</td></tr>
+        <tr><td>20 g de castanhas</td><td class="n">120</td><td class="n">3 g</td></tr>
+        <tr class="sum"><td>Total</td><td class="n">600</td><td class="n">39 g</td></tr>
+      </table>
+      <div class="note warn">
+        <b>Leve o recheio, não o sanduíche montado.</b> Sardinha amassada é úmida; em contato com o pão por 12 horas ele encharca. Pote pequeno com a pasta + pão à parte, monta em 20 segundos no trabalho.<br>
+        <b>Psyllium exige água.</b> É fibra que forma gel por hidratação. Sem líquido suficiente o efeito se inverte e ele endurece o bolo fecal. Um copo cheio junto ou logo depois — aqui não é preferência, é o mecanismo do produto.
+      </div>
+      <div class="note why">
+        <b>Validade dos preparos:</b> ovo cozido <b>com casca</b> dura 7 dias na geladeira; descascado, 2 a 3. Sardinha fora da lata (em pote de vidro, coberta pelo próprio óleo) dura 2 a 3 dias — nunca guarde na lata aberta, porque o revestimento interno exposto ao ar permite migração de metal. A pasta pronta segue o prazo da sardinha; feita na véspera e consumida no dia seguinte, está tranquilo.
+      </div>
+    </article>
+
+    <!-- PRÉ -->
+    <article class="meal">
+      <div class="meal-head">
+        <span class="time">20:15</span>
+        <h3>Pré-treino <span class="alt-tag">assim que chegar em casa</span></h3>
+        <span class="meal-tot"><b>210 kcal</b> · 2 g ptn</span>
+      </div>
+      <table>
+        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
+        <tr><td>2 bananas <span class="qty">o whey saiu na v2</span></td><td class="n">210</td><td class="n">2 g</td></tr>
+        <tr class="sum"><td>Total</td><td class="n">210</td><td class="n">2 g</td></tr>
+      </table>
+      <div class="note why">
+        <b>Por que o whey saiu daqui:</b> às 20h15 você já acumulou ~125 g de proteína no dia. Mais 24 g não acrescentam nada — o platô já passou há muito. O que falta nesse momento é carboidrato para o treino. Mesmas calorias, melhor destino.
+      </div>
+      <div class="note">
+        <b>Funciona em qualquer cenário.</b> Você chega entre 19h40 e 20h20 — horário fixo não sobreviveria a essa variação. Coma assim que chegar e treine 20–40 min depois, exatamente como já faz. Zero preparo.<br>
+        <b>Sobre treinar em jejum:</b> sua experiência (às vezes bem, às vezes a fome atrapalha) é o problema. Hipertrofia depende de volume acumulado ao longo de meses; duas ou três sessões ruins por mês custam progresso real no ano.<br>
+        <b>Fim de semana:</b> treino é 15h–16h, o almoço já cumpre a função. Pule o pré-treino.
+      </div>
+    </article>
+
+    <!-- CEIA -->
+    <article class="meal">
+      <div class="meal-head">
+        <span class="time">23:15</span>
+        <h3>Pós-treino / ceia</h3>
+        <span class="meal-tot"><b>180 kcal</b> · 20 g ptn</span>
+      </div>
+      <table>
+        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
+        <tr><td>200 g de Quark Nuuv + fruta picada + canela</td><td class="n">180</td><td class="n">20 g</td></tr>
+        <tr><td><i>ou</i> 250 ml de leite morno + 1 scoop de whey + canela</td><td class="n">250</td><td class="n">32 g</td></tr>
+        <tr><td>Chá de camomila ou cidreira <span class="qty">junto ou depois</span></td><td class="n">0</td><td class="n">—</td></tr>
+      </table>
+      <div class="note why">
+        <b>Por que cremoso e não refeição sólida:</b> você quer dormir até 00h e o treino acaba às 23h. Refeição sólida eleva a temperatura central — e o sono começa quando a temperatura <i>cai</i>. Líquido passa rápido e não gera termogênese relevante.<br>
+        <b>Por que caseína:</b> o quark é rico em caseína, de digestão lenta, que libera aminoácidos por 5–7 h e cobre a janela noturna. Há evidência de que proteína pré-sono aumenta a síntese proteica noturna (Res et al., <i>Med Sci Sports Exerc</i>, 2012; Snijders et al., <i>J Nutr</i>, 2015 — ganhos superiores de massa e força em 12 semanas).
+      </div>
+      <div class="note warn">
+        <b>A fome pós-treino é um diagnóstico, não um problema.</b> Você mesmo notou: quando o dia foi bem alimentado, ela não aparece. Se aparecer forte, alguma refeição do dia falhou. Não compense à noite — descubra qual foi e corrija no dia seguinte.
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= DIA SEM TREINO ================= -->
+  <section id="descanso">
+    <span class="marker">A variação de descanso</span>
+    <h2>O dia sem treino</h2>
+    <p class="sec-note">Duas subtrações, e só. A proteína e a gordura não se movem — o que sai é o carboidrato que existia para abastecer a sessão.</p>
+
+    <div class="note why" style="margin-top:0;">
+      <b>Músculo não cresce durante o treino — cresce depois.</b> A síntese proteica muscular fica elevada por 24 a 48 horas após uma sessão de força. Na prática, o dia de descanso é o dia em que o corpo executa a construção com o material do treino da véspera. Cortar comida agressivamente aqui é remover material justamente na hora da obra.
+    </div>
+
+    <div class="strip" role="img" aria-label="Linha do dia sem treino: café 7h30, almoço 12h, cafeína até 13h, lanche 17h, jantar 20h30, dormir 23h30." style="margin-top:34px;">
+      <div class="band band-caf"><div class="band-fill" style="width:33.3%"></div></div>
+      <div class="band-label" style="left:6px;">Cafeína liberada</div>
+      <div class="band-label" style="left:35%;">Corte às 13h</div>
+      <div class="rule"></div>
+      <div class="pt" style="left:2.8%"><div class="dot"></div><b>Café</b><span>07:30</span></div>
+      <div class="pt" style="left:27.8%"><div class="dot"></div><b>Almoço</b><span>12:00</span></div>
+      <div class="pt" style="left:55.6%"><div class="dot"></div><b>Lanche</b><span>17:00</span></div>
+      <div class="pt" style="left:75%"><div class="dot"></div><b>Jantar</b><span>20:30</span></div>
+      <div class="pt" style="left:92%"><div class="dot sleep"></div><b>Dormir</b><span>23:30</span></div>
+    </div>
+
+    <div class="macros" style="margin-top:34px;">
+      <div class="macro kcal"><div class="v">2.290</div><div class="k">kcal / dia</div><div class="p">−260 vs. dia de treino</div></div>
+      <div class="macro"><div class="v">164 g</div><div class="k">proteína</div><div class="p">praticamente igual</div></div>
+      <div class="macro"><div class="v">215 g</div><div class="k">carboidrato</div><div class="p">−60 g</div></div>
+      <div class="macro"><div class="v">90 g</div><div class="k">gordura</div><div class="p">igual</div></div>
+    </div>
+
+    <div class="meal">
+      <div class="meal-head">
+        <h3>O que muda, exatamente</h3>
+        <span class="meal-tot"><b>duas subtrações</b></span>
+      </div>
+      <table>
+        <tr><th>Refeição</th><th>Ajuste</th><th class="n">kcal</th></tr>
+        <tr><td>07h30 · Café da manhã</td><td>Sem alteração</td><td class="n">780</td></tr>
+        <tr><td>12h00 · Almoço</td><td><b>Arroz volta para 150 g</b> <span class="qty">−65 kcal</span></td><td class="n">730</td></tr>
+        <tr><td>17h00 · Lanche</td><td>Sem alteração</td><td class="n">600</td></tr>
+        <tr><td>20h15 · Pré-treino</td><td><b>Eliminado</b> — não há treino para abastecer <span class="qty">−210 kcal</span></td><td class="n">—</td></tr>
+        <tr><td>20h30 · Jantar</td><td>É a ceia, adiantada: 200 g de quark + fruta + canela</td><td class="n">180</td></tr>
+        <tr class="sum"><td>Total</td><td></td><td class="n">2.290</td></tr>
+      </table>
+
+      <div class="note why">
+        <b>Por que a proteína não cai.</b> O gasto energético diminui num dia parado, mas a demanda de aminoácidos, não — ela é maior justamente nas 24 a 48 h seguintes ao estímulo. Reduzir proteína no dia de descanso é o erro mais comum de quem tenta "compensar" o dia sem treino.
+      </div>
+      <div class="note">
+        <b>A conta do gasto.</b> Num dia parado o fator de atividade cai de ~1,7 para ~1,4, o que coloca seu TDEE em torno de 2.000 kcal. Comer 2.550 seria superávit grande; comer 2.000 seria déficit num dia de recuperação. Os 2.290 ficam no meio, deliberadamente mais perto do teto.
+      </div>
+    </div>
+
+    <div class="rule-card" style="border-left-color:var(--teal);">
+      <h4>O ganho escondido: este é o seu laboratório de sono</h4>
+      <p>Repare no que muda. Sem treino às 21h, não há termogênese noturna, não há cortisol elevado às 23h, e a última refeição acontece às 20h30 em vez de 23h15. É o dia mais fácil da semana para dormir cedo — o ambiente fisiológico já está a favor. Se a meta de dormir às 00h vai ser testada em algum lugar, comece por aqui. Não desperdice o descanso ficando acordado até as 2h porque "não tem treino amanhã".</p>
+    </div>
+
+    <div class="cols" style="margin-top:14px;">
+      <div class="box">
+        <h4>Creatina continua</h4>
+        <p style="margin:0;font-size:14.5px;color:var(--ink-2);">Todo dia, inclusive nos de descanso. O mecanismo é saturação dos estoques musculares, não estímulo agudo — pular dias reduz a saturação.</p>
+      </div>
+      <div class="box">
+        <h4>Treino de fim de semana (15h–16h)</h4>
+        <p style="margin:0;font-size:14.5px;color:var(--ink-2);">É dia de treino normal, com um ajuste: o almoço das 12h já cumpre a função de pré-treino, então pule as bananas e mantenha o arroz em 200 g. O jantar volta ao horário normal, por volta das 20h.</p>
+      </div>
+      <div class="box">
+        <h4>Se o descanso cair no domingo</h4>
+        <p style="margin:0;font-size:14.5px;color:var(--ink-2);">Ele acumula com o prep de 90 minutos. Não é problema — cozinhar não é treino —, mas planeje o horário para não empurrar o jantar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MICRONUTRIENTES ================= -->
+  <section id="micro">
+    <span class="marker">A camada que macro não enxerga</span>
+    <h2>Micronutrientes</h2>
+    <p class="sec-note">Micronutriente não constrói músculo diretamente, mas deficiência derruba desempenho, recuperação e a saúde da pele. A boa notícia: seu plano cobre quase tudo — principalmente por causa de dois alimentos.</p>
+
+    <div class="meal">
+      <div class="note why" style="margin-top:0;">
+        <b>A sardinha diária é o item mais valioso da sua dieta.</b> Ela entrega simultaneamente ômega-3 (EPA/DHA), cálcio pela espinha, vitamina D, selênio, B12 e iodo. Pouquíssimos alimentos fazem isso. Os ovos cobrem colina, vitamina A e mais B12. Juntos, os dois resolvem a maior parte do painel.
+      </div>
+      <table>
+        <tr><th>Nutriente</th><th>Fonte no seu plano</th><th class="n">Situação</th></tr>
+        <tr><td>Cálcio</td><td>Sardinha com espinha, quark, leite</td><td class="n"><span class="flag ok">~1.100 mg</span></td></tr>
+        <tr><td>Ômega-3 (EPA/DHA)</td><td>Sardinha diária</td><td class="n"><span class="flag ok">1–2 g/dia</span></td></tr>
+        <tr><td>Colina</td><td>4–5 ovos por dia</td><td class="n"><span class="flag ok">~500 mg</span></td></tr>
+        <tr><td>Vitamina B12</td><td>Ovos + sardinha</td><td class="n"><span class="flag ok">684 pg/mL</span></td></tr>
+        <tr><td>Magnésio</td><td>Castanhas, aveia, feijão, arroz integral</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
+        <tr><td>Potássio</td><td>Frutas, feijão, legumes</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
+        <tr><td>Selênio</td><td>1 castanha-do-pará</td><td class="n"><span class="flag ok">100% com 1 un.</span></td></tr>
+        <tr><td>Zinco</td><td>Carne, ovos, castanha de caju</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
+        <tr><td>Vitaminas A e E</td><td>Ovos, cenoura, folhas, castanhas, azeite</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
+        <tr><td>Folato</td><td>Feijão, folhas</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
+        <tr><td>Fibra</td><td>Aveia, integrais, feijão, frutas, psyllium</td><td class="n"><span class="flag ok">35–45 g</span></td></tr>
+        <tr><td>Vitamina C</td><td>Frutas atuais são pobres nela</td><td class="n"><span class="flag watch">Reforçar</span></td></tr>
+        <tr><td>Ferro</td><td>Carne, feijão + vitamina C</td><td class="n"><span class="flag act">Não suplementar</span></td></tr>
+        <tr><td>Sódio</td><td>Sardinha em lata</td><td class="n"><span class="flag watch">Não adicionar sal</span></td></tr>
+      </table>
+
+      <div class="note warn">
+        <b>Vitamina C — o único gap real.</b> Maçã, banana, pera e uva são pobres em vitamina C. Tangerina e manga ajudam, mas não todos os dias. Isso importa para dois dos seus objetivos: a vitamina C é cofator obrigatório na síntese de colágeno (pele) e melhora a absorção do ferro não-heme do feijão.<br>
+        <b>Correção:</b> meio limão espremido na salada do almoço <b>e</b> incluir goiaba, kiwi, morango ou acerola na rotação de frutas. Uma goiaba tem mais vitamina C que quatro laranjas.
+      </div>
+      <div class="note warn">
+        <b>Ferro — não suplemente por conta própria.</b> Seu hemograma tem microcitose. Se a causa for traço talassêmico (a hipótese mais provável), suplementar ferro sem deficiência real leva a sobrecarga, que é hepatotóxica — e você já tem TGP alterada. Espere ferritina e eletroforese de hemoglobina.
+      </div>
+      <div class="note why">
+        <b>Micronutrientes e a pele.</b> O que tem evidência: vitamina C (síntese de colágeno) — <i>reforçar</i>; ômega-3 (anti-inflamatório, barreira cutânea) — <i>excelente</i>; zinco (reparo tecidual), vitamina A (renovação epitelial) e vitamina E (antioxidante lipídico) — <i>adequados</i>.<br>
+        <b>E a parte desconfortável:</b> nada disso chega perto do impacto de protetor solar diário e sono adequado. Fotoenvelhecimento responde pela maior parte do envelhecimento cutâneo visível. Se você aparenta menos de 30 aos 39, dormir às 2h da manhã é o maior risco a seu favor — não a falta de um suplemento.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PREP ================= -->
+  <section id="prep">
+    <span class="marker">Domingo · 90 minutos</span>
+    <h2>A preparação que resolve a semana</h2>
+    <p class="sec-note">Tudo em paralelo: pressão no fogão, assadeira no forno, panela de arroz. O tempo ativo real é menor que o relógio.</p>
+
+    <ol class="steps">
+      <li><b>Frango — 1,2 kg.</b> Panela de pressão com sal, alho e louro, 25 min. Desfie ainda morno (desfia muito mais fácil). Divida em 5 potes.</li>
+      <li><b>Carne moída — 500 g.</b> Refogue com cebola e tomate. Congela perfeitamente; é a proteína de terça e quinta.</li>
+      <li><b>Arroz integral — 1 kg cozido.</b> Com cenoura ralada, açafrão e uma pitada de pimenta-do-reino. Porções de 200 g.</li>
+      <li><b>Feijão carioca com legumes.</b> Faça o volume da semana; congele metade.</li>
+      <li><b>Legumes assados.</b> Berinjela, abobrinha, cenoura e brócolis na mesma assadeira, 200 °C por 35 min, azeite e sal.</li>
+      <li><b>Batata-doce — 1 kg.</b> Em cubos, mesma assadeira do passo anterior se couber.</li>
+      <li><b>5 ovos cozidos — guarde com casca.</b> Um por dia útil, para a pasta de sardinha. Descasque só na hora. Resfrie em água gelada por 5 min após cozinhar: interrompe o cozimento, evita o anel esverdeado na gema e tira o ovo da faixa de temperatura de risco.</li>
+      <li><b>Monte as 5 marmitas.</b> Três na geladeira, duas no congelador — tire na quarta à noite para descongelar.</li>
+    </ol>
+
+    <div class="note">
+      <b>Todo fim de noite, 3 minutos:</b> abra a lata de sardinha, escorra o excesso de óleo, amasse com 1 ovo cozido e limão. Divida em dois potes — um para o café da manhã, outro para a bolsa. Faça enquanto o chá esquenta.
+    </div>
+    <div class="note">
+      <b>Potes de vidro</b> aquecem melhor no micro-ondas e não retêm cheiro — importante com sardinha, que impregna plástico permanentemente. Geladeira segura 3–4 dias; além disso, congelador. Guarde na prateleira do meio ou de baixo, nunca na porta.<br>
+      <b>Legumes que aguentam reaquecimento:</b> cenoura, abobrinha, berinjela, brócolis, couve-flor. Evite folhas cozidas — viram lodo.<br>
+      <b>Não lave os ovos antes de cozinhar:</b> a casca tem uma película natural que protege contra entrada de micro-organismos.
+    </div>
+  </section>
+
+  <!-- ================= COMPRAS ================= -->
+  <section id="compras">
+    <span class="marker">Uma compra por semana</span>
+    <h2>Lista de compras</h2>
+    <p class="sec-note">Marque conforme comprar. A lista não é salva ao fechar a página — se quiser levar ao mercado, imprima ou deixe aberta no celular.</p>
+
+    <div class="cols">
+      <div class="box">
+        <h4>Proteína</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>35 ovos <span class="qty">4–5/dia + 5 cozidos</span></span></label></li>
+          <li><label><input type="checkbox"><span>1,2 kg de peito de frango</span></label></li>
+          <li><label><input type="checkbox"><span>500 g de patinho moído</span></label></li>
+          <li><label><input type="checkbox"><span>5 latas de sardinha em óleo <span class="qty">1 lata rende 2 refeições</span></span></label></li>
+          <li><label><input type="checkbox"><span>4 potes de Quark Nuuv</span></label></li>
+          <li><label><input type="checkbox"><span>Whey concentrado <span class="qty">1 pote/mês — ver critérios</span></span></label></li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h4>Carboidrato</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>Arroz integral <span class="qty">1,5 kg</span></span></label></li>
+          <li><label><input type="checkbox"><span>Feijão carioca <span class="qty">500 g</span></span></label></li>
+          <li><label><input type="checkbox"><span>Aveia em flocos <span class="qty">500 g</span></span></label></li>
+          <li><label><input type="checkbox"><span>Pão integral <span class="qty">ver critérios</span></span></label></li>
+          <li><label><input type="checkbox"><span>Batata-doce <span class="qty">1,5 kg</span></span></label></li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h4>Gordura</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>Azeite extravirgem <span class="qty">1 garrafa/mês</span></span></label></li>
+          <li><label><input type="checkbox"><span>Castanha de caju e/ou amêndoa <span class="qty">400 g</span></span></label></li>
+          <li><label><input type="checkbox"><span>Castanha-do-pará <span class="qty">pacote pequeno — 1/dia</span></span></label></li>
+        </ul>
+        <h4 style="margin-top:18px;">Laticínio</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>Leite <span class="qty">2–3 L</span></span></label></li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h4>Vegetais</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>Berinjela <span class="qty">4–5 un</span></span></label></li>
+          <li><label><input type="checkbox"><span>Abobrinha, cenoura</span></label></li>
+          <li><label><input type="checkbox"><span>Brócolis ou couve-flor</span></label></li>
+          <li><label><input type="checkbox"><span>Folhas, tomate, pepino</span></label></li>
+          <li><label><input type="checkbox"><span>Cebola, alho</span></label></li>
+          <li><label><input type="checkbox"><span>Limão <span class="qty">5 un — vitamina C do almoço</span></span></label></li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h4>Frutas</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>Banana <span class="qty">16 un — 2 no pré-treino</span></span></label></li>
+          <li><label><input type="checkbox"><span><b>Goiaba, kiwi, morango ou acerola</b> <span class="qty">novo na v2 — vitamina C</span></span></label></li>
+          <li><label><input type="checkbox"><span>Maçã, pera</span></label></li>
+          <li><label><input type="checkbox"><span>Tangerina, uva verde, manga</span></label></li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h4>Despensa e suplementos</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>Psyllium</span></label></li>
+          <li><label><input type="checkbox"><span>Açafrão-da-terra e pimenta-do-reino</span></label></li>
+          <li><label><input type="checkbox"><span>Canela em pó e em pau</span></label></li>
+          <li><label><input type="checkbox"><span>Chá verde, camomila, cidreira</span></label></li>
+          <li><label><input type="checkbox"><span>Chá preto, cravo, gengibre <span class="qty">chai caseiro</span></span></label></li>
+          <li><label><input type="checkbox"><span>Creatina monoidratada</span></label></li>
+          <li><label><input type="checkbox"><span>Vitamina D3 2.000 UI <span class="qty">ver critérios</span></span></label></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMO COMPRAR ================= -->
+  <section id="comprarbem">
+    <span class="marker">Três produtos que exigem ler o rótulo</span>
+    <h2>Como comprar</h2>
+    <p class="sec-note">Pão, whey e vitamina D são as três compras em que a embalagem engana com frequência. Critérios em vez de marcas: marca muda, critério não.</p>
+
+    <div class="cols">
+      <div class="box">
+        <h4>Pão integral</h4>
+        <ol class="steps" style="margin-top:4px;">
+          <li>Farinha de trigo <b>integral</b> como primeiro ingrediente. Cuidado com a pegadinha: "farinha de trigo enriquecida com ferro e ácido fólico" é farinha branca.</li>
+          <li>Pelo menos <b>3 g de fibra</b> por porção de 50 g.</li>
+          <li>Lista de ingredientes curta. Oito a dez aditivos é comum nessa categoria.</li>
+          <li>Sem açúcar adicionado — e sem sucralose, que é considerada pior ainda.</li>
+        </ol>
+        <div class="note" style="font-size:13.5px;">
+          Um levantamento com 21 pães rotulados como "integral" encontrou que em 28,6% deles a farinha integral <b>nem era o primeiro ingrediente</b>, e 76,2% continham algum tipo de açúcar.<br><br>
+          <b>Em ordem de preferência:</b> padaria de fermentação natural (levain) → pão de centeio integral → linhas "100% integral" das marcas grandes.<br><br>
+          Seu pão atual (35% integral) não é ruim, só é menos do que anuncia. Se passar em três dos quatro critérios, mantenha.
+        </div>
+      </div>
+
+      <div class="box">
+        <h4>Whey protein</h4>
+        <p style="font-size:14.5px;margin:0 0 12px;color:var(--ink-2);"><b>Concentrado, não isolado.</b> Você não tem intolerância à lactose e não está em cutting. Concentrado entrega o mesmo resultado por muito menos.</p>
+        <table style="margin-top:0;">
+          <tr><td>Proteína por scoop de 30 g</td><td class="n"><b>≥ 22 g</b></td></tr>
+          <tr><td>Primeiro ingrediente</td><td class="n">proteína do soro</td></tr>
+          <tr><td>Lista de ingredientes</td><td class="n">curta</td></tr>
+          <tr><td>Registro ANVISA</td><td class="n">obrigatório</td></tr>
+          <tr class="sum"><td>Métrica de compra</td><td class="n">R$ / g de proteína</td></tr>
+        </table>
+        <div class="note warn" style="font-size:13.5px;">
+          <b>Dose inflada:</b> algumas marcas usam scoop de 40 g para declarar "25 g de proteína" — normalizando para 30 g isso dá 18,8 g, abaixo da média. Normalize antes de comparar.<br><br>
+          <b>Adulteração:</b> em 2024 a Senacon determinou a suspensão da venda de 48 produtos de whey com suspeita de adulteração, após laudos apontarem teor de proteína diferente do rótulo. Prefira marcas grandes que publicam laudos, em vez de caçar o mais barato do marketplace.
+        </div>
+      </div>
+
+      <div class="box">
+        <h4>Vitamina D3</h4>
+        <table style="margin-top:0;">
+          <tr><td>Forma</td><td class="n"><b>Colecalciferol (D3)</b></td></tr>
+          <tr><td>Dose</td><td class="n">2.000 UI/dia</td></tr>
+          <tr><td>Apresentação</td><td class="n">cápsula oleosa</td></tr>
+          <tr class="sum"><td>Quando</td><td class="n">no café da manhã</td></tr>
+        </table>
+        <div class="note" style="font-size:13.5px;">
+          D2 (ergocalciferol) é menos eficaz — confira que é D3. Precisa de gordura para absorver, por isso vai junto com os ovos e as castanhas.<br><br>
+          <b>Evite as megadoses.</b> Frascos de 50.000 UI semanais existem para tratamento de deficiência sob acompanhamento médico. Seu valor é 29,1 — subótimo, não deficiente. 2.000 UI/dia leva você a 35–45 ng/mL em 8 a 12 semanas.<br><br>
+          Não precisa ser a versão com cálcio: sardinha com espinha e laticínios já cobrem. D3 é molécula simples, sem diferenciação relevante entre fabricantes — compre pelo preço, com registro ANVISA.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SUPLEMENTOS ================= -->
+  <section id="suplementos">
+    <span class="marker">O que entra e o que sai</span>
+    <h2>Suplementos</h2>
+    <p class="sec-note">Poucos, com motivo. Adicionar três coisas ao mesmo tempo impede saber o que funcionou.</p>
+
+    <div class="meal">
+      <table>
+        <tr><th>Suplemento</th><th>Dose</th><th>Quando</th></tr>
+        <tr><td><b>Creatina</b></td><td>5 g</td><td>Qualquer horário, todo dia</td></tr>
+        <tr><td><b>Vitamina D3</b></td><td>2.000 UI</td><td>No café da manhã, junto com a gordura</td></tr>
+        <tr><td><b>Whey concentrado</b></td><td>1 scoop</td><td>Só no café opção B</td></tr>
+        <tr class="sum"><td><b>Testo Black</b></td><td colspan="2"><span class="flag act">Descontinuar</span></td></tr>
+      </table>
+      <div class="note warn">
+        <b>Testo Black:</b> seus exames encerram a discussão. Testosterona total 517 ng/dL e livre 11,52 ng/dL são valores sólidos para 38 anos — não há o que "elevar". O produto contém um vasodilatador de classe prescritiva em dose farmacológica plena, com meia-vida longa (~17,5 h), o que significa exposição sistêmica contínua no uso diário. Mialgia lombar é efeito adverso conhecido. Não termine o pote.
+      </div>
+      <div class="note why">
+        <b>Creatina — o suplemento com mais evidência que existe.</b> Horário é irrelevante; consistência não. Se refizer exames, lembre que o próprio laudo avisa: creatina eleva a creatinina sérica sem queda real da filtração glomerular.<br>
+        <b>Colágeno e magnésio ficam de fora por enquanto.</b> Não por serem inúteis — para manter o experimento limpo. Reavaliamos em 8 semanas.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REGRAS ================= -->
+  <section id="regras">
+    <span class="marker">Seis decisões já tomadas</span>
+    <h2>Regras do plano</h2>
+
+    <div class="rules">
+      <div class="rule-card">
+        <h4>Café até 13h. Sem exceção.</h4>
+        <p>A meia-vida da cafeína é de 5 a 6 horas. O café das 13h ainda tem cerca de 25% ativo à meia-noite. Somado ao treino noturno, é a explicação mais provável para você dormir às 2h. Esta é a intervenção de maior impacto e custo zero do plano inteiro.</p>
+      </div>
+      <div class="rule-card">
+        <h4>Uma castanha-do-pará por dia. Nunca cinco.</h4>
+        <p>Uma unidade já cobre 100% da necessidade diária de selênio. Cinco por dia ultrapassam o limite superior tolerável de 400 mcg e, no uso contínuo, levam a selenose. Este é o tipo de nutriente em que "mais" vira problema rápido.</p>
+      </div>
+      <div class="rule-card">
+        <h4>Chai latte industrializado: esporádico, nunca rotina.</h4>
+        <p>O primeiro ingrediente do pó é açúcar, e há açúcar declarado mais de uma vez (mais xarope de glicose) — cerca de 12 a 14 g nos seus 20 g, o equivalente a 3 colheres de chá. Com HbA1c em 6,1%, açúcar isolado entre refeições é a única coisa na sua rotina que trabalha ativamente contra você. Um pico ocasional não move o A1c; um diário move. Se tomar, tome antes das 13h e junto de uma refeição.</p>
+      </div>
+      <div class="rule-card">
+        <h4>Chai caseiro é a versão de verdade.</h4>
+        <p>200 ml de leite + 1 sachê de chá preto + 1 pau de canela + 2 cravos + 1 fatia de gengibre. Aqueça sem ferver por 5 min e coe. Isso <i>é</i> chai — a bebida original é exatamente isso. Se quiser adoçar, ½ colher de chá de mel são 10 kcal no lugar de 60, e você controla a quantidade. Sua cozinha no trabalho dá conta.</p>
+      </div>
+      <div class="rule-card">
+        <h4>Marmita todo dia útil.</h4>
+        <p>Comer fora custava a pesagem, o custo e o controle. Com marmita, os 795 kcal do almoço são realmente 795 kcal.</p>
+      </div>
+      <div class="rule-card">
+        <h4>Não corte calorias para "revelar" o abdômen.</h4>
+        <p>Com 1,64 m e 58 kg, seu IMC é 21,6 — você já é magro. O six-pack visível virá de mais espessura no reto abdominal, não de menos gordura: músculo mais espesso projeta e cria relevo no mesmo percentual de gordura. Cortando calorias você chega a 55 kg parecendo menor, não mais definido.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXAMES ================= -->
+  <section id="exames">
+    <span class="marker">Outubro de 2025 · antes do treino e da dieta</span>
+    <h2>O que os exames mostraram</h2>
+    <p class="sec-note">Este painel é de uma fase em que você não treinava e comia mal. Serve como linha de base — e como lista do que precisa ser refeito.</p>
+
+    <div class="meal">
+      <table class="labs">
+        <tr><th>Marcador</th><th class="n">Resultado</th><th class="n">Situação</th></tr>
+        <tr><td>Hemoglobina glicada (A1c)</td><td class="n">6,1 %</td><td class="n"><span class="flag act">Pré-diabetes</span></td></tr>
+        <tr><td>TGP (ALT)</td><td class="n">51 U/L</td><td class="n"><span class="flag act">Acima</span></td></tr>
+        <tr><td>VCM / HCM</td><td class="n">76,9 / 25,3</td><td class="n"><span class="flag watch">Investigar</span></td></tr>
+        <tr><td>Vitamina D</td><td class="n">29,1 ng/mL</td><td class="n"><span class="flag watch">Subótima</span></td></tr>
+        <tr><td>Testosterona total</td><td class="n">517 ng/dL</td><td class="n"><span class="flag ok">Sólida</span></td></tr>
+        <tr><td>Testosterona livre</td><td class="n">11,52 ng/dL</td><td class="n"><span class="flag ok">Sólida</span></td></tr>
+        <tr><td>TSH / T4 livre</td><td class="n">1,24 / 1,01</td><td class="n"><span class="flag ok">Impecável</span></td></tr>
+        <tr><td>Vitamina B12</td><td class="n">684 pg/mL</td><td class="n"><span class="flag ok">Ótima</span></td></tr>
+        <tr><td>Função renal (TFG)</td><td class="n">&gt; 90</td><td class="n"><span class="flag ok">Normal</span></td></tr>
+      </table>
+
+      <div class="note warn">
+        <b>A1c 6,1% + TGP 51:</b> contam a mesma história metabólica. TGP alta com TGO normal costuma apontar esteatose hepática, que caminha junto com resistência à insulina. Existe esteatose em pessoas magras, associada a gordura visceral — o que pode explicar, inclusive, a camada abdominal que te incomoda.
+      </div>
+      <div class="note why">
+        <b>O padrão do hemograma que ninguém comentou:</b> muitas hemácias (5,66 mi), todas pequenas (VCM 76,9), com hemoglobina e RDW normais. Esse conjunto é característico de <b>traço talassêmico</b> — condição genética benigna, sem sintomas e sem tratamento. Importa aqui por um motivo específico: hemoglobinopatias interferem na dosagem de HbA1c por HPLC, que foi o método usado. O 6,1% pode estar distorcido. A <b>eletroforese de hemoglobina</b> responde isso de forma definitiva, independente de você saber a ascendência da família.
+      </div>
+    </div>
+
+    <div class="cols" style="margin-top:16px;">
+      <div class="box">
+        <h4>Refazer — essenciais que faltaram</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>Glicemia de jejum</span></label></li>
+          <li><label><input type="checkbox"><span>Insulina de jejum <span class="qty">permite calcular HOMA-IR</span></span></label></li>
+          <li><label><input type="checkbox"><span>Perfil lipídico completo</span></label></li>
+          <li><label><input type="checkbox"><span>Ferritina + ferro + saturação de transferrina</span></label></li>
+          <li><label><input type="checkbox"><span>GGT</span></label></li>
+          <li><label><input type="checkbox"><span>Ácido úrico</span></label></li>
+          <li><label><input type="checkbox"><span>Eletroforese de hemoglobina</span></label></li>
+        </ul>
+      </div>
+      <div class="box">
+        <h4>Repetir</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span>HbA1c</span></label></li>
+          <li><label><input type="checkbox"><span>TGP e TGO</span></label></li>
+          <li><label><input type="checkbox"><span>25(OH) vitamina D</span></label></li>
+        </ul>
+        <div class="note" style="margin-top:14px;font-size:13.5px;">
+          Jejum de 12 h e <b>sem treinar nas 48 h anteriores</b> — exercício intenso eleva transaminases e mascara o TGP. Leve tudo a um clínico: a combinação A1c 6,1 + TGP 51 + microcitose merece olhar médico, não só ajuste de dieta.
+        </div>
+      </div>
+      <div class="box">
+        <h4>Acompanhamento semanal</h4>
+        <ul class="check">
+          <li><label><input type="checkbox"><span><b>Peso</b> 3×/semana, em jejum, mesma balança. Média semanal deve subir 50–75 g.</span></label></li>
+          <li><label><input type="checkbox"><span><b>Cintura</b> no umbigo, a cada 15 dias.</span></label></li>
+        </ul>
+        <div class="note" style="margin-top:14px;font-size:13.5px;">
+          Peso subindo e cintura estável = funcionando.<br>
+          Cintura +1,5 cm sem ganho proporcional = corte 150 kcal.<br>
+          Peso parado por 3 semanas = adicione 150 kcal.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>Plano alimentar — Gláucio Gonçalves.</b> Versão 2.1, agosto de 2026. Frente 2 de 3 (Exercícios · Alimentação · Sono).</p>
+    <p><b>Novo na v2.1:</b> seção do dia sem treino (2.290 kcal, mesma proteína).<br><b>Mudanças da v1 para a v2:</b> correção da castanha-do-pará (1/dia); calorias 2.400 → 2.550; proteína 180 g → 165 g e carboidrato 210 g → 275 g; pasta de sardinha com ovo cozido substituindo a maionese; whey removido do pré-treino; arroz do almoço 150 g → 200 g; limão e frutas ricas em vitamina C; seção de micronutrientes; seção de critérios de compra.</p>
+    <p>Valores nutricionais são estimativas a partir das porções descritas e servem como referência de trabalho, não como medida exata. Este documento não substitui avaliação médica ou de nutricionista — em especial quanto aos achados de HbA1c, TGP e hemograma, que precisam de investigação clínica.</p>
+  </footer>
+
+</div>
+<script>
+(function(){
+  "use strict";
+
+  /* ---- 1. Identificar cada checkbox de forma estável ---- */
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.check input[type="checkbox"]'));
+  boxes.forEach(function(b, i){
+    var label = b.parentElement ? b.parentElement.textContent.trim().slice(0, 60) : '';
+    b.dataset.key = i + '|' + label;
+  });
+
+  /* ---- 2. Persistir estado entre sessoes ---- */
+  var STORE = 'planoAlimentar.v1';
+  function load(){
+    try { return JSON.parse(localStorage.getItem(STORE) || '{}'); }
+    catch(e){ return {}; }
+  }
+  function save(state){
+    try { localStorage.setItem(STORE, JSON.stringify(state)); }
+    catch(e){ /* modo privado ou storage cheio: segue sem persistir */ }
+  }
+
+  var state = load();
+  boxes.forEach(function(b){ if (state[b.dataset.key]) b.checked = true; });
+
+  document.addEventListener('change', function(e){
+    var t = e.target;
+    if (!t || t.type !== 'checkbox' || !t.dataset.key) return;
+    var s = load();
+    if (t.checked) { s[t.dataset.key] = 1; } else { delete s[t.dataset.key]; }
+    save(s);
+    updateCounters();
+  });
+
+  /* ---- 3. Contador por bloco + botao de limpar ---- */
+  function updateCounters(){
+    document.querySelectorAll('.box').forEach(function(box){
+      var list = box.querySelectorAll('.check input[type="checkbox"]');
+      if (!list.length) return;
+      var done = box.querySelectorAll('.check input[type="checkbox"]:checked').length;
+      var tag = box.querySelector('.counter');
+      if (!tag){
+        tag = document.createElement('span');
+        tag.className = 'counter';
+        var h4 = box.querySelector('h4');
+        if (h4) h4.appendChild(tag);
+      }
+      tag.textContent = ' ' + done + '/' + list.length;
+      box.classList.toggle('done', done === list.length);
+    });
+  }
+
+  var compras = document.getElementById('compras');
+  if (compras){
+    var bar = document.createElement('div');
+    bar.className = 'clearbar';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = 'Desmarcar tudo desta lista';
+    btn.addEventListener('click', function(){
+      var s = load();
+      compras.querySelectorAll('.check input[type="checkbox"]').forEach(function(b){
+        b.checked = false; delete s[b.dataset.key];
+      });
+      save(s);
+      updateCounters();
+    });
+    bar.appendChild(btn);
+    var grid = compras.querySelector('.cols');
+    if (grid && grid.parentNode) grid.parentNode.insertBefore(bar, grid);
+  }
+
+  updateCounters();
+
+  /* ---- 4. Service worker: funciona offline ---- */
+  if ('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
