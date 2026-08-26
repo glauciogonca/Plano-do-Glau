@@ -2,924 +2,1357 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plano Alimentar — Gláucio Gonçalves</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#16211D;--ink-2:#31423B;--paper:#ECEFE6;--card:#FFFFFF;--line:#CFD6C8;
-    --turmeric:#C07C14;--teal:#1F5E5B;--clay:#8A3A2E;--muted:#6C7A6F;--shade:#E1E6D9;--r:10px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;scroll-padding-top:64px;}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:"Source Sans 3",system-ui,-apple-system,sans-serif;
-    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:940px;margin:0 auto;padding:0 18px 80px;}
-
-  .masthead{padding:44px 0 22px;border-bottom:2px solid var(--ink);}
-  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--turmeric);font-weight:600;margin:0 0 12px;}
-  h1{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;font-weight:800;
-    font-size:clamp(34px,7vw,58px);line-height:.98;letter-spacing:-.025em;margin:0 0 14px;}
-  h1 em{font-style:normal;color:var(--turmeric);}
-  .sub{color:var(--ink-2);max-width:56ch;margin:0 0 22px;font-size:17px;}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;}
-  .chip{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;
-    background:var(--ink);color:var(--paper);padding:5px 11px;border-radius:100px;}
-  .chip.alt{background:transparent;color:var(--ink);border:1px solid var(--line);}
-
-  nav{position:sticky;top:0;z-index:40;background:rgba(236,239,230,.94);
-    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin:0 -18px;padding:0 18px;}
-  .navrow{display:flex;gap:4px;overflow-x:auto;max-width:940px;margin:0 auto;
-    scrollbar-width:none;-ms-overflow-style:none;}
-  .navrow::-webkit-scrollbar{display:none;}
-  .navrow a{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.06em;
-    text-transform:uppercase;color:var(--ink-2);text-decoration:none;padding:13px 10px;
-    white-space:nowrap;border-bottom:2px solid transparent;}
-  .navrow a:hover,.navrow a:focus-visible{color:var(--turmeric);border-bottom-color:var(--turmeric);}
-
-  .daystrip{margin:34px 0 8px;}
-  .strip{position:relative;height:96px;border-left:1px solid var(--ink);
-    border-right:1px solid var(--ink);margin-top:26px;}
-  .band{position:absolute;left:0;right:0;height:26px;border-radius:3px;}
-  .band-caf{top:6px;background:var(--shade);border:1px solid var(--line);}
-  .band-fill{position:absolute;top:0;bottom:0;left:0;background:#D8C08C;
-    border-right:2px solid var(--turmeric);border-radius:3px 0 0 3px;}
-  .band-label{position:absolute;top:11px;font-family:"IBM Plex Mono",monospace;font-size:10px;
-    letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;}
-  .rule{position:absolute;left:0;right:0;top:46px;border-top:1px dashed var(--line);}
-  .pt{position:absolute;top:38px;transform:translateX(-50%);text-align:center;width:70px;}
-  .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);margin:0 auto 5px;}
-  .dot.big{width:13px;height:13px;background:var(--clay);}
-  .dot.sleep{background:var(--ink);}
-  .pt span{display:block;font-family:"IBM Plex Mono",monospace;font-size:9.5px;
-    color:var(--ink-2);line-height:1.25;}
-  .pt b{display:block;font-family:"Source Sans 3";font-size:10.5px;font-weight:700;color:var(--ink);}
-  .train{position:absolute;top:70px;height:16px;background:var(--teal);border-radius:3px;
-    display:flex;align-items:center;justify-content:center;}
-  .train span{font-family:"IBM Plex Mono",monospace;font-size:9.5px;color:#fff;letter-spacing:.1em;}
-
-  section{padding-top:52px;}
-  h2{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;font-weight:800;
-    font-size:clamp(22px,3.6vw,30px);letter-spacing:-.015em;margin:0 0 6px;}
-  .sec-note{color:var(--muted);font-size:15px;margin:0 0 22px;max-width:62ch;}
-  .marker{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--turmeric);font-weight:600;display:block;margin-bottom:8px;}
-
-  .meal{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
-    padding:22px;margin-bottom:16px;}
-  .meal-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:4px;}
-  .time{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:15px;
-    color:#fff;background:var(--ink);padding:3px 9px;border-radius:5px;}
-  .meal-head h3{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;font-weight:600;
-    font-size:20px;margin:0;letter-spacing:-.01em;}
-  .meal-tot{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2);}
-  .meal-tot b{color:var(--turmeric);}
-  table{width:100%;border-collapse:collapse;margin:14px 0 0;font-size:15px;}
-  th{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--muted);font-weight:500;text-align:left;
-    padding:0 8px 7px 0;border-bottom:1px solid var(--line);}
-  th.n,td.n{text-align:right;padding-right:0;white-space:nowrap;}
-  td{padding:9px 8px 9px 0;border-bottom:1px solid #EDF0E8;vertical-align:top;}
-  td.n{font-family:"IBM Plex Mono",monospace;font-size:13.5px;color:var(--ink-2);}
-  tr.sum td{border-bottom:none;font-weight:700;padding-top:11px;}
-  tr.sum td.n{color:var(--ink);}
-  .note{margin-top:16px;padding:13px 15px;border-left:3px solid var(--teal);
-    background:#F2F5EF;border-radius:0 6px 6px 0;font-size:14.5px;color:var(--ink-2);}
-  .note b{color:var(--ink);}
-  .note.why{border-left-color:var(--turmeric);}
-  .note.warn{border-left-color:var(--clay);background:#F9F1EF;}
-  .alt-tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;
-    letter-spacing:.1em;text-transform:uppercase;background:var(--shade);color:var(--ink-2);
-    padding:3px 8px;border-radius:4px;}
-
-  .macros{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-  .macro{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 14px;}
-  .macro .v{font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;font-weight:800;
-    font-size:27px;line-height:1;letter-spacing:-.02em;}
-  .macro .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--muted);margin-top:7px;}
-  .macro .p{font-size:12.5px;color:var(--ink-2);margin-top:3px;}
-  .macro.kcal .v{color:var(--turmeric);}
-
-  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
-  .box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;}
-  .box h4{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--teal);margin:0 0 12px;font-weight:600;}
-  .check{list-style:none;margin:0;padding:0;}
-  .check li{margin-bottom:9px;font-size:15px;}
-  .check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;}
-  .check input{appearance:none;width:16px;height:16px;flex:0 0 16px;margin-top:3px;
-    border:1.5px solid var(--muted);border-radius:4px;background:#fff;cursor:pointer;}
-  .check input:checked{background:var(--teal);border-color:var(--teal);}
-  .check input:checked + span{text-decoration:line-through;color:var(--muted);}
-  .check input:focus-visible{outline:2px solid var(--turmeric);outline-offset:2px;}
-  .qty{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);}
-
-  ol.steps{counter-reset:s;list-style:none;padding:0;margin:0;}
-  ol.steps li{counter-increment:s;position:relative;padding-left:42px;margin-bottom:16px;font-size:15.5px;}
-  ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:1px;
-    font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--turmeric);
-    border:1px solid var(--line);border-radius:5px;width:28px;height:24px;
-    display:flex;align-items:center;justify-content:center;background:#fff;}
-
-  .rules{display:grid;gap:12px;}
-  .rule-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--clay);
-    border-radius:0 var(--r) var(--r) 0;padding:16px 18px;}
-  .rule-card h4{font-size:16px;margin:0 0 5px;font-weight:700;}
-  .rule-card p{margin:0;font-size:14.5px;color:var(--ink-2);}
-
-  .alert{background:#F9F1EF;border:1px solid #E2C4BC;border-left:5px solid var(--clay);
-    border-radius:0 var(--r) var(--r) 0;padding:20px 22px;margin-bottom:18px;}
-  .alert h3{margin:0 0 8px;font-size:19px;font-family:"Bricolage Grotesque","Source Sans 3",sans-serif;
-    font-weight:700;color:var(--clay);}
-  .alert p{margin:0 0 10px;font-size:15px;color:var(--ink-2);}
-  .alert p:last-child{margin-bottom:0;}
-
-  .labs td:first-child{font-weight:600;}
-  .flag{font-family:"IBM Plex Mono",monospace;font-size:10px;padding:2px 7px;border-radius:4px;
-    letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;}
-  .flag.ok{background:#DCE8DA;color:#28513F;}
-  .flag.watch{background:#F5E3C4;color:#7A5410;}
-  .flag.act{background:#F3DAD5;color:#7C3225;}
-
-  footer{margin-top:64px;padding-top:22px;border-top:2px solid var(--ink);
-    font-size:13.5px;color:var(--muted);}
-  footer b{color:var(--ink-2);}
-
-  @media (max-width:620px){
-    .macros{grid-template-columns:repeat(2,1fr);}
-    .meal{padding:17px;}
-    .meal-tot{margin-left:0;width:100%;}
-    .strip{height:118px;}
-    .pt{width:56px;}
-    .pt span{font-size:8.5px;}
-    .pt b{font-size:9.5px;}
-    td,table{font-size:14px;}
-  }
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-  @media print{nav{display:none;}body{background:#fff;}
-    .meal,.box,.macro,.rule-card,.alert{break-inside:avoid;}}
-  .counter{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);
-    float:right;font-weight:400;letter-spacing:.04em;}
-  .box.done{border-color:var(--teal);background:#F5F8F3;}
-  .box.done h4{color:var(--muted);}
-  .clearbar{display:flex;justify-content:flex-end;margin-bottom:12px;}
-  .clearbar button{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;
-    text-transform:uppercase;background:transparent;color:var(--ink-2);
-    border:1px solid var(--line);border-radius:100px;padding:8px 16px;cursor:pointer;}
-  .clearbar button:hover{border-color:var(--turmeric);color:var(--turmeric);}
-  .clearbar button:active{background:var(--shade);}
-  @supports (padding:max(0px)){
-    body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);}
-    .masthead{padding-top:max(44px,calc(env(safe-area-inset-top) + 24px));}
-  }
-  @media print{.clearbar{display:none;}}
-</style>
-<meta name="description" content="Plano alimentar pessoal — refeições, prep semanal, lista de compras e critérios de acompanhamento.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Plano</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Plano alimentar pessoal.">
 <meta name="theme-color" content="#16211D">
+<meta name="color-scheme" content="light">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Plano">
 <meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --ink:#16211D; --ink-2:#31423B; --paper:#ECEFE6; --card:#FFFFFF; --line:#D3DACC;
+  --turmeric:#C07C14; --amber:#9A6210; --amber-soft:#FBF2E3; --teal:#1F5E5B; --clay:#8A3A2E; --muted:#6C7A6F; --shade:#E1E6D9;
+  --tab-h:64px; --head-h:56px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-t:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{background:var(--paper);}
+html,body{margin:0;padding:0;height:100%;overscroll-behavior-y:none;}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Source Sans 3",system-ui,-apple-system,sans-serif;
+  font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;border:none;background:none;color:inherit;cursor:pointer;padding:0;}
+:focus-visible{outline:2px solid var(--turmeric);outline-offset:2px;border-radius:4px;}
+
+/* ---------- SHELL ---------- */
+.app{display:flex;flex-direction:column;height:100dvh;background:var(--paper);}
+
+.topbar{
+  flex:0 0 auto; background:var(--ink); color:var(--paper);
+  padding:calc(var(--safe-t) + 12px) 18px 12px;
+}
+.topbar-row{display:flex;align-items:center;gap:12px;}
+.today{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:#9CB0A4;}
+.viewtitle{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:21px;
+  letter-spacing:-.015em;margin:2px 0 0;}
+.daytoggle{margin-left:auto;display:flex;background:rgba(255,255,255,.10);border-radius:100px;padding:3px;}
+.daytoggle button{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;padding:7px 12px;border-radius:100px;color:#9CB0A4;
+  transition:background .16s,color .16s;
+}
+.daytoggle button[aria-pressed="true"]{background:var(--turmeric);color:#fff;font-weight:600;}
+
+.daytoggle[hidden]{display:none;}
+
+/* ---------- medidas ---------- */
+.card.prompt{background:var(--teal);color:#fff;border-color:var(--teal);padding:15px 16px;
+  display:flex;align-items:center;gap:13px;}
+.prompt .ic{flex:0 0 auto;width:34px;height:34px;border-radius:9px;
+  background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;}
+.prompt .ic svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;}
+.prompt .txt{flex:1;min-width:0;}
+.prompt .txt b{display:block;font-size:15.5px;font-weight:700;line-height:1.25;}
+.prompt .txt span{display:block;font-size:12.5px;color:rgba(255,255,255,.82);margin-top:2px;}
+.prompt .go{flex:0 0 auto;background:#fff;color:var(--teal);font-weight:700;font-size:13.5px;
+  padding:10px 14px;border-radius:9px;white-space:nowrap;}
+.prompt .go:active{background:#DEEAE4;}
+@media (max-width:360px){
+  .card.prompt{flex-wrap:wrap;gap:10px;}
+  .card.prompt .txt{flex:1 1 60%;}
+  .card.prompt .go{flex:1 1 100%;text-align:center;padding:12px;}
+}
+
+.entry{display:flex;gap:10px;align-items:stretch;margin-top:12px;}
+.entry input{flex:1;min-width:0;padding:14px;border:1px solid var(--line);border-radius:10px;
+  font-family:"IBM Plex Mono",monospace;font-size:17px;background:#fff;color:var(--ink);
+  text-align:center;}
+.entry input:focus{outline:none;border-color:var(--turmeric);}
+.entry button{flex:0 0 auto;padding:0 20px;background:var(--ink);color:#fff;border-radius:10px;
+  font-weight:700;font-size:15px;}
+.entry button:active{background:var(--ink-2);}
+.entry button[disabled]{background:var(--line);color:var(--muted);}
+.unit{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);}
+
+.stat{display:flex;gap:12px;margin:14px 0 0;}
+.stat > div{flex:1;background:var(--shade);border-radius:10px;padding:13px 14px;}
+.stat b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:23px;font-weight:800;
+  letter-spacing:-.02em;line-height:1.1;}
+.stat span{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-top:5px;}
+.stat .up{color:var(--teal);} .stat .down{color:var(--clay);} .stat .flat{color:var(--ink-2);}
+
+.card.verdict{border-left:5px solid var(--muted);border-radius:0 14px 14px 0;}
+.card.verdict.good{border-left-color:var(--teal);}
+.card.verdict.act{border-left-color:var(--turmeric);}
+.card.verdict.warn{border-left-color:var(--clay);}
+.verdict h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:18px;
+  margin:6px 0 6px;letter-spacing:-.01em;}
+.verdict p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.6;}
+
+.chart{width:100%;height:auto;display:block;margin-top:6px;overflow:visible;}
+.chart .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4;}
+.chart .ma{fill:none;stroke:var(--turmeric);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.chart .pt{fill:var(--muted);}
+.chart .lbl{font-family:"IBM Plex Mono",monospace;font-size:9px;fill:var(--muted);}
+
+.hist{list-style:none;margin:10px 0 0;padding:0;}
+.hist li{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #EDF0E8;
+  font-size:15px;}
+.hist li:last-child{border-bottom:none;}
+.hist .d{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);flex:0 0 auto;}
+.hist .v{font-family:"IBM Plex Mono",monospace;font-weight:600;}
+.hist .del{margin-left:auto;color:var(--muted);font-size:19px;line-height:1;padding:4px 8px;}
+.hist .del:active{color:var(--clay);}
+
+.seg{display:flex;background:var(--shade);border-radius:10px;padding:3px;margin-bottom:14px;}
+.seg button{flex:1;padding:10px;border-radius:8px;font-size:14px;font-weight:600;color:var(--muted);}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--ink);
+  box-shadow:0 1px 3px rgba(0,0,0,.08);}
+
+/* ---------- linha do dia (dentro de Agora, com rótulos) ---------- */
+.card.timeline{padding:18px 16px 16px;}
+.tl-head{display:flex;align-items:baseline;gap:8px;margin-bottom:18px;}
+.tl-head .eyebrow{flex:1;}
+.tl-head .legend{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);
+  display:flex;align-items:center;gap:5px;}
+.tl-head .legend i{width:8px;height:8px;border-radius:50%;background:var(--turmeric);display:block;}
+.tl{position:relative;display:flex;justify-content:space-between;}
+.tl-line{position:absolute;top:6px;height:2px;background:var(--shade);border-radius:2px;}
+.tl-line i{display:block;height:100%;background:var(--turmeric);border-radius:2px;transition:width .5s ease;}
+.tl-item{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;
+  min-width:0;text-align:center;}
+.tl-dot{width:13px;height:13px;border-radius:50%;background:var(--card);
+  border:2px solid var(--line);box-sizing:border-box;z-index:1;}
+.tl-item.past .tl-dot{background:var(--turmeric);border-color:var(--turmeric);}
+.tl-item.cur .tl-dot{width:13px;height:13px;background:var(--turmeric);border-color:var(--turmeric);}
+.tl-t{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);line-height:1;}
+.tl-n{font-size:10px;color:var(--muted);line-height:1.15;max-width:100%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tl-item.past .tl-t{color:var(--ink-2);}
+.tl-item.cur .tl-t{color:var(--turmeric);font-weight:600;}
+.tl-item.cur .tl-n{color:var(--ink);font-weight:700;}
+
+main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--paper);
+  padding:18px 18px calc(var(--tab-h) + var(--safe-b) + 28px);}
+.view{display:none;}
+.view.active{display:block;animation:fade .22s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* ---------- TAB BAR ---------- */
+.tabbar{
+  flex:0 0 auto; display:grid; grid-template-columns:repeat(5,1fr);
+  background:var(--ink); padding-bottom:var(--safe-b);
+  box-shadow:0 -1px 0 rgba(255,255,255,.08);
+}
+.tabbar button{
+  position:relative; min-width:0; padding:0 1px;
+  height:var(--tab-h); display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px; color:#7E9186; transition:color .16s;
+}
+.tabbar button[aria-current="page"]{color:var(--turmeric);}
+.tabbar svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto;}
+.tabbar span{font-size:9.5px;letter-spacing:-.01em;font-weight:600;white-space:nowrap;
+  max-width:100%;overflow:hidden;text-overflow:ellipsis;}
+.tabbar .badge[hidden]{display:none;}
+.tabbar .badge{position:absolute;top:8px;left:50%;margin-left:4px;background:var(--turmeric);
+  color:#fff;font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:600;
+  min-width:14px;height:14px;border-radius:100px;display:flex;align-items:center;
+  justify-content:center;padding:0 3px;line-height:1;}
+@media (max-width:340px){ .tabbar span{font-size:8.5px;} .tabbar svg{width:18px;height:18px;} }
+
+/* ---------- CARDS ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:12px;}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--turmeric);font-weight:600;}
+.eyebrow.q{color:var(--muted);}
+
+/* NOW card */
+.card.now{background:var(--amber);color:#fff;border-color:var(--amber);padding:24px 22px;
+  box-shadow:0 6px 20px -8px rgba(154,98,16,.55);}
+.card.now .eyebrow{color:rgba(255,255,255,.82);}
+.card.now h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:32px;
+  line-height:1.05;letter-spacing:-.025em;margin:8px 0 4px;}
+.card.now .when{font-family:"IBM Plex Mono",monospace;font-size:13px;color:rgba(255,255,255,.86);}
+.card.now .macroline{display:flex;gap:16px;margin:16px 0 18px;}
+.card.now .macroline div{flex:1;}
+.card.now .macroline b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:21px;
+  font-weight:700;letter-spacing:-.02em;}
+.card.now .macroline span{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.78);}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  background:var(--turmeric);color:#fff;font-weight:700;font-size:15px;
+  padding:14px;border-radius:10px;transition:filter .16s;}
+.btn:active{filter:brightness(.9);}
+.card.now .btn{background:#fff;color:var(--amber);font-weight:800;}
+.card.now .btn:active{background:#F2E7D2;}
+.btn.quiet{background:var(--card);border:1px solid var(--line);color:var(--ink);
+  font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;font-weight:600;padding:14px;}
+.btn.quiet:active{background:var(--shade);}
+
+/* next-up strip */
+.next{display:flex;align-items:center;gap:11px;padding:13px 6px 15px;background:none;
+  border:none;border-bottom:1px solid var(--line);border-radius:0;margin:2px 0 14px;width:100%;text-align:left;}
+.next .t{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);flex:0 0 auto;}
+.next .n{font-weight:600;font-size:15px;color:var(--ink-2);}
+.next .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-left:auto;}
+
+/* progress bars */
+.bars{display:grid;gap:14px;}
+.bar-row .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.bar-row .lbl{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);}
+.bar-row .val{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink);}
+.bar-row .val em{font-style:normal;color:var(--muted);}
+.track{height:7px;background:var(--shade);border-radius:100px;overflow:hidden;}
+.track i{display:block;height:100%;border-radius:100px;transition:width .5s ease;}
+
+/* meal list */
+.mealrow{display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px;margin-bottom:10px;transition:border-color .16s,transform .1s;}
+.mealrow:active{transform:scale(.985);border-color:var(--turmeric);}
+.mealrow .time{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;
+  color:var(--ink);background:var(--shade);padding:6px 8px;border-radius:6px;flex:0 0 auto;}
+.mealrow .body{flex:1;min-width:0;}
+.mealrow .body b{display:block;font-size:16.5px;font-weight:700;}
+.mealrow .body span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);}
+.mealrow .chev{color:var(--muted);flex:0 0 auto;}
+.mealrow.now-row{background:var(--amber-soft);border-color:var(--turmeric);
+  border-left:5px solid var(--turmeric);padding-left:14px;}
+.mealrow.now-row .time{background:var(--turmeric);color:#fff;}
+.mealrow .tagnow{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:9px;
+  letter-spacing:.12em;text-transform:uppercase;background:var(--turmeric);color:#fff;
+  padding:2px 6px;border-radius:4px;margin-left:7px;vertical-align:1px;}
+
+/* ---------- DETAIL SHEET ---------- */
+.sheet{position:fixed;inset:0;z-index:60;background:var(--paper);
+  display:flex;flex-direction:column;transform:translateY(100%);
+  transition:transform .28s cubic-bezier(.32,.72,0,1);}
+.sheet.open{transform:none;}
+.sheet-head{flex:0 0 auto;background:var(--ink);color:var(--paper);
+  padding:calc(var(--safe-t) + 10px) 16px 14px;display:flex;align-items:center;gap:12px;}
+.sheet-head .back{display:flex;align-items:center;gap:6px;font-size:15px;color:#9CB0A4;padding:6px 4px;}
+.sheet-head .back svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;}
+.sheet-head h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:17px;
+  margin:0;letter-spacing:-.01em;}
+.sheet-body{flex:1;overflow-y:auto;padding:18px 18px calc(var(--safe-b) + 40px);}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:15px;}
+th{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;text-align:left;padding:0 6px 8px 0;border-bottom:1px solid var(--line);}
+th.n,td.n{text-align:right;padding-right:0;white-space:nowrap;}
+td{padding:11px 6px 11px 0;border-bottom:1px solid #EDF0E8;vertical-align:top;}
+td.n{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);}
+tr.sum td{border-bottom:none;font-weight:700;padding-top:12px;}
+.qty{display:block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);margin-top:2px;}
+
+/* accordion — progressive disclosure */
+.acc{border:1px solid var(--line);border-radius:12px;background:var(--card);
+  margin-top:10px;overflow:hidden;}
+.acc summary{list-style:none;display:flex;align-items:center;gap:10px;padding:14px 16px;
+  cursor:pointer;font-weight:600;font-size:14.5px;}
+.acc summary::-webkit-details-marker{display:none;}
+.acc summary .ico{width:22px;height:22px;border-radius:6px;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;color:#fff;}
+.acc summary .plus{margin-left:auto;color:var(--muted);font-size:19px;line-height:1;
+  transition:transform .2s;font-family:"IBM Plex Mono",monospace;}
+.acc[open] summary .plus{transform:rotate(45deg);}
+.acc .inner{padding:0 16px 16px;font-size:14.5px;color:var(--ink-2);line-height:1.6;}
+.acc .inner b{color:var(--ink);}
+.acc.why .ico{background:var(--turmeric);}
+.acc.prep .ico{background:var(--teal);}
+.acc.warn .ico{background:var(--clay);}
+.acc.warn summary{color:var(--clay);}
+
+/* shopping */
+.grp{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px;margin-bottom:10px;}
+.grp.full{border-color:var(--teal);background:#F5F8F3;}
+.grp h3{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--teal);margin:0 0 12px;display:flex;align-items:center;}
+.grp.full h3{color:var(--muted);}
+.grp h3 .c{margin-left:auto;font-size:10px;color:var(--muted);letter-spacing:.04em;}
+.grp ul{list-style:none;margin:0;padding:0;}
+.grp li{margin:0;}
+.grp label{display:flex;gap:12px;align-items:flex-start;padding:9px 0;cursor:pointer;font-size:15.5px;}
+.grp input{appearance:none;width:21px;height:21px;flex:0 0 21px;margin-top:1px;
+  border:1.5px solid var(--muted);border-radius:6px;background:#fff;position:relative;transition:.14s;}
+.grp input:checked{background:var(--teal);border-color:var(--teal);}
+.grp input:checked::after{content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
+.grp input:checked + span{text-decoration:line-through;color:var(--muted);}
+
+/* guide menu */
+.menu{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:12px;}
+.menu button{display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  padding:16px 18px;border-bottom:1px solid #EDF0E8;font-size:16px;font-weight:600;}
+.menu button:last-child{border-bottom:none;}
+.menu button:active{background:var(--shade);}
+.menu .sub{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px;}
+.menu .chev{margin-left:auto;color:var(--muted);}
+.menu .body{flex:1;min-width:0;}
+
+/* misc */
+.flag{font-family:"IBM Plex Mono",monospace;font-size:10px;padding:3px 7px;border-radius:5px;
+  letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;}
+.flag.ok{background:#DCE8DA;color:#28513F;}
+.flag.watch{background:#F5E3C4;color:#7A5410;}
+.flag.act{background:#F3DAD5;color:#7C3225;}
+.lede{color:var(--muted);font-size:14.5px;margin:0 0 16px;}
+h3.sec{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:18px;
+  margin:24px 0 10px;letter-spacing:-.01em;}
+h3.sec:first-child{margin-top:0;}
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:0;}
+ol.steps li{counter-increment:s;position:relative;padding-left:38px;margin-bottom:14px;font-size:15px;}
+ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:0;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;color:var(--turmeric);
+  border:1px solid var(--line);border-radius:6px;width:26px;height:22px;background:#fff;
+  display:flex;align-items:center;justify-content:center;}
+.foot{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--muted);line-height:1.6;}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+}
+</style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="masthead">
-    <p class="eyebrow">Plano alimentar · versão 2.1 · agosto 2026</p>
-    <h1>Comer para <em>construir</em>,<br>não para caber.</h1>
-    <p class="sub">Cinco refeições fixas, ~2.550 kcal, montadas em torno do treino das 21h e da meta de dormir até meia-noite. Feito para repetição: mesma estrutura todos os dias úteis, uma preparação semanal.</p>
-    <div class="chips">
-      <span class="chip">58,1 kg · 1,64 m</span>
-      <span class="chip">39 anos</span>
-      <span class="chip alt">Objetivo: massa com definição</span>
-      <span class="chip alt">Marmita seg–sex</span>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-row">
+      <div>
+        <div class="today" id="todayLabel">—</div>
+        <h1 class="viewtitle" id="viewTitle">Hoje</h1>
+      </div>
+      <div class="daytoggle" id="dayToggle" role="group" aria-label="Tipo de dia">
+        <button id="btTreino" aria-pressed="true">Treino</button>
+        <button id="btDescanso" aria-pressed="false">Descanso</button>
+      </div>
     </div>
   </header>
 
-  <nav>
-    <div class="navrow">
-      <a href="#dia">Linha do dia</a>
-      <a href="#metas">Metas</a>
-      <a href="#refeicoes">Refeições</a>
-      <a href="#descanso">Dia sem treino</a>
-      <a href="#micro">Micronutrientes</a>
-      <a href="#prep">Prep de domingo</a>
-      <a href="#compras">Compras</a>
-      <a href="#comprarbem">Como comprar</a>
-      <a href="#suplementos">Suplementos</a>
-      <a href="#regras">Regras</a>
-      <a href="#exames">Exames</a>
-    </div>
+  <main id="main">
+    <section class="view active" id="v-agora"></section>
+    <section class="view" id="v-refeicoes"></section>
+    <section class="view" id="v-compras"></section>
+    <section class="view" id="v-medidas"></section>
+    <section class="view" id="v-guia"></section>
+  </main>
+
+  <nav class="tabbar" role="tablist">
+    <button data-go="agora" aria-current="page">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span>Hoje</span>
+    </button>
+    <button data-go="refeicoes">
+      <svg viewBox="0 0 24 24"><path d="M4 4v7a3 3 0 0 0 6 0V4M7 11v9M17 4c-1.7 0-3 2.2-3 5s1.3 4 3 4v6"/></svg>
+      <span>Refeições</span>
+    </button>
+    <button data-go="compras">
+      <svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 8.5a2 2 0 0 1-2 1.5H9a2 2 0 0 1-2-1.6L5.2 4H3"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/></svg>
+      <span>Compras</span><span class="badge" id="cartBadge" hidden></span>
+    </button>
+    <button data-go="medidas">
+      <svg viewBox="0 0 24 24"><path d="M4 15h16M6 15V9.5a6 6 0 0 1 12 0V15M12 15v4"/><path d="M9.5 12.5 12 10l2.5 2.5"/></svg>
+      <span>Medidas</span><span class="badge" id="measBadge" hidden>!</span>
+    </button>
+    <button data-go="guia">
+      <svg viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H19v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M8 8h7M8 12h7"/></svg>
+      <span>Guia</span>
+    </button>
   </nav>
-
-  <!-- ================= DAY STRIP ================= -->
-  <section id="dia" class="daystrip" style="padding-top:34px;">
-    <span class="marker">A linha do dia</span>
-    <h2>Das 7h à meia-noite</h2>
-    <p class="sec-note">Tudo neste plano é ancorado em horário. A faixa clara mostra a janela em que a cafeína é permitida — ela fecha às 13h para que o sono às 00h seja possível.</p>
-
-    <div class="strip" role="img" aria-label="Linha do dia: café 7h30, almoço 12h, cafeína liberada até 13h, lanche 17h, pré-treino 20h15, treino das 21h às 23h, ceia 23h15, dormir 00h.">
-      <div class="band band-caf"><div class="band-fill" style="width:33.3%"></div></div>
-      <div class="band-label" style="left:6px;">Cafeína liberada</div>
-      <div class="band-label" style="left:35%;">Corte às 13h</div>
-      <div class="rule"></div>
-      <div class="pt" style="left:2.8%"><div class="dot"></div><b>Café</b><span>07:30</span></div>
-      <div class="pt" style="left:27.8%"><div class="dot"></div><b>Almoço</b><span>12:00</span></div>
-      <div class="pt" style="left:55.6%"><div class="dot"></div><b>Lanche</b><span>17:00</span></div>
-      <div class="pt" style="left:73.6%"><div class="dot big"></div><b>Pré</b><span>20:15</span></div>
-      <div class="pt" style="left:90.3%"><div class="dot"></div><b>Ceia</b><span>23:15</span></div>
-      <div class="pt" style="left:98%"><div class="dot sleep"></div><b>Dormir</b><span>00:00</span></div>
-      <div class="train" style="left:77.8%;width:11.1%"><span>TREINO</span></div>
-    </div>
-  </section>
-
-  <!-- ================= METAS ================= -->
-  <section id="metas">
-    <span class="marker">Alvo diário</span>
-    <h2>Os números</h2>
-    <p class="sec-note">Superávit calórico moderado. O objetivo não é subir rápido — é subir devagar o suficiente para que o ganho seja músculo, e não a gordura abdominal que você quer eliminar.</p>
-
-    <div class="macros">
-      <div class="macro kcal"><div class="v">2.550</div><div class="k">kcal / dia</div><div class="p">faixa 2.500–2.650</div></div>
-      <div class="macro"><div class="v">165 g</div><div class="k">proteína</div><div class="p">2,8 g por kg</div></div>
-      <div class="macro"><div class="v">275 g</div><div class="k">carboidrato</div><div class="p">4,7 g por kg</div></div>
-      <div class="macro"><div class="v">92 g</div><div class="k">gordura</div><div class="p">azeite, ovos, castanhas</div></div>
-    </div>
-
-    <div class="note why">
-      <b>Por que a proteína caiu e o carboidrato subiu na v2:</b> a meta-análise de Morton et al. (<i>Br J Sports Med</i>, 2018 — 49 estudos, 1.863 participantes) encontra platô de ganho muscular em torno de 1,6 g/kg, com limite superior do intervalo de confiança em 2,2 g/kg. A versão anterior tinha 3,1 g/kg: seguro, mas ineficiente — cada grama de proteína excedente era uma caloria que não virou combustível de treino. Carboidrato é o substrato principal do treino resistido, e glicogênio baixo reduz o volume total de trabalho, que é justamente o que determina hipertrofia.
-    </div>
-    <div class="note warn">
-      <b>2.400 kcal provavelmente era manutenção, não superávit.</b> TMB estimada de 1.416 kcal, com fator de atividade ~1,7 (trabalho sedentário + 5 a 6 treinos semanais), dá TDEE ≈ 2.400. Equações de gasto energético carregam erro de ±15%, então isso é hipótese — mas o correto é começar acima e deixar a balança arbitrar. Daí os 2.550.
-    </div>
-    <div class="note">
-      <b>Ritmo esperado:</b> +0,2 a 0,3 kg por mês. Parece pouco, mas é o ritmo em que o ganho é predominantemente muscular. Nos 8 meses anteriores você <i>perdeu</i> 6 kg treinando — isso era déficit calórico, não falta de treino.
-    </div>
-  </section>
-
-  <!-- ================= REFEIÇÕES ================= -->
-  <section id="refeicoes">
-    <span class="marker">O dia, refeição por refeição</span>
-    <h2>As cinco refeições</h2>
-    <p class="sec-note">Valores são estimativas a partir das porções. Pequenas variações no dia a dia não importam; o que importa é a média da semana.</p>
-
-    <div class="alert">
-      <h3>Correção da v1 — castanha-do-pará</h3>
-      <p>A versão anterior sugeria "30 g de castanhas ≈ 5 castanhas-do-pará". Isso estava errado. Uma única castanha-do-pará contém entre 68 e 91 mcg de selênio; a recomendação diária é 55 mcg e o limite superior tolerável é 400 mcg. Cinco por dia colocariam você em 340–455 mcg de forma contínua — faixa de risco para selenose crônica (queda de cabelo, unhas quebradiças, hálito de alho, sintomas neurológicos).</p>
-      <p><b>Regra corrigida:</b> castanha-do-pará, <b>1 unidade por dia, no máximo</b> — o que já cobre 100% da sua necessidade de selênio. Os 30 g de castanhas do café da manhã devem ser caju, amêndoa ou mix <b>sem</b> castanha-do-pará. Trate a do Pará como suplemento à parte, não como oleaginosa de volume.</p>
-    </div>
-
-    <!-- CAFÉ A -->
-    <article class="meal">
-      <div class="meal-head">
-        <span class="time">07:30</span>
-        <h3>Café da manhã <span class="alt-tag">Opção A · padrão</span></h3>
-        <span class="meal-tot"><b>780 kcal</b> · 49 g ptn</span>
-      </div>
-      <table>
-        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
-        <tr><td>4 ovos mexidos <span class="qty">sem óleo, antiaderente</span></td><td class="n">280</td><td class="n">24 g</td></tr>
-        <tr><td>Metade da pasta de sardinha <span class="qty">preparada na véspera</span></td><td class="n">145</td><td class="n">14 g</td></tr>
-        <tr><td>2 fatias de pão integral</td><td class="n">140</td><td class="n">6 g</td></tr>
-        <tr><td>30 g de castanhas <span class="qty">caju, amêndoa — sem castanha-do-pará</span></td><td class="n">180</td><td class="n">4 g</td></tr>
-        <tr><td>1 castanha-do-pará <span class="qty">uma. só uma.</span></td><td class="n">35</td><td class="n">1 g</td></tr>
-        <tr><td>Chá verde <span class="qty">hibisco, hortelã, canela ou gengibre</span></td><td class="n">0</td><td class="n">—</td></tr>
-        <tr class="sum"><td>Total</td><td class="n">780</td><td class="n">49 g</td></tr>
-      </table>
-      <div class="note">
-        <b>A pasta de sardinha</b> — feita na noite anterior, rende duas refeições:<br>
-        1 lata inteira de sardinha (escorra o excesso de óleo) + 1 ovo cozido + limão. Amasse tudo com garfo. Divida em dois potes: um fica na geladeira para o café, o outro vai na bolsa para o lanche das 17h.<br>
-        Tempo: 3 minutos, enquanto o chá da noite esquenta.
-      </div>
-      <div class="note why">
-        <b>Por que ovo e não maionese:</b> a gema é rica em lecitina — o mesmo emulsificante que faz a maionese existir. O ovo dá a liga que impede a sardinha de cair do pão, e ainda adiciona proteína. Óleo sozinho não liga, apenas lubrifica.<br>
-        <b>Formato é livre.</b> Enquanto os ingredientes e as quantidades forem os mesmos, monte como quiser: ovos mexidos com a pasta no pão, pasta na colher com pão à parte, omelete com pasta de acompanhamento. Variar o formato é o que evita o enjoo sem exigir decisão nova.
-      </div>
-    </article>
-
-    <!-- CAFÉ B -->
-    <article class="meal">
-      <div class="meal-head">
-        <span class="time">07:30</span>
-        <h3>Café da manhã <span class="alt-tag">Opção B · dia corrido</span></h3>
-        <span class="meal-tot"><b>760 kcal</b> · 46 g ptn</span>
-      </div>
-      <table>
-        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
-        <tr><td>60 g de aveia em flocos</td><td class="n">230</td><td class="n">8 g</td></tr>
-        <tr><td>300 ml de leite integral</td><td class="n">180</td><td class="n">10 g</td></tr>
-        <tr><td>1 scoop de whey <span class="qty">30 g</span></td><td class="n">120</td><td class="n">24 g</td></tr>
-        <tr><td>1 banana média</td><td class="n">105</td><td class="n">1 g</td></tr>
-        <tr><td>15 g de castanhas picadas + canela</td><td class="n">90</td><td class="n">2 g</td></tr>
-        <tr><td>1 castanha-do-pará</td><td class="n">35</td><td class="n">1 g</td></tr>
-        <tr class="sum"><td>Total</td><td class="n">760</td><td class="n">46 g</td></tr>
-      </table>
-      <div class="note">
-        <b>Preparo — é um mingau, tudo junto, comido de colher.</b><br>
-        <i>Quente:</i> aveia + leite na panela, fogo médio, 3–4 min mexendo. Tire do fogo, <b>espere amornar</b> e só então misture o whey — no leite fervendo a proteína coagula e vira grumos. Banana, castanhas e canela por cima.<br>
-        <i>Frio (overnight):</i> na véspera, aveia + leite + whey num pote, mexe, tampa, geladeira. De manhã só adiciona banana e castanhas. 30 segundos.
-      </div>
-      <div class="note why">
-        <b>Por que a aveia:</b> a beta-glucana é fibra solúvel com evidência consistente para atenuar o pico glicêmico pós-refeição e reduzir LDL. Com HbA1c em 6,1%, é escolha estratégica, não só calórica.<br>
-        <b>Por que o whey fica só aqui:</b> a aveia tem pouca proteína, então o whey resolve um buraco real. No pré-treino ele saiu — veja o card das 20h15.
-      </div>
-    </article>
-
-    <!-- ALMOÇO -->
-    <article class="meal">
-      <div class="meal-head">
-        <span class="time">12:00</span>
-        <h3>Almoço · marmita</h3>
-        <span class="meal-tot"><b>795 kcal</b> · 57 g ptn</span>
-      </div>
-      <table>
-        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
-        <tr><td>Frango desfiado ou carne moída <span class="qty">150 g</span></td><td class="n">250</td><td class="n">45 g</td></tr>
-        <tr><td>Arroz integral com cenoura e açafrão <span class="qty">200 g — subiu de 150 g na v2</span></td><td class="n">265</td><td class="n">5 g</td></tr>
-        <tr><td>Feijão carioca com legumes <span class="qty">1 concha</span></td><td class="n">70</td><td class="n">4 g</td></tr>
-        <tr><td>Berinjela + 1 legume rotativo <span class="qty">150 g</span></td><td class="n">90</td><td class="n">3 g</td></tr>
-        <tr><td>Azeite <span class="qty">1–1½ col. sopa, contando o do preparo</span></td><td class="n">120</td><td class="n">—</td></tr>
-        <tr class="sum"><td>Total</td><td class="n">795</td><td class="n">57 g</td></tr>
-      </table>
-      <div class="note">
-        <b>Salada em pote separado, com meio limão espremido.</b> Folhas, tomate, pepino. Vai crua, não aquece junto, tempera na hora. O limão não é só sabor: é a correção do único gap de micronutriente do plano (veja a seção de micronutrientes) e melhora a absorção do ferro do feijão.<br>
-        Se o azeite for junto desde cedo, o arroz absorve tudo e fica pastoso — leve num potinho e regue na hora.
-      </div>
-      <div class="note why">
-        <b>Conte o azeite, não o evite.</b> Você está em superávit: gordura de qualidade é aliada, porque entrega 9 kcal/g sem ocupar volume no estômago. A berinjela absorve e não solta — o azeite vai junto para a marmita. Regra: se a berinjela veio encharcada, corte o azeite avulso; se veio seca, adicione.
-      </div>
-      <div class="note">
-        <b>Rotação semanal.</b> Proteína: frango seg/qua/sex, carne moída ou peixe ter/qui. Carboidrato: alterne arroz integral e batata-doce. Legumes: puxe crucíferas (brócolis, couve-flor) ao lado da berinjela — elas têm sulforafano, que a berinjela não tem.<br>
-        <b>Detalhe grátis:</b> uma pitada de pimenta-do-reino no arroz com açafrão. A piperina inibe o metabolismo hepático da curcumina e aumenta muito sua absorção.
-      </div>
-    </article>
-
-    <!-- LANCHE -->
-    <article class="meal">
-      <div class="meal-head">
-        <span class="time">17:00</span>
-        <h3>Lanche da tarde <span class="alt-tag">no trabalho</span></h3>
-        <span class="meal-tot"><b>600 kcal</b> · 39 g ptn</span>
-      </div>
-      <table>
-        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
-        <tr><td>2 fatias de pão integral <span class="qty">em saco separado</span></td><td class="n">140</td><td class="n">6 g</td></tr>
-        <tr><td>Metade da pasta de sardinha <span class="qty">pote pequeno</span></td><td class="n">145</td><td class="n">14 g</td></tr>
-        <tr><td>1 fruta <span class="qty">ver rotação na seção de micronutrientes</span></td><td class="n">90</td><td class="n">1 g</td></tr>
-        <tr><td>Quark Nuuv + 1 col. chá de psyllium</td><td class="n">105</td><td class="n">15 g</td></tr>
-        <tr><td>20 g de castanhas</td><td class="n">120</td><td class="n">3 g</td></tr>
-        <tr class="sum"><td>Total</td><td class="n">600</td><td class="n">39 g</td></tr>
-      </table>
-      <div class="note warn">
-        <b>Leve o recheio, não o sanduíche montado.</b> Sardinha amassada é úmida; em contato com o pão por 12 horas ele encharca. Pote pequeno com a pasta + pão à parte, monta em 20 segundos no trabalho.<br>
-        <b>Psyllium exige água.</b> É fibra que forma gel por hidratação. Sem líquido suficiente o efeito se inverte e ele endurece o bolo fecal. Um copo cheio junto ou logo depois — aqui não é preferência, é o mecanismo do produto.
-      </div>
-      <div class="note why">
-        <b>Validade dos preparos:</b> ovo cozido <b>com casca</b> dura 7 dias na geladeira; descascado, 2 a 3. Sardinha fora da lata (em pote de vidro, coberta pelo próprio óleo) dura 2 a 3 dias — nunca guarde na lata aberta, porque o revestimento interno exposto ao ar permite migração de metal. A pasta pronta segue o prazo da sardinha; feita na véspera e consumida no dia seguinte, está tranquilo.
-      </div>
-    </article>
-
-    <!-- PRÉ -->
-    <article class="meal">
-      <div class="meal-head">
-        <span class="time">20:15</span>
-        <h3>Pré-treino <span class="alt-tag">assim que chegar em casa</span></h3>
-        <span class="meal-tot"><b>210 kcal</b> · 2 g ptn</span>
-      </div>
-      <table>
-        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
-        <tr><td>2 bananas <span class="qty">o whey saiu na v2</span></td><td class="n">210</td><td class="n">2 g</td></tr>
-        <tr class="sum"><td>Total</td><td class="n">210</td><td class="n">2 g</td></tr>
-      </table>
-      <div class="note why">
-        <b>Por que o whey saiu daqui:</b> às 20h15 você já acumulou ~125 g de proteína no dia. Mais 24 g não acrescentam nada — o platô já passou há muito. O que falta nesse momento é carboidrato para o treino. Mesmas calorias, melhor destino.
-      </div>
-      <div class="note">
-        <b>Funciona em qualquer cenário.</b> Você chega entre 19h40 e 20h20 — horário fixo não sobreviveria a essa variação. Coma assim que chegar e treine 20–40 min depois, exatamente como já faz. Zero preparo.<br>
-        <b>Sobre treinar em jejum:</b> sua experiência (às vezes bem, às vezes a fome atrapalha) é o problema. Hipertrofia depende de volume acumulado ao longo de meses; duas ou três sessões ruins por mês custam progresso real no ano.<br>
-        <b>Fim de semana:</b> treino é 15h–16h, o almoço já cumpre a função. Pule o pré-treino.
-      </div>
-    </article>
-
-    <!-- CEIA -->
-    <article class="meal">
-      <div class="meal-head">
-        <span class="time">23:15</span>
-        <h3>Pós-treino / ceia</h3>
-        <span class="meal-tot"><b>180 kcal</b> · 20 g ptn</span>
-      </div>
-      <table>
-        <tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>
-        <tr><td>200 g de Quark Nuuv + fruta picada + canela</td><td class="n">180</td><td class="n">20 g</td></tr>
-        <tr><td><i>ou</i> 250 ml de leite morno + 1 scoop de whey + canela</td><td class="n">250</td><td class="n">32 g</td></tr>
-        <tr><td>Chá de camomila ou cidreira <span class="qty">junto ou depois</span></td><td class="n">0</td><td class="n">—</td></tr>
-      </table>
-      <div class="note why">
-        <b>Por que cremoso e não refeição sólida:</b> você quer dormir até 00h e o treino acaba às 23h. Refeição sólida eleva a temperatura central — e o sono começa quando a temperatura <i>cai</i>. Líquido passa rápido e não gera termogênese relevante.<br>
-        <b>Por que caseína:</b> o quark é rico em caseína, de digestão lenta, que libera aminoácidos por 5–7 h e cobre a janela noturna. Há evidência de que proteína pré-sono aumenta a síntese proteica noturna (Res et al., <i>Med Sci Sports Exerc</i>, 2012; Snijders et al., <i>J Nutr</i>, 2015 — ganhos superiores de massa e força em 12 semanas).
-      </div>
-      <div class="note warn">
-        <b>A fome pós-treino é um diagnóstico, não um problema.</b> Você mesmo notou: quando o dia foi bem alimentado, ela não aparece. Se aparecer forte, alguma refeição do dia falhou. Não compense à noite — descubra qual foi e corrija no dia seguinte.
-      </div>
-    </article>
-  </section>
-
-  <!-- ================= DIA SEM TREINO ================= -->
-  <section id="descanso">
-    <span class="marker">A variação de descanso</span>
-    <h2>O dia sem treino</h2>
-    <p class="sec-note">Duas subtrações, e só. A proteína e a gordura não se movem — o que sai é o carboidrato que existia para abastecer a sessão.</p>
-
-    <div class="note why" style="margin-top:0;">
-      <b>Músculo não cresce durante o treino — cresce depois.</b> A síntese proteica muscular fica elevada por 24 a 48 horas após uma sessão de força. Na prática, o dia de descanso é o dia em que o corpo executa a construção com o material do treino da véspera. Cortar comida agressivamente aqui é remover material justamente na hora da obra.
-    </div>
-
-    <div class="strip" role="img" aria-label="Linha do dia sem treino: café 7h30, almoço 12h, cafeína até 13h, lanche 17h, jantar 20h30, dormir 23h30." style="margin-top:34px;">
-      <div class="band band-caf"><div class="band-fill" style="width:33.3%"></div></div>
-      <div class="band-label" style="left:6px;">Cafeína liberada</div>
-      <div class="band-label" style="left:35%;">Corte às 13h</div>
-      <div class="rule"></div>
-      <div class="pt" style="left:2.8%"><div class="dot"></div><b>Café</b><span>07:30</span></div>
-      <div class="pt" style="left:27.8%"><div class="dot"></div><b>Almoço</b><span>12:00</span></div>
-      <div class="pt" style="left:55.6%"><div class="dot"></div><b>Lanche</b><span>17:00</span></div>
-      <div class="pt" style="left:75%"><div class="dot"></div><b>Jantar</b><span>20:30</span></div>
-      <div class="pt" style="left:92%"><div class="dot sleep"></div><b>Dormir</b><span>23:30</span></div>
-    </div>
-
-    <div class="macros" style="margin-top:34px;">
-      <div class="macro kcal"><div class="v">2.290</div><div class="k">kcal / dia</div><div class="p">−260 vs. dia de treino</div></div>
-      <div class="macro"><div class="v">164 g</div><div class="k">proteína</div><div class="p">praticamente igual</div></div>
-      <div class="macro"><div class="v">215 g</div><div class="k">carboidrato</div><div class="p">−60 g</div></div>
-      <div class="macro"><div class="v">90 g</div><div class="k">gordura</div><div class="p">igual</div></div>
-    </div>
-
-    <div class="meal">
-      <div class="meal-head">
-        <h3>O que muda, exatamente</h3>
-        <span class="meal-tot"><b>duas subtrações</b></span>
-      </div>
-      <table>
-        <tr><th>Refeição</th><th>Ajuste</th><th class="n">kcal</th></tr>
-        <tr><td>07h30 · Café da manhã</td><td>Sem alteração</td><td class="n">780</td></tr>
-        <tr><td>12h00 · Almoço</td><td><b>Arroz volta para 150 g</b> <span class="qty">−65 kcal</span></td><td class="n">730</td></tr>
-        <tr><td>17h00 · Lanche</td><td>Sem alteração</td><td class="n">600</td></tr>
-        <tr><td>20h15 · Pré-treino</td><td><b>Eliminado</b> — não há treino para abastecer <span class="qty">−210 kcal</span></td><td class="n">—</td></tr>
-        <tr><td>20h30 · Jantar</td><td>É a ceia, adiantada: 200 g de quark + fruta + canela</td><td class="n">180</td></tr>
-        <tr class="sum"><td>Total</td><td></td><td class="n">2.290</td></tr>
-      </table>
-
-      <div class="note why">
-        <b>Por que a proteína não cai.</b> O gasto energético diminui num dia parado, mas a demanda de aminoácidos, não — ela é maior justamente nas 24 a 48 h seguintes ao estímulo. Reduzir proteína no dia de descanso é o erro mais comum de quem tenta "compensar" o dia sem treino.
-      </div>
-      <div class="note">
-        <b>A conta do gasto.</b> Num dia parado o fator de atividade cai de ~1,7 para ~1,4, o que coloca seu TDEE em torno de 2.000 kcal. Comer 2.550 seria superávit grande; comer 2.000 seria déficit num dia de recuperação. Os 2.290 ficam no meio, deliberadamente mais perto do teto.
-      </div>
-    </div>
-
-    <div class="rule-card" style="border-left-color:var(--teal);">
-      <h4>O ganho escondido: este é o seu laboratório de sono</h4>
-      <p>Repare no que muda. Sem treino às 21h, não há termogênese noturna, não há cortisol elevado às 23h, e a última refeição acontece às 20h30 em vez de 23h15. É o dia mais fácil da semana para dormir cedo — o ambiente fisiológico já está a favor. Se a meta de dormir às 00h vai ser testada em algum lugar, comece por aqui. Não desperdice o descanso ficando acordado até as 2h porque "não tem treino amanhã".</p>
-    </div>
-
-    <div class="cols" style="margin-top:14px;">
-      <div class="box">
-        <h4>Creatina continua</h4>
-        <p style="margin:0;font-size:14.5px;color:var(--ink-2);">Todo dia, inclusive nos de descanso. O mecanismo é saturação dos estoques musculares, não estímulo agudo — pular dias reduz a saturação.</p>
-      </div>
-      <div class="box">
-        <h4>Treino de fim de semana (15h–16h)</h4>
-        <p style="margin:0;font-size:14.5px;color:var(--ink-2);">É dia de treino normal, com um ajuste: o almoço das 12h já cumpre a função de pré-treino, então pule as bananas e mantenha o arroz em 200 g. O jantar volta ao horário normal, por volta das 20h.</p>
-      </div>
-      <div class="box">
-        <h4>Se o descanso cair no domingo</h4>
-        <p style="margin:0;font-size:14.5px;color:var(--ink-2);">Ele acumula com o prep de 90 minutos. Não é problema — cozinhar não é treino —, mas planeje o horário para não empurrar o jantar.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= MICRONUTRIENTES ================= -->
-  <section id="micro">
-    <span class="marker">A camada que macro não enxerga</span>
-    <h2>Micronutrientes</h2>
-    <p class="sec-note">Micronutriente não constrói músculo diretamente, mas deficiência derruba desempenho, recuperação e a saúde da pele. A boa notícia: seu plano cobre quase tudo — principalmente por causa de dois alimentos.</p>
-
-    <div class="meal">
-      <div class="note why" style="margin-top:0;">
-        <b>A sardinha diária é o item mais valioso da sua dieta.</b> Ela entrega simultaneamente ômega-3 (EPA/DHA), cálcio pela espinha, vitamina D, selênio, B12 e iodo. Pouquíssimos alimentos fazem isso. Os ovos cobrem colina, vitamina A e mais B12. Juntos, os dois resolvem a maior parte do painel.
-      </div>
-      <table>
-        <tr><th>Nutriente</th><th>Fonte no seu plano</th><th class="n">Situação</th></tr>
-        <tr><td>Cálcio</td><td>Sardinha com espinha, quark, leite</td><td class="n"><span class="flag ok">~1.100 mg</span></td></tr>
-        <tr><td>Ômega-3 (EPA/DHA)</td><td>Sardinha diária</td><td class="n"><span class="flag ok">1–2 g/dia</span></td></tr>
-        <tr><td>Colina</td><td>4–5 ovos por dia</td><td class="n"><span class="flag ok">~500 mg</span></td></tr>
-        <tr><td>Vitamina B12</td><td>Ovos + sardinha</td><td class="n"><span class="flag ok">684 pg/mL</span></td></tr>
-        <tr><td>Magnésio</td><td>Castanhas, aveia, feijão, arroz integral</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
-        <tr><td>Potássio</td><td>Frutas, feijão, legumes</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
-        <tr><td>Selênio</td><td>1 castanha-do-pará</td><td class="n"><span class="flag ok">100% com 1 un.</span></td></tr>
-        <tr><td>Zinco</td><td>Carne, ovos, castanha de caju</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
-        <tr><td>Vitaminas A e E</td><td>Ovos, cenoura, folhas, castanhas, azeite</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
-        <tr><td>Folato</td><td>Feijão, folhas</td><td class="n"><span class="flag ok">Adequado</span></td></tr>
-        <tr><td>Fibra</td><td>Aveia, integrais, feijão, frutas, psyllium</td><td class="n"><span class="flag ok">35–45 g</span></td></tr>
-        <tr><td>Vitamina C</td><td>Frutas atuais são pobres nela</td><td class="n"><span class="flag watch">Reforçar</span></td></tr>
-        <tr><td>Ferro</td><td>Carne, feijão + vitamina C</td><td class="n"><span class="flag act">Não suplementar</span></td></tr>
-        <tr><td>Sódio</td><td>Sardinha em lata</td><td class="n"><span class="flag watch">Não adicionar sal</span></td></tr>
-      </table>
-
-      <div class="note warn">
-        <b>Vitamina C — o único gap real.</b> Maçã, banana, pera e uva são pobres em vitamina C. Tangerina e manga ajudam, mas não todos os dias. Isso importa para dois dos seus objetivos: a vitamina C é cofator obrigatório na síntese de colágeno (pele) e melhora a absorção do ferro não-heme do feijão.<br>
-        <b>Correção:</b> meio limão espremido na salada do almoço <b>e</b> incluir goiaba, kiwi, morango ou acerola na rotação de frutas. Uma goiaba tem mais vitamina C que quatro laranjas.
-      </div>
-      <div class="note warn">
-        <b>Ferro — não suplemente por conta própria.</b> Seu hemograma tem microcitose. Se a causa for traço talassêmico (a hipótese mais provável), suplementar ferro sem deficiência real leva a sobrecarga, que é hepatotóxica — e você já tem TGP alterada. Espere ferritina e eletroforese de hemoglobina.
-      </div>
-      <div class="note why">
-        <b>Micronutrientes e a pele.</b> O que tem evidência: vitamina C (síntese de colágeno) — <i>reforçar</i>; ômega-3 (anti-inflamatório, barreira cutânea) — <i>excelente</i>; zinco (reparo tecidual), vitamina A (renovação epitelial) e vitamina E (antioxidante lipídico) — <i>adequados</i>.<br>
-        <b>E a parte desconfortável:</b> nada disso chega perto do impacto de protetor solar diário e sono adequado. Fotoenvelhecimento responde pela maior parte do envelhecimento cutâneo visível. Se você aparenta menos de 30 aos 39, dormir às 2h da manhã é o maior risco a seu favor — não a falta de um suplemento.
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PREP ================= -->
-  <section id="prep">
-    <span class="marker">Domingo · 90 minutos</span>
-    <h2>A preparação que resolve a semana</h2>
-    <p class="sec-note">Tudo em paralelo: pressão no fogão, assadeira no forno, panela de arroz. O tempo ativo real é menor que o relógio.</p>
-
-    <ol class="steps">
-      <li><b>Frango — 1,2 kg.</b> Panela de pressão com sal, alho e louro, 25 min. Desfie ainda morno (desfia muito mais fácil). Divida em 5 potes.</li>
-      <li><b>Carne moída — 500 g.</b> Refogue com cebola e tomate. Congela perfeitamente; é a proteína de terça e quinta.</li>
-      <li><b>Arroz integral — 1 kg cozido.</b> Com cenoura ralada, açafrão e uma pitada de pimenta-do-reino. Porções de 200 g.</li>
-      <li><b>Feijão carioca com legumes.</b> Faça o volume da semana; congele metade.</li>
-      <li><b>Legumes assados.</b> Berinjela, abobrinha, cenoura e brócolis na mesma assadeira, 200 °C por 35 min, azeite e sal.</li>
-      <li><b>Batata-doce — 1 kg.</b> Em cubos, mesma assadeira do passo anterior se couber.</li>
-      <li><b>5 ovos cozidos — guarde com casca.</b> Um por dia útil, para a pasta de sardinha. Descasque só na hora. Resfrie em água gelada por 5 min após cozinhar: interrompe o cozimento, evita o anel esverdeado na gema e tira o ovo da faixa de temperatura de risco.</li>
-      <li><b>Monte as 5 marmitas.</b> Três na geladeira, duas no congelador — tire na quarta à noite para descongelar.</li>
-    </ol>
-
-    <div class="note">
-      <b>Todo fim de noite, 3 minutos:</b> abra a lata de sardinha, escorra o excesso de óleo, amasse com 1 ovo cozido e limão. Divida em dois potes — um para o café da manhã, outro para a bolsa. Faça enquanto o chá esquenta.
-    </div>
-    <div class="note">
-      <b>Potes de vidro</b> aquecem melhor no micro-ondas e não retêm cheiro — importante com sardinha, que impregna plástico permanentemente. Geladeira segura 3–4 dias; além disso, congelador. Guarde na prateleira do meio ou de baixo, nunca na porta.<br>
-      <b>Legumes que aguentam reaquecimento:</b> cenoura, abobrinha, berinjela, brócolis, couve-flor. Evite folhas cozidas — viram lodo.<br>
-      <b>Não lave os ovos antes de cozinhar:</b> a casca tem uma película natural que protege contra entrada de micro-organismos.
-    </div>
-  </section>
-
-  <!-- ================= COMPRAS ================= -->
-  <section id="compras">
-    <span class="marker">Uma compra por semana</span>
-    <h2>Lista de compras</h2>
-    <p class="sec-note">Marque conforme comprar. A lista não é salva ao fechar a página — se quiser levar ao mercado, imprima ou deixe aberta no celular.</p>
-
-    <div class="cols">
-      <div class="box">
-        <h4>Proteína</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>35 ovos <span class="qty">4–5/dia + 5 cozidos</span></span></label></li>
-          <li><label><input type="checkbox"><span>1,2 kg de peito de frango</span></label></li>
-          <li><label><input type="checkbox"><span>500 g de patinho moído</span></label></li>
-          <li><label><input type="checkbox"><span>5 latas de sardinha em óleo <span class="qty">1 lata rende 2 refeições</span></span></label></li>
-          <li><label><input type="checkbox"><span>4 potes de Quark Nuuv</span></label></li>
-          <li><label><input type="checkbox"><span>Whey concentrado <span class="qty">1 pote/mês — ver critérios</span></span></label></li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <h4>Carboidrato</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>Arroz integral <span class="qty">1,5 kg</span></span></label></li>
-          <li><label><input type="checkbox"><span>Feijão carioca <span class="qty">500 g</span></span></label></li>
-          <li><label><input type="checkbox"><span>Aveia em flocos <span class="qty">500 g</span></span></label></li>
-          <li><label><input type="checkbox"><span>Pão integral <span class="qty">ver critérios</span></span></label></li>
-          <li><label><input type="checkbox"><span>Batata-doce <span class="qty">1,5 kg</span></span></label></li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <h4>Gordura</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>Azeite extravirgem <span class="qty">1 garrafa/mês</span></span></label></li>
-          <li><label><input type="checkbox"><span>Castanha de caju e/ou amêndoa <span class="qty">400 g</span></span></label></li>
-          <li><label><input type="checkbox"><span>Castanha-do-pará <span class="qty">pacote pequeno — 1/dia</span></span></label></li>
-        </ul>
-        <h4 style="margin-top:18px;">Laticínio</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>Leite <span class="qty">2–3 L</span></span></label></li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <h4>Vegetais</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>Berinjela <span class="qty">4–5 un</span></span></label></li>
-          <li><label><input type="checkbox"><span>Abobrinha, cenoura</span></label></li>
-          <li><label><input type="checkbox"><span>Brócolis ou couve-flor</span></label></li>
-          <li><label><input type="checkbox"><span>Folhas, tomate, pepino</span></label></li>
-          <li><label><input type="checkbox"><span>Cebola, alho</span></label></li>
-          <li><label><input type="checkbox"><span>Limão <span class="qty">5 un — vitamina C do almoço</span></span></label></li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <h4>Frutas</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>Banana <span class="qty">16 un — 2 no pré-treino</span></span></label></li>
-          <li><label><input type="checkbox"><span><b>Goiaba, kiwi, morango ou acerola</b> <span class="qty">novo na v2 — vitamina C</span></span></label></li>
-          <li><label><input type="checkbox"><span>Maçã, pera</span></label></li>
-          <li><label><input type="checkbox"><span>Tangerina, uva verde, manga</span></label></li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <h4>Despensa e suplementos</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>Psyllium</span></label></li>
-          <li><label><input type="checkbox"><span>Açafrão-da-terra e pimenta-do-reino</span></label></li>
-          <li><label><input type="checkbox"><span>Canela em pó e em pau</span></label></li>
-          <li><label><input type="checkbox"><span>Chá verde, camomila, cidreira</span></label></li>
-          <li><label><input type="checkbox"><span>Chá preto, cravo, gengibre <span class="qty">chai caseiro</span></span></label></li>
-          <li><label><input type="checkbox"><span>Creatina monoidratada</span></label></li>
-          <li><label><input type="checkbox"><span>Vitamina D3 2.000 UI <span class="qty">ver critérios</span></span></label></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= COMO COMPRAR ================= -->
-  <section id="comprarbem">
-    <span class="marker">Três produtos que exigem ler o rótulo</span>
-    <h2>Como comprar</h2>
-    <p class="sec-note">Pão, whey e vitamina D são as três compras em que a embalagem engana com frequência. Critérios em vez de marcas: marca muda, critério não.</p>
-
-    <div class="cols">
-      <div class="box">
-        <h4>Pão integral</h4>
-        <ol class="steps" style="margin-top:4px;">
-          <li>Farinha de trigo <b>integral</b> como primeiro ingrediente. Cuidado com a pegadinha: "farinha de trigo enriquecida com ferro e ácido fólico" é farinha branca.</li>
-          <li>Pelo menos <b>3 g de fibra</b> por porção de 50 g.</li>
-          <li>Lista de ingredientes curta. Oito a dez aditivos é comum nessa categoria.</li>
-          <li>Sem açúcar adicionado — e sem sucralose, que é considerada pior ainda.</li>
-        </ol>
-        <div class="note" style="font-size:13.5px;">
-          Um levantamento com 21 pães rotulados como "integral" encontrou que em 28,6% deles a farinha integral <b>nem era o primeiro ingrediente</b>, e 76,2% continham algum tipo de açúcar.<br><br>
-          <b>Em ordem de preferência:</b> padaria de fermentação natural (levain) → pão de centeio integral → linhas "100% integral" das marcas grandes.<br><br>
-          Seu pão atual (35% integral) não é ruim, só é menos do que anuncia. Se passar em três dos quatro critérios, mantenha.
-        </div>
-      </div>
-
-      <div class="box">
-        <h4>Whey protein</h4>
-        <p style="font-size:14.5px;margin:0 0 12px;color:var(--ink-2);"><b>Concentrado, não isolado.</b> Você não tem intolerância à lactose e não está em cutting. Concentrado entrega o mesmo resultado por muito menos.</p>
-        <table style="margin-top:0;">
-          <tr><td>Proteína por scoop de 30 g</td><td class="n"><b>≥ 22 g</b></td></tr>
-          <tr><td>Primeiro ingrediente</td><td class="n">proteína do soro</td></tr>
-          <tr><td>Lista de ingredientes</td><td class="n">curta</td></tr>
-          <tr><td>Registro ANVISA</td><td class="n">obrigatório</td></tr>
-          <tr class="sum"><td>Métrica de compra</td><td class="n">R$ / g de proteína</td></tr>
-        </table>
-        <div class="note warn" style="font-size:13.5px;">
-          <b>Dose inflada:</b> algumas marcas usam scoop de 40 g para declarar "25 g de proteína" — normalizando para 30 g isso dá 18,8 g, abaixo da média. Normalize antes de comparar.<br><br>
-          <b>Adulteração:</b> em 2024 a Senacon determinou a suspensão da venda de 48 produtos de whey com suspeita de adulteração, após laudos apontarem teor de proteína diferente do rótulo. Prefira marcas grandes que publicam laudos, em vez de caçar o mais barato do marketplace.
-        </div>
-      </div>
-
-      <div class="box">
-        <h4>Vitamina D3</h4>
-        <table style="margin-top:0;">
-          <tr><td>Forma</td><td class="n"><b>Colecalciferol (D3)</b></td></tr>
-          <tr><td>Dose</td><td class="n">2.000 UI/dia</td></tr>
-          <tr><td>Apresentação</td><td class="n">cápsula oleosa</td></tr>
-          <tr class="sum"><td>Quando</td><td class="n">no café da manhã</td></tr>
-        </table>
-        <div class="note" style="font-size:13.5px;">
-          D2 (ergocalciferol) é menos eficaz — confira que é D3. Precisa de gordura para absorver, por isso vai junto com os ovos e as castanhas.<br><br>
-          <b>Evite as megadoses.</b> Frascos de 50.000 UI semanais existem para tratamento de deficiência sob acompanhamento médico. Seu valor é 29,1 — subótimo, não deficiente. 2.000 UI/dia leva você a 35–45 ng/mL em 8 a 12 semanas.<br><br>
-          Não precisa ser a versão com cálcio: sardinha com espinha e laticínios já cobrem. D3 é molécula simples, sem diferenciação relevante entre fabricantes — compre pelo preço, com registro ANVISA.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SUPLEMENTOS ================= -->
-  <section id="suplementos">
-    <span class="marker">O que entra e o que sai</span>
-    <h2>Suplementos</h2>
-    <p class="sec-note">Poucos, com motivo. Adicionar três coisas ao mesmo tempo impede saber o que funcionou.</p>
-
-    <div class="meal">
-      <table>
-        <tr><th>Suplemento</th><th>Dose</th><th>Quando</th></tr>
-        <tr><td><b>Creatina</b></td><td>5 g</td><td>Qualquer horário, todo dia</td></tr>
-        <tr><td><b>Vitamina D3</b></td><td>2.000 UI</td><td>No café da manhã, junto com a gordura</td></tr>
-        <tr><td><b>Whey concentrado</b></td><td>1 scoop</td><td>Só no café opção B</td></tr>
-        <tr class="sum"><td><b>Testo Black</b></td><td colspan="2"><span class="flag act">Descontinuar</span></td></tr>
-      </table>
-      <div class="note warn">
-        <b>Testo Black:</b> seus exames encerram a discussão. Testosterona total 517 ng/dL e livre 11,52 ng/dL são valores sólidos para 38 anos — não há o que "elevar". O produto contém um vasodilatador de classe prescritiva em dose farmacológica plena, com meia-vida longa (~17,5 h), o que significa exposição sistêmica contínua no uso diário. Mialgia lombar é efeito adverso conhecido. Não termine o pote.
-      </div>
-      <div class="note why">
-        <b>Creatina — o suplemento com mais evidência que existe.</b> Horário é irrelevante; consistência não. Se refizer exames, lembre que o próprio laudo avisa: creatina eleva a creatinina sérica sem queda real da filtração glomerular.<br>
-        <b>Colágeno e magnésio ficam de fora por enquanto.</b> Não por serem inúteis — para manter o experimento limpo. Reavaliamos em 8 semanas.
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= REGRAS ================= -->
-  <section id="regras">
-    <span class="marker">Seis decisões já tomadas</span>
-    <h2>Regras do plano</h2>
-
-    <div class="rules">
-      <div class="rule-card">
-        <h4>Café até 13h. Sem exceção.</h4>
-        <p>A meia-vida da cafeína é de 5 a 6 horas. O café das 13h ainda tem cerca de 25% ativo à meia-noite. Somado ao treino noturno, é a explicação mais provável para você dormir às 2h. Esta é a intervenção de maior impacto e custo zero do plano inteiro.</p>
-      </div>
-      <div class="rule-card">
-        <h4>Uma castanha-do-pará por dia. Nunca cinco.</h4>
-        <p>Uma unidade já cobre 100% da necessidade diária de selênio. Cinco por dia ultrapassam o limite superior tolerável de 400 mcg e, no uso contínuo, levam a selenose. Este é o tipo de nutriente em que "mais" vira problema rápido.</p>
-      </div>
-      <div class="rule-card">
-        <h4>Chai latte industrializado: esporádico, nunca rotina.</h4>
-        <p>O primeiro ingrediente do pó é açúcar, e há açúcar declarado mais de uma vez (mais xarope de glicose) — cerca de 12 a 14 g nos seus 20 g, o equivalente a 3 colheres de chá. Com HbA1c em 6,1%, açúcar isolado entre refeições é a única coisa na sua rotina que trabalha ativamente contra você. Um pico ocasional não move o A1c; um diário move. Se tomar, tome antes das 13h e junto de uma refeição.</p>
-      </div>
-      <div class="rule-card">
-        <h4>Chai caseiro é a versão de verdade.</h4>
-        <p>200 ml de leite + 1 sachê de chá preto + 1 pau de canela + 2 cravos + 1 fatia de gengibre. Aqueça sem ferver por 5 min e coe. Isso <i>é</i> chai — a bebida original é exatamente isso. Se quiser adoçar, ½ colher de chá de mel são 10 kcal no lugar de 60, e você controla a quantidade. Sua cozinha no trabalho dá conta.</p>
-      </div>
-      <div class="rule-card">
-        <h4>Marmita todo dia útil.</h4>
-        <p>Comer fora custava a pesagem, o custo e o controle. Com marmita, os 795 kcal do almoço são realmente 795 kcal.</p>
-      </div>
-      <div class="rule-card">
-        <h4>Não corte calorias para "revelar" o abdômen.</h4>
-        <p>Com 1,64 m e 58 kg, seu IMC é 21,6 — você já é magro. O six-pack visível virá de mais espessura no reto abdominal, não de menos gordura: músculo mais espesso projeta e cria relevo no mesmo percentual de gordura. Cortando calorias você chega a 55 kg parecendo menor, não mais definido.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= EXAMES ================= -->
-  <section id="exames">
-    <span class="marker">Outubro de 2025 · antes do treino e da dieta</span>
-    <h2>O que os exames mostraram</h2>
-    <p class="sec-note">Este painel é de uma fase em que você não treinava e comia mal. Serve como linha de base — e como lista do que precisa ser refeito.</p>
-
-    <div class="meal">
-      <table class="labs">
-        <tr><th>Marcador</th><th class="n">Resultado</th><th class="n">Situação</th></tr>
-        <tr><td>Hemoglobina glicada (A1c)</td><td class="n">6,1 %</td><td class="n"><span class="flag act">Pré-diabetes</span></td></tr>
-        <tr><td>TGP (ALT)</td><td class="n">51 U/L</td><td class="n"><span class="flag act">Acima</span></td></tr>
-        <tr><td>VCM / HCM</td><td class="n">76,9 / 25,3</td><td class="n"><span class="flag watch">Investigar</span></td></tr>
-        <tr><td>Vitamina D</td><td class="n">29,1 ng/mL</td><td class="n"><span class="flag watch">Subótima</span></td></tr>
-        <tr><td>Testosterona total</td><td class="n">517 ng/dL</td><td class="n"><span class="flag ok">Sólida</span></td></tr>
-        <tr><td>Testosterona livre</td><td class="n">11,52 ng/dL</td><td class="n"><span class="flag ok">Sólida</span></td></tr>
-        <tr><td>TSH / T4 livre</td><td class="n">1,24 / 1,01</td><td class="n"><span class="flag ok">Impecável</span></td></tr>
-        <tr><td>Vitamina B12</td><td class="n">684 pg/mL</td><td class="n"><span class="flag ok">Ótima</span></td></tr>
-        <tr><td>Função renal (TFG)</td><td class="n">&gt; 90</td><td class="n"><span class="flag ok">Normal</span></td></tr>
-      </table>
-
-      <div class="note warn">
-        <b>A1c 6,1% + TGP 51:</b> contam a mesma história metabólica. TGP alta com TGO normal costuma apontar esteatose hepática, que caminha junto com resistência à insulina. Existe esteatose em pessoas magras, associada a gordura visceral — o que pode explicar, inclusive, a camada abdominal que te incomoda.
-      </div>
-      <div class="note why">
-        <b>O padrão do hemograma que ninguém comentou:</b> muitas hemácias (5,66 mi), todas pequenas (VCM 76,9), com hemoglobina e RDW normais. Esse conjunto é característico de <b>traço talassêmico</b> — condição genética benigna, sem sintomas e sem tratamento. Importa aqui por um motivo específico: hemoglobinopatias interferem na dosagem de HbA1c por HPLC, que foi o método usado. O 6,1% pode estar distorcido. A <b>eletroforese de hemoglobina</b> responde isso de forma definitiva, independente de você saber a ascendência da família.
-      </div>
-    </div>
-
-    <div class="cols" style="margin-top:16px;">
-      <div class="box">
-        <h4>Refazer — essenciais que faltaram</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>Glicemia de jejum</span></label></li>
-          <li><label><input type="checkbox"><span>Insulina de jejum <span class="qty">permite calcular HOMA-IR</span></span></label></li>
-          <li><label><input type="checkbox"><span>Perfil lipídico completo</span></label></li>
-          <li><label><input type="checkbox"><span>Ferritina + ferro + saturação de transferrina</span></label></li>
-          <li><label><input type="checkbox"><span>GGT</span></label></li>
-          <li><label><input type="checkbox"><span>Ácido úrico</span></label></li>
-          <li><label><input type="checkbox"><span>Eletroforese de hemoglobina</span></label></li>
-        </ul>
-      </div>
-      <div class="box">
-        <h4>Repetir</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span>HbA1c</span></label></li>
-          <li><label><input type="checkbox"><span>TGP e TGO</span></label></li>
-          <li><label><input type="checkbox"><span>25(OH) vitamina D</span></label></li>
-        </ul>
-        <div class="note" style="margin-top:14px;font-size:13.5px;">
-          Jejum de 12 h e <b>sem treinar nas 48 h anteriores</b> — exercício intenso eleva transaminases e mascara o TGP. Leve tudo a um clínico: a combinação A1c 6,1 + TGP 51 + microcitose merece olhar médico, não só ajuste de dieta.
-        </div>
-      </div>
-      <div class="box">
-        <h4>Acompanhamento semanal</h4>
-        <ul class="check">
-          <li><label><input type="checkbox"><span><b>Peso</b> 3×/semana, em jejum, mesma balança. Média semanal deve subir 50–75 g.</span></label></li>
-          <li><label><input type="checkbox"><span><b>Cintura</b> no umbigo, a cada 15 dias.</span></label></li>
-        </ul>
-        <div class="note" style="margin-top:14px;font-size:13.5px;">
-          Peso subindo e cintura estável = funcionando.<br>
-          Cintura +1,5 cm sem ganho proporcional = corte 150 kcal.<br>
-          Peso parado por 3 semanas = adicione 150 kcal.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p><b>Plano alimentar — Gláucio Gonçalves.</b> Versão 2.1, agosto de 2026. Frente 2 de 3 (Exercícios · Alimentação · Sono).</p>
-    <p><b>Novo na v2.1:</b> seção do dia sem treino (2.290 kcal, mesma proteína).<br><b>Mudanças da v1 para a v2:</b> correção da castanha-do-pará (1/dia); calorias 2.400 → 2.550; proteína 180 g → 165 g e carboidrato 210 g → 275 g; pasta de sardinha com ovo cozido substituindo a maionese; whey removido do pré-treino; arroz do almoço 150 g → 200 g; limão e frutas ricas em vitamina C; seção de micronutrientes; seção de critérios de compra.</p>
-    <p>Valores nutricionais são estimativas a partir das porções descritas e servem como referência de trabalho, não como medida exata. Este documento não substitui avaliação médica ou de nutricionista — em especial quanto aos achados de HbA1c, TGP e hemograma, que precisam de investigação clínica.</p>
-  </footer>
-
 </div>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="sheet-head">
+    <button class="back" id="sheetBack">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> Voltar
+    </button>
+    <h2 id="sheetTitle"></h2>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+</div>
+
 <script>
-(function(){
-  "use strict";
+"use strict";
 
-  /* ---- 1. Identificar cada checkbox de forma estável ---- */
-  var boxes = Array.prototype.slice.call(document.querySelectorAll('.check input[type="checkbox"]'));
-  boxes.forEach(function(b, i){
-    var label = b.parentElement ? b.parentElement.textContent.trim().slice(0, 60) : '';
-    b.dataset.key = i + '|' + label;
-  });
+/* ============ storage (tolerante a modo privado) ============ */
+const DB = {
+  get(k, fb){ try{ const v = localStorage.getItem('plano.'+k); return v===null?fb:JSON.parse(v); }catch(e){ return fb; } },
+  set(k, v){ try{ localStorage.setItem('plano.'+k, JSON.stringify(v)); }catch(e){} }
+};
 
-  /* ---- 2. Persistir estado entre sessoes ---- */
-  var STORE = 'planoAlimentar.v1';
-  function load(){
-    try { return JSON.parse(localStorage.getItem(STORE) || '{}'); }
-    catch(e){ return {}; }
-  }
-  function save(state){
-    try { localStorage.setItem(STORE, JSON.stringify(state)); }
-    catch(e){ /* modo privado ou storage cheio: segue sem persistir */ }
-  }
+/* ============ dados ============ */
+const A = (s)=>s; // atalho legibilidade
 
-  var state = load();
-  boxes.forEach(function(b){ if (state[b.dataset.key]) b.checked = true; });
-
-  document.addEventListener('change', function(e){
-    var t = e.target;
-    if (!t || t.type !== 'checkbox' || !t.dataset.key) return;
-    var s = load();
-    if (t.checked) { s[t.dataset.key] = 1; } else { delete s[t.dataset.key]; }
-    save(s);
-    updateCounters();
-  });
-
-  /* ---- 3. Contador por bloco + botao de limpar ---- */
-  function updateCounters(){
-    document.querySelectorAll('.box').forEach(function(box){
-      var list = box.querySelectorAll('.check input[type="checkbox"]');
-      if (!list.length) return;
-      var done = box.querySelectorAll('.check input[type="checkbox"]:checked').length;
-      var tag = box.querySelector('.counter');
-      if (!tag){
-        tag = document.createElement('span');
-        tag.className = 'counter';
-        var h4 = box.querySelector('h4');
-        if (h4) h4.appendChild(tag);
+const MEALS = {
+  treino: [
+    { id:'cafe', time:'07:30', min:450, name:'Café da manhã', tag:'Opção A · padrão', kcal:780, ptn:49,
+      items:[
+        ['4 ovos mexidos','sem óleo, antiaderente',280,'24 g'],
+        ['Metade da pasta de sardinha','feita na véspera',145,'14 g'],
+        ['2 fatias de pão integral','',140,'6 g'],
+        ['30 g de castanhas','caju ou amêndoa',180,'4 g'],
+        ['1 castanha-do-pará','uma. só uma.',35,'1 g'],
+        ['Chá verde','',0,'—']
+      ],
+      acc:[
+        ['prep','Preparo','A pasta de sardinha é feita na noite anterior: 1 lata inteira (escorra o excesso de óleo) + 1 ovo cozido + limão, tudo amassado com garfo. Divida em dois potes — um para o café, outro para a bolsa. Três minutos, enquanto o chá da noite esquenta.'],
+        ['why','Por que ovo e não maionese','A gema é rica em lecitina — o mesmo emulsificante que faz a maionese existir. O ovo dá a liga que impede a sardinha de cair do pão e ainda adiciona proteína. Óleo sozinho não liga, apenas lubrifica.<br><br><b>Formato é livre.</b> Mesmos ingredientes e quantidades, monte como quiser: ovos mexidos com a pasta no pão, pasta na colher, omelete com pasta ao lado.'],
+        ['warn','Uma castanha-do-pará, nunca cinco','Cada unidade traz de 68 a 91 mcg de selênio. A recomendação diária é 55 mcg e o limite tolerável é 400. Cinco por dia, todo dia, entram na faixa de selenose crônica. Uma unidade já cobre 100% da necessidade.']
+      ],
+      alt:{ name:'Opção B · dia corrido', kcal:760, ptn:46,
+        items:[
+          ['60 g de aveia em flocos','',230,'8 g'],
+          ['300 ml de leite integral','',180,'10 g'],
+          ['1 scoop de whey','30 g',120,'24 g'],
+          ['1 banana média','',105,'1 g'],
+          ['15 g de castanhas + canela','',90,'2 g'],
+          ['1 castanha-do-pará','',35,'1 g']
+        ],
+        acc:[
+          ['prep','Preparo — é um mingau','Tudo junto, comido de colher.<br><br><b>Quente:</b> aveia + leite na panela, fogo médio, 3 a 4 min mexendo. Tire do fogo, <b>espere amornar</b> e só então misture o whey — no leite fervendo a proteína coagula e vira grumos. Banana, castanhas e canela por cima.<br><br><b>Frio (overnight):</b> na véspera, aveia + leite + whey num pote, mexe, tampa, geladeira. De manhã só adiciona banana e castanhas.'],
+          ['why','Por que a aveia','A beta-glucana é fibra solúvel com evidência consistente para atenuar o pico glicêmico e reduzir LDL. Com HbA1c em 6,1%, é escolha estratégica, não só calórica.']
+        ]
       }
-      tag.textContent = ' ' + done + '/' + list.length;
-      box.classList.toggle('done', done === list.length);
-    });
+    },
+    { id:'almoco', time:'12:00', min:720, name:'Almoço', tag:'marmita', kcal:795, ptn:57,
+      items:[
+        ['Frango desfiado ou carne moída','150 g',250,'45 g'],
+        ['Arroz integral com cenoura e açafrão','200 g ≈ 5 col. sopa cheias',265,'5 g'],
+        ['Feijão carioca com legumes','1 concha',70,'4 g'],
+        ['Berinjela + 1 legume rotativo','150 g',90,'3 g'],
+        ['Azeite','1–1½ col. sopa, contando o do preparo',120,'—']
+      ],
+      acc:[
+        ['prep','Salada em pote separado','Folhas, tomate, pepino, com <b>meio limão espremido</b> na hora. Vai crua, não aquece junto. Se o azeite for junto desde cedo, o arroz absorve tudo e fica pastoso — leve num potinho e regue na hora.'],
+        ['why','Conte o azeite, não o evite','Você está em superávit: gordura de qualidade entrega 9 kcal/g sem ocupar volume no estômago. A berinjela absorve e não solta — o azeite vai junto para a marmita. Se a berinjela veio encharcada, corte o azeite avulso; se veio seca, adicione.'],
+        ['why','Rotação e um detalhe grátis','Proteína: frango seg/qua/sex, carne moída ou peixe ter/qui. Carboidrato: alterne arroz integral e batata-doce. Puxe crucíferas (brócolis, couve-flor) ao lado da berinjela — elas têm sulforafano, que a berinjela não tem.<br><br>Uma pitada de pimenta-do-reino no arroz com açafrão: a piperina inibe o metabolismo hepático da curcumina e aumenta muito sua absorção.']
+      ]
+    },
+    { id:'lanche', time:'17:00', min:1020, name:'Lanche da tarde', tag:'no trabalho', kcal:600, ptn:39,
+      items:[
+        ['2 fatias de pão integral','em saco separado',140,'6 g'],
+        ['Metade da pasta de sardinha','pote pequeno',145,'14 g'],
+        ['1 fruta','goiaba, kiwi ou acerola quando tiver',90,'1 g'],
+        ['Quark Nuuv + 1 col. chá de psyllium','',105,'15 g'],
+        ['20 g de castanhas','',120,'3 g']
+      ],
+      acc:[
+        ['warn','Leve o recheio, não o sanduíche montado','Sardinha amassada é úmida; em contato com o pão por 12 horas ele encharca. Pote pequeno com a pasta, pão à parte, monta em 20 segundos no trabalho.'],
+        ['warn','Psyllium exige água','É fibra que forma gel por hidratação. Sem líquido suficiente o efeito se inverte e endurece o bolo fecal. Um copo cheio junto ou logo depois — não é preferência, é o mecanismo do produto.'],
+        ['why','Validade dos preparos','Ovo cozido <b>com casca</b> dura 7 dias na geladeira; descascado, 2 a 3. Sardinha fora da lata, em pote de vidro coberta pelo próprio óleo, dura 2 a 3 dias — nunca guarde na lata aberta, porque o revestimento interno exposto ao ar permite migração de metal.']
+      ]
+    },
+    { id:'pre', time:'20:15', min:1215, name:'Pré-treino', tag:'assim que chegar', kcal:210, ptn:2,
+      items:[ ['2 bananas','zero preparo',210,'2 g'] ],
+      acc:[
+        ['why','Por que só carboidrato','Às 20h15 você já acumulou cerca de 125 g de proteína no dia — mais 24 g não acrescentam nada, o platô passou há muito. O que falta neste momento é combustível para o treino.'],
+        ['why','Funciona chegando 19h40 ou 20h20','Horário fixo não sobreviveria à sua variação de chegada. Coma assim que entrar em casa e treine 20 a 40 min depois.<br><br><b>Sobre treinar em jejum:</b> sua experiência (às vezes bem, às vezes a fome atrapalha) é o problema. Hipertrofia depende de volume acumulado ao longo de meses; duas ou três sessões ruins por mês custam progresso real no ano.']
+      ]
+    },
+    { id:'ceia', time:'23:15', min:1395, name:'Pós-treino / ceia', tag:'', kcal:180, ptn:20,
+      items:[
+        ['200 g de Quark + fruta picada + canela','',180,'20 g'],
+        ['ou 250 ml de leite morno + whey + canela','',250,'32 g'],
+        ['Chá de camomila ou cidreira','junto ou depois',0,'—']
+      ],
+      acc:[
+        ['why','Por que cremoso e não refeição sólida','Você quer dormir até 00h e o treino acaba às 23h. Refeição sólida eleva a temperatura central — e o sono começa quando a temperatura <i>cai</i>. Líquido passa rápido e não gera termogênese relevante.'],
+        ['why','Por que caseína','O quark é rico em caseína, de digestão lenta, que libera aminoácidos por 5 a 7 h e cobre a janela noturna. Há evidência de que proteína pré-sono aumenta a síntese proteica noturna (Res et al., <i>Med Sci Sports Exerc</i> 2012; Snijders et al., <i>J Nutr</i> 2015).'],
+        ['warn','Fome aqui é diagnóstico, não problema','Quando o dia foi bem alimentado, ela não aparece — você mesmo notou. Se aparecer forte, alguma refeição falhou. Não compense à noite: descubra qual foi e corrija no dia seguinte.']
+      ]
+    }
+  ]
+};
+
+/* dia de descanso = mesmas refeições, com duas subtrações */
+MEALS.descanso = MEALS.treino
+  .filter(m => m.id !== 'pre')
+  .map(m => {
+    if (m.id === 'almoco'){
+      const c = JSON.parse(JSON.stringify(m));
+      c.kcal = 730;
+      c.items[1] = ['Arroz integral com cenoura e açafrão','150 g — reduzido no dia sem treino',200,'4 g'];
+      c.acc = m.acc;
+      return c;
+    }
+    if (m.id === 'ceia'){
+      const c = JSON.parse(JSON.stringify(m));
+      c.time = '20:30'; c.min = 1230; c.name = 'Jantar'; c.tag = 'a ceia, adiantada';
+      c.acc = [['why','Por que mais cedo','Sem treino às 21h, não há termogênese noturna nem cortisol elevado às 23h. A última refeição acontece às 20h30 — este é o dia mais fácil da semana para dormir cedo. Não desperdice ficando acordado até as 2h porque "não tem treino amanhã".']];
+      return c;
+    }
+    return m;
+  });
+
+const TARGETS = {
+  treino:   { kcal:2550, ptn:165, carb:275, gord:92 },
+  descanso: { kcal:2290, ptn:164, carb:215, gord:90 }
+};
+
+const SHOP = [
+  ['Proteína', [
+    ['35 ovos','4–5/dia + 5 cozidos'],['1,2 kg de peito de frango',''],['500 g de patinho moído',''],
+    ['5 latas de sardinha em óleo','1 lata rende 2 refeições'],['4 potes de Quark Nuuv',''],
+    ['Whey concentrado','1 pote/mês']
+  ]],
+  ['Carboidrato', [
+    ['Arroz integral','1,5 kg'],['Feijão carioca','500 g'],['Aveia em flocos','500 g'],
+    ['Pão integral','ver critérios no Guia'],['Batata-doce','1,5 kg']
+  ]],
+  ['Gordura e laticínio', [
+    ['Azeite extravirgem','1 garrafa/mês'],['Castanha de caju e/ou amêndoa','400 g'],
+    ['Castanha-do-pará','pacote pequeno — 1/dia'],['Leite','2–3 L']
+  ]],
+  ['Vegetais', [
+    ['Berinjela','4–5 un'],['Abobrinha, cenoura',''],['Brócolis ou couve-flor',''],
+    ['Folhas, tomate, pepino',''],['Cebola, alho',''],['Limão','5 un — vitamina C do almoço']
+  ]],
+  ['Frutas', [
+    ['Banana','16 un — 2 no pré-treino'],['Goiaba, kiwi, morango ou acerola','vitamina C'],
+    ['Maçã, pera',''],['Tangerina, uva verde, manga','']
+  ]],
+  ['Despensa e suplementos', [
+    ['Psyllium',''],['Açafrão-da-terra e pimenta-do-reino',''],['Canela em pó e em pau',''],
+    ['Chá verde, camomila, cidreira',''],['Chá preto, cravo, gengibre','chai caseiro'],
+    ['Creatina monoidratada',''],['Vitamina D3 2.000 UI','ver critérios no Guia']
+  ]]
+];
+
+/* ============ estado ============ */
+let dayType = DB.get('dayType','treino');
+let view = 'agora';
+
+const meals = () => MEALS[dayType];
+const nowMin = () => { const d = new Date(); return d.getHours()*60 + d.getMinutes(); };
+
+/* ============ helpers de render ============ */
+const esc = (s)=>String(s);
+function mealTable(m){
+  let r = '<table><tr><th>Item</th><th class="n">kcal</th><th class="n">ptn</th></tr>';
+  m.items.forEach(([n,q,k,p])=>{
+    r += `<tr><td>${n}${q?`<span class="qty">${q}</span>`:''}</td><td class="n">${k}</td><td class="n">${p}</td></tr>`;
+  });
+  r += `<tr class="sum"><td>Total</td><td class="n">${m.kcal}</td><td class="n">${m.ptn} g</td></tr></table>`;
+  return r;
+}
+const ICO = { why:'?', prep:'✓', warn:'!' };
+const ACCLBL = { why:'why', prep:'prep', warn:'warn' };
+function accs(list){
+  if(!list) return '';
+  return list.map(([type,title,html])=>`
+    <details class="acc ${ACCLBL[type]}">
+      <summary><span class="ico">${ICO[type]}</span>${title}<span class="plus">+</span></summary>
+      <div class="inner">${html}</div>
+    </details>`).join('');
+}
+
+/* ============ linha do dia (rotulada) ============ */
+const SHORT = { cafe:'café', almoco:'almoço', lanche:'lanche', pre:'pré-treino', ceia:'ceia' };
+function timelineHTML(){
+  const list = meals(), t = nowMin(), n = list.length;
+  const first = list[0].min, last = list[n-1].min;
+
+  let f = 0;
+  if (t >= last) f = 1;
+  else if (t > first){
+    for (let i=0;i<n-1;i++){
+      if (t >= list[i].min && t < list[i+1].min){
+        f = (i + (t - list[i].min)/(list[i+1].min - list[i].min)) / (n-1);
+        break;
+      }
+    }
   }
 
-  var compras = document.getElementById('compras');
-  if (compras){
-    var bar = document.createElement('div');
-    bar.className = 'clearbar';
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.textContent = 'Desmarcar tudo desta lista';
-    btn.addEventListener('click', function(){
-      var s = load();
-      compras.querySelectorAll('.check input[type="checkbox"]').forEach(function(b){
-        b.checked = false; delete s[b.dataset.key];
-      });
-      save(s);
-      updateCounters();
-    });
-    bar.appendChild(btn);
-    var grid = compras.querySelector('.cols');
-    if (grid && grid.parentNode) grid.parentNode.insertBefore(bar, grid);
+  const lineLeft = (0.5/n)*100, lineW = ((n-1)/n)*100;
+
+  let items = '';
+  list.forEach((m,i)=>{
+    const end = list[i+1] ? list[i+1].min : 1440;
+    const isNow = t >= m.min && t < end;
+    const past = t >= m.min && !isNow;
+    const label = m.id==='ceia' ? (m.name==='Jantar'?'jantar':'ceia') : (SHORT[m.id]||m.name.toLowerCase());
+    items += `<div class="tl-item ${isNow?'cur':''} ${past?'past':''}">
+      <span class="tl-dot"></span>
+      <span class="tl-t">${m.time}</span>
+      <span class="tl-n">${label}</span>
+    </div>`;
+  });
+
+  return `<div class="card timeline">
+    <div class="tl-head">
+      <span class="eyebrow q">Sequência de hoje</span>
+      <span class="legend"><i></i> já passou</span>
+    </div>
+    <div class="tl">
+      <div class="tl-line" style="left:${lineLeft}%;width:${lineW}%">
+        <i style="width:${(f*100).toFixed(1)}%"></i>
+      </div>
+      ${items}
+    </div>
+  </div>`;
+}
+
+/* ============ MEDIDAS ============ */
+const today = () => new Date().toISOString().slice(0,10);
+const dnum  = (iso) => Math.round(new Date(iso+'T00:00:00').getTime()/86400000);
+const getW  = () => DB.get('peso',[]).slice().sort((a,b)=>a.d<b.d?-1:1);
+const getC  = () => DB.get('cintura',[]).slice().sort((a,b)=>a.d<b.d?-1:1);
+function addM(key, val){
+  const arr = DB.get(key,[]).filter(x => x.d !== today());
+  arr.push({ d: today(), v: val });
+  DB.set(key, arr);
+}
+function delM(key, d){ DB.set(key, DB.get(key,[]).filter(x => x.d !== d)); }
+
+/* dia de pesar: seg, qua, sex. Cintura: a cada 14 dias desde o início. */
+function isWeighDay(){ return [1,3,5].includes(new Date().getDay()); }
+function waistDue(){
+  const c = getC();
+  if (!c.length) return true;
+  return dnum(today()) - dnum(c[c.length-1].d) >= 14;
+}
+function pending(){
+  const w = getW();
+  const wToday = w.length && w[w.length-1].d === today();
+  return { peso: isWeighDay() && !wToday, cintura: waistDue() };
+}
+
+/* média dos registros dentro de uma janela de N dias terminando em `end` */
+function avgWindow(arr, endDay, days){
+  const sel = arr.filter(x => { const n = dnum(x.d); return n <= endDay && n > endDay - days; });
+  if (!sel.length) return null;
+  return sel.reduce((s,x)=>s+x.v,0) / sel.length;
+}
+
+function trend(){
+  const w = getW();
+  if (w.length < 4) return { ok:false, need:'poucos registros' };
+  const last = dnum(w[w.length-1].d);
+  const span = last - dnum(w[0].d);
+  if (span < 13) return { ok:false, need:'menos de duas semanas' };
+  const a = avgWindow(w, last, 7);          // semana atual
+  const b = avgWindow(w, last - 7, 7);      // semana anterior
+  if (a === null || b === null) return { ok:false, need:'lacuna nos registros' };
+  return { ok:true, atual:a, anterior:b, deltaG: Math.round((a-b)*1000) };
+}
+
+function verdict(){
+  const t = trend();
+  const c = getC();
+
+  if (!t.ok){
+    return { cls:'', h:'Ainda sem tendência',
+      p:`Preciso de pelo menos duas semanas de pesagens para calcular uma média confiável (${t.need}). Peso de um dia isolado varia até 1 kg por água, sal e conteúdo intestinal — não significa nada sozinho.` };
   }
 
-  updateCounters();
+  const g = t.deltaG;
+  let dC = null;
+  if (c.length >= 2) dC = +(c[c.length-1].v - c[c.length-2].v).toFixed(1);
 
-  /* ---- 4. Service worker: funciona offline ---- */
-  if ('serviceWorker' in navigator){
-    window.addEventListener('load', function(){
-      navigator.serviceWorker.register('sw.js').catch(function(){});
-    });
+  if (dC !== null && dC > 1.5 && g < 250){
+    return { cls:'warn', h:'Cintura subindo mais que o peso',
+      p:`A cintura aumentou ${dC} cm enquanto a média de peso subiu ${g} g na semana. Isso indica que o superávit está grande demais e parte do ganho é gordura. <b>Corte 150 kcal por dia</b> e reavalie em duas semanas.` };
   }
-})();
+  if (g < 30){
+    return { cls:'act', h:'Peso praticamente parado',
+      p:`A média semanal variou ${g >= 0 ? '+' : ''}${g} g — abaixo dos 50 a 75 g esperados. Se isso se repetir por três semanas, <b>adicione 150 kcal por dia</b>. Uma semana isolada ainda pode ser ruído.` };
+  }
+  if (g > 150){
+    return { cls:'warn', h:'Ganho rápido demais',
+      p:`A média subiu ${g} g na semana, acima da faixa de 50 a 75 g. Acima disso a proporção de gordura no ganho cresce. Se a cintura acompanhar, <b>corte 150 kcal por dia</b>.` };
+  }
+  return { cls:'good', h:'No ritmo certo',
+    p:`A média semanal subiu ${g} g${dC !== null ? `, com a cintura ${dC > 0 ? 'em +' + dC : dC < 0 ? dC + '' : 'estável'} cm` : ''}. É exatamente a faixa em que o ganho é predominantemente muscular. Não mude nada.` };
+}
+
+/* gráfico: pontos + média móvel de 7 dias */
+function chartHTML(arr, unit){
+  if (arr.length < 2) return '';
+  const W = 320, H = 116, PL = 34, PR = 8, PT = 10, PB = 20;
+  const d0 = dnum(arr[0].d), d1 = dnum(arr[arr.length-1].d);
+  const span = Math.max(1, d1 - d0);
+  const vs = arr.map(x=>x.v);
+  let lo = Math.min(...vs), hi = Math.max(...vs);
+  const pad = Math.max((hi-lo)*0.25, unit === 'kg' ? 0.4 : 1);
+  lo -= pad; hi += pad;
+  const X = (iso)=> PL + (dnum(iso)-d0)/span * (W-PL-PR);
+  const Y = (v)=> PT + (hi-v)/(hi-lo) * (H-PT-PB);
+
+  const pts = arr.map(x=>`<circle class="pt" cx="${X(x.d).toFixed(1)}" cy="${Y(x.v).toFixed(1)}" r="2.4"/>`).join('');
+
+  const ma = arr.map(x=>{
+    const n = dnum(x.d);
+    const win = arr.filter(y=>{ const m = dnum(y.d); return m <= n && m > n-7; });
+    return { d:x.d, v: win.reduce((s,y)=>s+y.v,0)/win.length };
+  });
+  const path = ma.map((p,i)=>`${i?'L':'M'}${X(p.d).toFixed(1)},${Y(p.v).toFixed(1)}`).join('');
+
+  const mid = (lo+hi)/2;
+  const gl = [hi-pad*0.5, mid, lo+pad*0.5].map(v=>
+    `<line class="grid" x1="${PL}" y1="${Y(v).toFixed(1)}" x2="${W-PR}" y2="${Y(v).toFixed(1)}"/>
+     <text class="lbl" x="${PL-5}" y="${(Y(v)+3).toFixed(1)}" text-anchor="end">${v.toFixed(unit==='kg'?1:0)}</text>`
+  ).join('');
+
+  const fd = (iso)=>{ const p=iso.split('-'); return p[2]+'/'+p[1]; };
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="Evolução de ${unit === 'kg' ? 'peso' : 'cintura'}: ${arr.length} registros">
+    ${gl}${pts}<path class="ma" d="${path}"/>
+    <text class="lbl" x="${PL}" y="${H-5}">${fd(arr[0].d)}</text>
+    <text class="lbl" x="${W-PR}" y="${H-5}" text-anchor="end">${fd(arr[arr.length-1].d)}</text>
+  </svg>
+  <p class="lede" style="margin:6px 0 0;font-size:12px;">Pontos são as pesagens. A linha é a média móvel de 7 dias — é ela que importa.</p>`;
+}
+
+function flagInvalid(el, msg){
+  el.style.borderColor = 'var(--clay)';
+  el.focus();
+  let note = el.parentElement.parentElement.querySelector('.invalid');
+  if (!note){
+    note = document.createElement('p');
+    note.className = 'lede invalid';
+    note.style.cssText = 'margin:10px 0 0;font-size:13px;color:var(--clay);';
+    el.parentElement.after(note);
+  }
+  note.textContent = msg;
+}
+
+let medTab = 'peso';
+function renderMedidas(){
+  const w = getW(), c = getC(), p = pending(), v = verdict(), t = trend();
+  const fd = (iso)=>{ const q=iso.split('-'); return q[2]+'/'+q[1]; };
+
+  let h = `<div class="seg" role="group">
+    <button data-med="peso" aria-pressed="${medTab==='peso'}">Peso</button>
+    <button data-med="cintura" aria-pressed="${medTab==='cintura'}">Cintura</button>
+  </div>`;
+
+  if (medTab === 'peso'){
+    const wToday = w.length && w[w.length-1].d === today();
+    h += `<div class="card">
+      <div class="eyebrow q">${wToday ? 'Registrado hoje' : p.peso ? 'Hoje é dia de pesar' : 'Registrar peso'}</div>
+      <div class="entry">
+        <input type="text" inputmode="decimal" enterkeyhint="done"
+          id="inPeso" placeholder="58,20" ${wToday?`value="${w[w.length-1].v}"`:''}>
+        <button id="savePeso">Salvar</button>
+      </div>
+      <p class="lede" style="margin:10px 0 0;font-size:13px;">Em jejum, sem roupa, mesma balança. Segunda, quarta e sexta.</p>
+    </div>`;
+
+    if (t.ok){
+      const g = t.deltaG;
+      h += `<div class="card">
+        <div class="eyebrow q">Média móvel de 7 dias</div>
+        <div class="stat">
+          <div><b>${t.atual.toFixed(2)}</b><span>kg agora</span></div>
+          <div><b class="${g>=30?'up':g<=-30?'down':'flat'}">${g>=0?'+':''}${g} g</b><span>na semana</span></div>
+        </div>
+      </div>`;
+    }
+
+    h += `<div class="card verdict ${v.cls}">
+      <div class="eyebrow q">Leitura</div><h3>${v.h}</h3><p>${v.p}</p>
+    </div>`;
+
+    if (w.length >= 2) h += `<div class="card">${chartHTML(w,'kg')}</div>`;
+
+    if (w.length){
+      h += `<div class="card"><div class="eyebrow q">Registros</div><ul class="hist">` +
+        w.slice().reverse().slice(0,20).map(x=>
+          `<li><span class="d">${fd(x.d)}</span><span class="v">${x.v.toFixed(2)} kg</span>
+           <button class="del" data-del="peso|${x.d}" aria-label="Apagar">×</button></li>`).join('') +
+        `</ul></div>`;
+    }
+
+  } else {
+    const cToday = c.length && c[c.length-1].d === today();
+    const last = c.length ? c[c.length-1] : null;
+    h += `<div class="card">
+      <div class="eyebrow q">${cToday ? 'Registrado hoje' : p.cintura ? 'Medição vencida' : 'Registrar cintura'}</div>
+      <div class="entry">
+        <input type="text" inputmode="decimal" enterkeyhint="done"
+          id="inCint" placeholder="78,0" ${cToday?`value="${last.v}"`:''}>
+        <button id="saveCint">Salvar</button>
+      </div>
+      <p class="lede" style="margin:10px 0 0;font-size:13px;">Na altura do umbigo, em pé, sem prender a barriga, ao fim de uma expiração normal. A cada 15 dias.</p>
+    </div>`;
+
+    if (c.length >= 2){
+      const d = +(c[c.length-1].v - c[c.length-2].v).toFixed(1);
+      h += `<div class="card">
+        <div class="stat">
+          <div><b>${c[c.length-1].v.toFixed(1)}</b><span>cm agora</span></div>
+          <div><b class="${d>0.5?'down':d<-0.5?'up':'flat'}">${d>0?'+':''}${d} cm</b><span>desde a anterior</span></div>
+        </div>
+        <p class="lede" style="margin:12px 0 0;font-size:13px;">Peso subindo com cintura estável é o sinal de que o ganho é muscular. Cintura subindo mais de 1,5 cm sem ganho proporcional pede corte de 150 kcal.</p>
+      </div>`;
+    }
+    if (c.length >= 2) h += `<div class="card">${chartHTML(c,'cm')}</div>`;
+    if (c.length){
+      h += `<div class="card"><div class="eyebrow q">Registros</div><ul class="hist">` +
+        c.slice().reverse().slice(0,20).map(x=>
+          `<li><span class="d">${fd(x.d)}</span><span class="v">${x.v.toFixed(1)} cm</span>
+           <button class="del" data-del="cintura|${x.d}" aria-label="Apagar">×</button></li>`).join('') +
+        `</ul></div>`;
+    }
+  }
+
+  document.getElementById('v-medidas').innerHTML = h;
+
+  const b = document.getElementById('measBadge');
+  if (p.peso || p.cintura){ b.hidden = false; } else { b.hidden = true; }
+}
+
+/* ============ marcos do plano ============ */
+const MILESTONES = [
+  { d:28, t:'Revisar as calorias',
+    w:'Com 4 semanas de peso (3×/semana) e duas medidas de cintura, dá para saber se 2.550 kcal é superávit de verdade. Peso parado por 3 semanas: adicione 150 kcal. Cintura subindo mais de 1,5 cm sem ganho proporcional: corte 150.' },
+  { d:56, t:'Reavaliar colágeno e magnésio',
+    w:'Ficaram de fora no início para manter o experimento limpo. Com dois meses de dieta estável, dá para introduzir um de cada vez e observar.' },
+  { d:84, t:'Refazer os exames',
+    w:'HbA1c, TGP/TGO, vitamina D, mais os que faltaram: glicemia e insulina de jejum, perfil lipídico, ferritina, GGT, ácido úrico e eletroforese de hemoglobina. Jejum de 12 h e sem treinar nas 48 h anteriores.' }
+];
+
+function startDate(){
+  let s = DB.get('start', null);
+  if (!s){ s = new Date().toISOString().slice(0,10); DB.set('start', s); }
+  return s;
+}
+function daysSince(){
+  const s = new Date(startDate()+'T00:00:00');
+  const now = new Date(); now.setHours(0,0,0,0);
+  return Math.max(0, Math.round((now - s)/86400000));
+}
+function fmtDate(iso){
+  const mes = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const d = new Date(iso+'T00:00:00');
+  return `${d.getDate()} ${mes[d.getMonth()]} ${d.getFullYear()}`;
+}
+function milestoneHTML(){
+  const el = daysSince();
+  const sem = Math.floor(el/7) + 1;
+  const next = MILESTONES.find(m => m.d > el);
+  const s = startDate();
+
+  let body;
+  if (next){
+    const falta = next.d - el;
+    const alvo = new Date(new Date(s+'T00:00:00').getTime() + next.d*86400000)
+      .toISOString().slice(0,10);
+    body = `
+      <div style="display:flex;align-items:baseline;gap:10px;margin:8px 0 2px;">
+        <b style="font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:700;">${next.t}</b>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--muted);">
+        ${falta === 0 ? 'é hoje' : falta === 1 ? 'amanhã' : 'em ' + falta + ' dias'} · ${fmtDate(alvo)}
+      </div>
+      ${accs([['prep','O que fazer nesse marco', next.w]])}`;
+  } else {
+    body = `<p style="margin:8px 0 0;font-size:15px;">Os três marcos já passaram. Se os exames foram refeitos, vale recomeçar a contagem com a data da nova coleta.</p>`;
+  }
+
+  return `<div class="card">
+    <div class="eyebrow q">Semana ${sem} · próximo marco</div>
+    ${body}
+    <details class="acc" style="margin-top:12px;">
+      <summary><span class="ico" style="background:var(--muted)">i</span>Início em ${fmtDate(s)}<span class="plus">+</span></summary>
+      <div class="inner">
+        <p style="margin:0 0 10px;">Se a contagem não bate, corrija a data em que você começou este plano.</p>
+        <input type="date" id="startInput" value="${s}"
+          style="width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;
+                 font-family:'IBM Plex Mono',monospace;font-size:15px;background:#fff;color:var(--ink);">
+      </div>
+    </details>
+  </div>`;
+}
+
+/* ============ tela AGORA ============ */
+function renderAgora(){
+  const list = meals(), t = nowMin();
+  let current = null, next = null;
+  for (let i=0;i<list.length;i++){
+    const m = list[i], end = (list[i+1] ? list[i+1].min : 1440);
+    if (t >= m.min && t < end){ current = m; next = list[i+1] || null; break; }
+  }
+  if (!current){
+    if (t < list[0].min){ next = list[0]; }
+    else { next = null; }
+  }
+
+  const done = list.filter(m => t >= m.min);
+  const eaten = done.reduce((s,m)=>s+m.kcal,0);
+  const eatenP = done.reduce((s,m)=>s+m.ptn,0);
+  const tg = TARGETS[dayType];
+
+  let h = '';
+
+  if (current){
+    h += `<div class="card now">
+      <div class="eyebrow">Refeição atual</div>
+      <h2>${current.name}</h2>
+      <div class="when">previsto para ${current.time}${current.tag? ' · '+current.tag : ''}</div>
+      <div class="macroline">
+        <div><b>${current.kcal}</b><span>kcal</span></div>
+        <div><b>${current.ptn} g</b><span>proteína</span></div>
+      </div>
+      <button class="btn" data-meal="${current.id}">Ver o que comer</button>
+    </div>`;
+  } else {
+    const first = list[0];
+    h += `<div class="card now">
+      <div class="eyebrow">O dia ainda não começou</div>
+      <h2>Primeira refeição às ${first.time}</h2>
+      <div class="when">${dayType==='treino'?'dia de treino':'dia sem treino'}</div>
+      <div class="macroline">
+        <div><b>${tg.kcal}</b><span>meta do dia</span></div>
+        <div><b>${tg.ptn} g</b><span>proteína</span></div>
+      </div>
+      <button class="btn" data-meal="${first.id}">Ver o café da manhã</button>
+    </div>`;
+  }
+
+  if (next){
+    h += `<button class="card next" data-meal="${next.id}" style="width:100%;text-align:left;">
+      <span class="k">a seguir</span>
+      <span class="t">${next.time}</span>
+      <span class="n">${next.name}</span>
+    </button>`;
+  } else if (current) {
+    h += `<div class="card next"><span class="t">00:00</span><span class="n">Dormir</span>
+      <span class="k">última do dia</span></div>`;
+  }
+
+  h += timelineHTML();
+
+  const pc = (a,b)=>Math.min(100, Math.round(a/b*100));
+  h += `<div class="card">
+    <div class="eyebrow q" style="margin-bottom:14px;">Acumulado até agora</div>
+    <div class="bars">
+      <div class="bar-row">
+        <div class="top"><span class="lbl">Calorias</span><span class="val">${eaten} <em>/ ${tg.kcal}</em></span></div>
+        <div class="track"><i style="width:${pc(eaten,tg.kcal)}%;background:var(--turmeric)"></i></div>
+      </div>
+      <div class="bar-row">
+        <div class="top"><span class="lbl">Proteína</span><span class="val">${eatenP} g <em>/ ${tg.ptn} g</em></span></div>
+        <div class="track"><i style="width:${pc(eatenP,tg.ptn)}%;background:var(--teal)"></i></div>
+      </div>
+    </div>
+    <p class="lede" style="margin:14px 0 0;font-size:13px;">Conta pelas refeições cujo horário já passou. Não é registro do que você comeu.</p>
+  </div>`;
+
+  const pend = pending();
+  if (pend.peso || pend.cintura){
+    const ambos = pend.peso && pend.cintura;
+    const titulo = ambos ? 'Hoje tem peso e cintura'
+                 : pend.peso ? 'Hoje é dia de pesar'
+                 : 'A cintura está vencida';
+    const dica = ambos ? 'Em jejum, antes do café · umbigo, sem prender a barriga'
+               : pend.peso ? 'Em jejum, sem roupa, antes do café'
+               : 'Na altura do umbigo, sem prender a barriga';
+    const rotulo = ambos ? 'Registrar' : pend.peso ? 'Pesar' : 'Medir';
+    h += `<div class="card prompt">
+      <span class="ic">
+        <svg viewBox="0 0 24 24"><path d="M4 15h16M6 15V9.5a6 6 0 0 1 12 0V15M12 15v4"/><path d="M9.5 12.5 12 10l2.5 2.5"/></svg>
+      </span>
+      <span class="txt"><b>${titulo}</b><span>${dica}</span></span>
+      <button class="go" data-go="medidas">${rotulo}</button>
+    </div>`;
+  }
+
+  h += milestoneHTML();
+
+  if (dayType === 'treino'){
+    h += `<div class="card" style="border-color:var(--clay);">
+      <div class="eyebrow" style="color:var(--clay)">Regra do dia</div>
+      <p style="margin:8px 0 0;font-size:15px;">Café até <b>13h</b>. A meia-vida da cafeína é de 5 a 6 horas — o café das 13h ainda tem cerca de 25% ativo à meia-noite.</p>
+    </div>`;
+  } else {
+    h += `<div class="card" style="border-color:var(--teal);">
+      <div class="eyebrow" style="color:var(--teal)">O ganho do dia sem treino</div>
+      <p style="margin:8px 0 0;font-size:15px;">Última refeição às 20h30, sem treino noturno. É o dia mais fácil da semana para <b>dormir cedo</b> — o ambiente fisiológico já está a favor.</p>
+    </div>`;
+  }
+
+  document.getElementById('v-agora').innerHTML = h;
+}
+
+/* ============ tela REFEIÇÕES ============ */
+function renderRefeicoes(){
+  const list = meals(), t = nowMin(), tg = TARGETS[dayType];
+  let h = `<p class="lede">${dayType==='treino'
+      ? 'Dia de treino: cinco refeições, ' + tg.kcal + ' kcal.'
+      : 'Dia sem treino: quatro refeições, ' + tg.kcal + ' kcal. Sai o pré-treino e o arroz do almoço volta para 150 g.'}</p>`;
+  list.forEach((m,i)=>{
+    const end = list[i+1] ? list[i+1].min : 1440;
+    const isNow = t >= m.min && t < end;
+    h += `<button class="mealrow ${isNow?'now-row':''}" data-meal="${m.id}">
+      <span class="time">${m.time}</span>
+      <span class="body"><b>${m.name}${isNow?'<span class="tagnow">agora</span>':''}</b><span>${m.kcal} kcal · ${m.ptn} g proteína${m.tag?' · '+m.tag:''}</span></span>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>`;
+  });
+  h += `<div class="card" style="margin-top:14px;">
+    <div class="eyebrow q">Meta do dia</div>
+    <table style="margin-top:10px;">
+      <tr><td>Calorias</td><td class="n">${tg.kcal}</td></tr>
+      <tr><td>Proteína</td><td class="n">${tg.ptn} g</td></tr>
+      <tr><td>Carboidrato</td><td class="n">${tg.carb} g</td></tr>
+      <tr class="sum"><td>Gordura</td><td class="n">${tg.gord} g</td></tr>
+    </table>
+  </div>`;
+  document.getElementById('v-refeicoes').innerHTML = h;
+}
+
+/* ============ tela COMPRAS ============ */
+function shopKey(g,i){ return g+'|'+i; }
+function renderCompras(){
+  const state = DB.get('shop',{});
+  let total=0, done=0;
+  let h = ``;
+  SHOP.forEach(([grp,items])=>{
+    const marked = items.filter((_,i)=>state[shopKey(grp,i)]).length;
+    total += items.length; done += marked;
+    h += `<div class="grp ${marked===items.length?'full':''}">
+      <h3>${grp}<span class="c">${marked}/${items.length}</span></h3><ul>`;
+    items.forEach(([n,q],i)=>{
+      const k = shopKey(grp,i);
+      h += `<li><label><input type="checkbox" data-shop="${k}" ${state[k]?'checked':''}>
+        <span>${n}${q?`<span class="qty">${q}</span>`:''}</span></label></li>`;
+    });
+    h += `</ul></div>`;
+  });
+  h += `<button class="btn quiet" id="clearShop" style="margin-top:6px;">Desmarcar tudo</button>`;
+
+  const summary = done === 0
+    ? `<p class="lede">Uma compra por semana, a mesma para dias de treino e de descanso. Marque conforme pegar — fica salvo mesmo se você fechar o app.</p>`
+    : done === total
+      ? `<div class="card" style="border-color:var(--teal);background:#F5F8F3;padding:16px 18px;">
+           <div class="eyebrow" style="color:var(--teal)">Lista completa</div>
+           <p style="margin:6px 0 0;font-size:15px;">Os ${total} itens estão marcados. Use "Desmarcar tudo" no fim da página para começar a próxima semana.</p>
+         </div>`
+      : `<div class="card" style="padding:16px 18px;">
+           <div class="bar-row">
+             <div class="top"><span class="lbl">Progresso da compra</span>
+               <span class="val">${done} <em>/ ${total}</em></span></div>
+             <div class="track"><i style="width:${Math.round(done/total*100)}%;background:var(--teal)"></i></div>
+           </div>
+           <p class="lede" style="margin:12px 0 0;font-size:13px;">Faltam ${total-done} itens — é esse número que aparece no ícone de Compras.</p>
+         </div>`;
+
+  document.getElementById('v-compras').innerHTML = summary + h;
+
+  const badge = document.getElementById('cartBadge');
+  const left = total - done;
+  if (done > 0 && left > 0){ badge.hidden = false; badge.textContent = left; }
+  else { badge.hidden = true; badge.textContent = ''; }
+}
+
+/* ============ tela GUIA ============ */
+const GUIDE = {
+  prep:{ title:'Prep de domingo', html:`
+    <p class="lede">90 minutos, tudo em paralelo: pressão no fogão, assadeira no forno, panela de arroz. O tempo ativo real é menor que o relógio.</p>
+    <ol class="steps">
+      <li><b>Frango — 1,2 kg.</b> Pressão com sal, alho e louro, 25 min. Desfie ainda morno. Divida em 5 potes.</li>
+      <li><b>Carne moída — 500 g.</b> Refogue com cebola e tomate. Congela bem; é a proteína de terça e quinta.</li>
+      <li><b>Arroz integral — 1 kg cozido.</b> Com cenoura ralada, açafrão e pimenta-do-reino. Porções de 200 g.</li>
+      <li><b>Feijão carioca com legumes.</b> Volume da semana; congele metade.</li>
+      <li><b>Legumes assados.</b> Berinjela, abobrinha, cenoura e brócolis na mesma assadeira, 200 °C por 35 min.</li>
+      <li><b>Batata-doce — 1 kg.</b> Em cubos, mesma assadeira se couber.</li>
+      <li><b>5 ovos cozidos, guarde com casca.</b> Um por dia útil, para a pasta. Resfrie em água gelada 5 min: interrompe o cozimento e evita o anel esverdeado.</li>
+      <li><b>Monte as 5 marmitas.</b> Três na geladeira, duas no congelador — tire na quarta à noite.</li>
+    </ol>
+    ${accs([
+      ['prep','Todo fim de noite, 3 minutos','Abra a lata de sardinha, escorra o excesso de óleo, amasse com 1 ovo cozido e limão. Divida em dois potes — um para o café, outro para a bolsa. Faça enquanto o chá esquenta.'],
+      ['why','Detalhes que importam','<b>Potes de vidro</b> aquecem melhor e não retêm cheiro — importante com sardinha, que impregna plástico permanentemente. Guarde na prateleira do meio ou de baixo, nunca na porta.<br><br><b>Legumes que aguentam reaquecimento:</b> cenoura, abobrinha, berinjela, brócolis, couve-flor. Evite folhas cozidas — viram lodo.<br><br><b>Não lave os ovos antes de cozinhar:</b> a casca tem uma película natural que protege contra micro-organismos.']
+    ])}`},
+
+  compra:{ title:'Como comprar', html:`
+    <p class="lede">Pão, whey e vitamina D são as três compras em que a embalagem engana. Critérios em vez de marcas: marca muda, critério não.</p>
+    <h3 class="sec">Pão integral</h3>
+    <ol class="steps">
+      <li>Farinha de trigo <b>integral</b> como primeiro ingrediente. Cuidado: "farinha de trigo enriquecida com ferro e ácido fólico" é farinha branca.</li>
+      <li>Pelo menos <b>3 g de fibra</b> por porção de 50 g.</li>
+      <li>Lista de ingredientes curta. Oito a dez aditivos é comum na categoria.</li>
+      <li>Sem açúcar adicionado — e sem sucralose.</li>
+    </ol>
+    ${accs([['why','O rótulo mente com frequência','Um levantamento com 21 pães rotulados como "integral" encontrou que em 28,6% deles a farinha integral <b>nem era o primeiro ingrediente</b>, e 76,2% continham algum tipo de açúcar.<br><br><b>Em ordem de preferência:</b> padaria de fermentação natural → pão de centeio integral → linhas "100% integral" das marcas grandes.<br><br>Seu pão atual (35% integral) não é ruim, só é menos do que anuncia. Se passar em três dos quatro critérios, mantenha.']])}
+    <h3 class="sec">Whey protein</h3>
+    <p style="margin:0 0 10px;"><b>Concentrado, não isolado.</b> Você não tem intolerância à lactose e não está em cutting.</p>
+    <table>
+      <tr><td>Proteína por scoop de 30 g</td><td class="n"><b>≥ 22 g</b></td></tr>
+      <tr><td>Primeiro ingrediente</td><td class="n">proteína do soro</td></tr>
+      <tr><td>Registro ANVISA</td><td class="n">obrigatório</td></tr>
+      <tr class="sum"><td>Métrica de compra</td><td class="n">R$ / g de proteína</td></tr>
+    </table>
+    ${accs([['warn','Duas armadilhas','<b>Dose inflada:</b> algumas marcas usam scoop de 40 g para declarar "25 g de proteína" — normalizando para 30 g isso dá 18,8 g, abaixo da média. Normalize antes de comparar.<br><br><b>Adulteração:</b> em 2024 a Senacon determinou a suspensão da venda de 48 produtos de whey com suspeita de adulteração. Prefira marcas grandes que publicam laudos.']])}
+    <h3 class="sec">Vitamina D3</h3>
+    <table>
+      <tr><td>Forma</td><td class="n"><b>Colecalciferol (D3)</b></td></tr>
+      <tr><td>Dose</td><td class="n">2.000 UI/dia</td></tr>
+      <tr><td>Apresentação</td><td class="n">cápsula oleosa</td></tr>
+      <tr class="sum"><td>Quando</td><td class="n">no café da manhã</td></tr>
+    </table>
+    ${accs([['warn','Evite as megadoses','Frascos de 50.000 UI semanais existem para tratamento de deficiência sob acompanhamento médico. Seu valor é 29,1 — subótimo, não deficiente. 2.000 UI/dia levam você a 35–45 ng/mL em 8 a 12 semanas.<br><br>D2 (ergocalciferol) é menos eficaz — confira que é D3. Não precisa da versão com cálcio: sardinha com espinha e laticínios já cobrem.']])}`},
+
+  sup:{ title:'Suplementos', html:`
+    <p class="lede">Poucos, com motivo. Adicionar três coisas ao mesmo tempo impede saber o que funcionou.</p>
+    <table>
+      <tr><th>Suplemento</th><th>Dose</th><th>Quando</th></tr>
+      <tr><td><b>Creatina</b></td><td>5 g</td><td>Qualquer horário, todo dia</td></tr>
+      <tr><td><b>Vitamina D3</b></td><td>2.000 UI</td><td>No café, com gordura</td></tr>
+      <tr><td><b>Whey</b></td><td>1 scoop</td><td>Só no café opção B</td></tr>
+      <tr class="sum"><td><b>Testo Black</b></td><td colspan="2"><span class="flag act">Descontinuar</span></td></tr>
+    </table>
+    ${accs([
+      ['warn','Por que descontinuar o Testo Black','Seus exames encerram a discussão: testosterona total 517 ng/dL e livre 11,52 ng/dL são valores sólidos para 38 anos — não há o que "elevar". O produto contém um vasodilatador de classe prescritiva em dose farmacológica plena, com meia-vida de ~17,5 h, o que significa exposição sistêmica contínua no uso diário. Mialgia lombar é efeito adverso conhecido. Não termine o pote.'],
+      ['why','Creatina e os que ficaram de fora','Creatina é o suplemento com mais evidência que existe. Horário é irrelevante; consistência não — inclusive nos dias de descanso, porque o mecanismo é saturação, não estímulo agudo.<br><br><b>Colágeno e magnésio ficam de fora por enquanto.</b> Não por serem inúteis: para manter o experimento limpo. Reavaliamos em 8 semanas.']
+    ])}`},
+
+  micro:{ title:'Micronutrientes', html:`
+    <p class="lede">Micronutriente não constrói músculo, mas deficiência derruba desempenho, recuperação e pele. Seu plano cobre quase tudo — por causa de dois alimentos.</p>
+    ${accs([['why','A sardinha é o item mais valioso da sua dieta','Ela entrega simultaneamente ômega-3 (EPA/DHA), cálcio pela espinha, vitamina D, selênio, B12 e iodo. Pouquíssimos alimentos fazem isso. Os ovos cobrem colina, vitamina A e mais B12. Juntos, resolvem a maior parte do painel.']])}
+    <table style="margin-top:14px;">
+      <tr><th>Nutriente</th><th class="n">Situação</th></tr>
+      <tr><td>Cálcio<span class="qty">sardinha, quark, leite</span></td><td class="n"><span class="flag ok">~1.100 mg</span></td></tr>
+      <tr><td>Ômega-3<span class="qty">sardinha diária</span></td><td class="n"><span class="flag ok">1–2 g/dia</span></td></tr>
+      <tr><td>Colina<span class="qty">4–5 ovos</span></td><td class="n"><span class="flag ok">~500 mg</span></td></tr>
+      <tr><td>Selênio<span class="qty">1 castanha-do-pará</span></td><td class="n"><span class="flag ok">100%</span></td></tr>
+      <tr><td>Magnésio, potássio, zinco, folato</td><td class="n"><span class="flag ok">Adequados</span></td></tr>
+      <tr><td>Vitaminas A, E e B12</td><td class="n"><span class="flag ok">Adequadas</span></td></tr>
+      <tr><td>Fibra</td><td class="n"><span class="flag ok">35–45 g</span></td></tr>
+      <tr><td>Vitamina C</td><td class="n"><span class="flag watch">Reforçar</span></td></tr>
+      <tr><td>Ferro</td><td class="n"><span class="flag act">Não suplementar</span></td></tr>
+      <tr class="sum"><td>Sódio</td><td class="n"><span class="flag watch">Não add sal</span></td></tr>
+    </table>
+    ${accs([
+      ['warn','Vitamina C — o único gap real','Maçã, banana, pera e uva são pobres em vitamina C. Isso importa para dois dos seus objetivos: é cofator obrigatório na síntese de colágeno (pele) e melhora a absorção do ferro do feijão.<br><br><b>Correção:</b> meio limão na salada do almoço <b>e</b> goiaba, kiwi, morango ou acerola na rotação. Uma goiaba tem mais vitamina C que quatro laranjas.'],
+      ['warn','Ferro — não suplemente por conta própria','Seu hemograma tem microcitose. Se a causa for traço talassêmico, suplementar ferro sem deficiência real leva a sobrecarga, que é hepatotóxica — e você já tem TGP alterada. Espere ferritina e eletroforese.'],
+      ['why','Micronutrientes e a pele','Com evidência: vitamina C (colágeno) — <i>reforçar</i>; ômega-3 (barreira cutânea) — <i>excelente</i>; zinco, vitamina A e vitamina E — <i>adequados</i>.<br><br><b>A parte desconfortável:</b> nada disso chega perto do impacto de protetor solar diário e sono adequado. Fotoenvelhecimento responde pela maior parte do envelhecimento cutâneo visível.']
+    ])}`},
+
+  regras:{ title:'Regras', html:`
+    <p class="lede">Seis decisões já tomadas. Não precisam ser revisitadas toda semana.</p>
+    ${accs([
+      ['warn','Café até 13h. Sem exceção.','A meia-vida da cafeína é de 5 a 6 horas. O café das 13h ainda tem cerca de 25% ativo à meia-noite. Somado ao treino noturno, é a explicação mais provável para você dormir às 2h. Maior impacto e custo zero do plano inteiro.'],
+      ['warn','Uma castanha-do-pará por dia. Nunca cinco.','Uma unidade cobre 100% da necessidade de selênio. Cinco ultrapassam o limite tolerável de 400 mcg e, no uso contínuo, levam a selenose. É o tipo de nutriente em que "mais" vira problema rápido.'],
+      ['warn','Chai industrializado: esporádico, nunca rotina.','O primeiro ingrediente do pó é açúcar, declarado mais de uma vez (mais xarope de glicose) — cerca de 12 a 14 g nos seus 20 g, o equivalente a 3 colheres de chá. Com HbA1c em 6,1%, açúcar isolado entre refeições é a única coisa na rotina que trabalha ativamente contra você.'],
+      ['prep','Chai caseiro é a versão de verdade','200 ml de leite + 1 sachê de chá preto + 1 pau de canela + 2 cravos + 1 fatia de gengibre. Aqueça sem ferver por 5 min e coe. Isso <i>é</i> chai — a bebida original é exatamente isso. Para adoçar, ½ colher de chá de mel são 10 kcal no lugar de 60.'],
+      ['prep','Marmita todo dia útil','Comer fora custava a pesagem, o custo e o controle. Com marmita, os 795 kcal do almoço são realmente 795 kcal.'],
+      ['warn','Não corte calorias para "revelar" o abdômen','Com 1,64 m e 58 kg, seu IMC é 21,6 — você já é magro. O six-pack virá de mais espessura no reto abdominal, não de menos gordura: músculo mais espesso projeta e cria relevo no mesmo percentual. Cortando calorias você chega a 55 kg parecendo menor, não mais definido.']
+    ])}`},
+
+  exames:{ title:'Exames e acompanhamento', html:`
+    <p class="lede">Painel de outubro de 2025 — antes do treino e da dieta. Serve como linha de base e como lista do que refazer.</p>
+    <table>
+      <tr><th>Marcador</th><th class="n">Valor</th><th class="n">Situação</th></tr>
+      <tr><td>HbA1c</td><td class="n">6,1 %</td><td class="n"><span class="flag act">Pré-diabetes</span></td></tr>
+      <tr><td>TGP (ALT)</td><td class="n">51 U/L</td><td class="n"><span class="flag act">Acima</span></td></tr>
+      <tr><td>VCM / HCM</td><td class="n">76,9 / 25,3</td><td class="n"><span class="flag watch">Investigar</span></td></tr>
+      <tr><td>Vitamina D</td><td class="n">29,1</td><td class="n"><span class="flag watch">Subótima</span></td></tr>
+      <tr><td>Testosterona total</td><td class="n">517</td><td class="n"><span class="flag ok">Sólida</span></td></tr>
+      <tr><td>Testosterona livre</td><td class="n">11,52</td><td class="n"><span class="flag ok">Sólida</span></td></tr>
+      <tr><td>TSH / T4 livre</td><td class="n">1,24 / 1,01</td><td class="n"><span class="flag ok">Impecável</span></td></tr>
+      <tr><td>Vitamina B12</td><td class="n">684</td><td class="n"><span class="flag ok">Ótima</span></td></tr>
+      <tr class="sum"><td>Função renal (TFG)</td><td class="n">&gt; 90</td><td class="n"><span class="flag ok">Normal</span></td></tr>
+    </table>
+    ${accs([
+      ['warn','A1c 6,1% + TGP 51 contam a mesma história','TGP alta com TGO normal costuma apontar esteatose hepática, que caminha junto com resistência à insulina. Existe esteatose em pessoas magras, associada a gordura visceral — o que pode explicar, inclusive, a camada abdominal que te incomoda.'],
+      ['why','O padrão do hemograma que ninguém comentou','Muitas hemácias (5,66 mi), todas pequenas (VCM 76,9), com hemoglobina e RDW normais. Esse conjunto é característico de <b>traço talassêmico</b> — condição genética benigna, sem sintomas e sem tratamento. Importa por um motivo específico: hemoglobinopatias interferem na dosagem de HbA1c por HPLC, que foi o método usado. O 6,1% pode estar distorcido. A eletroforese de hemoglobina responde isso de forma definitiva.'],
+      ['prep','O que pedir na próxima coleta','<b>Que faltaram:</b> glicemia de jejum, insulina de jejum (permite calcular HOMA-IR), perfil lipídico completo, ferritina + ferro + saturação de transferrina, GGT, ácido úrico, eletroforese de hemoglobina.<br><br><b>Repetir:</b> HbA1c, TGP e TGO, 25(OH) vitamina D.<br><br>Jejum de 12 h e <b>sem treinar nas 48 h anteriores</b> — exercício intenso eleva transaminases e mascara o TGP.'],
+      ['prep','Acompanhamento semanal','<b>Peso:</b> 3×/semana, em jejum, mesma balança. A média semanal deve subir 50 a 75 g.<br><b>Cintura:</b> no umbigo, a cada 15 dias.<br><br>Peso subindo e cintura estável = funcionando.<br>Cintura +1,5 cm sem ganho proporcional = corte 150 kcal.<br>Peso parado por 3 semanas = adicione 150 kcal.']
+    ])}`}
+};
+
+function renderGuia(){
+  const it = [
+    ['prep','Prep de domingo','90 min que resolvem a semana'],
+    ['compra','Como comprar','Critérios de rótulo: pão, whey, vitamina D'],
+    ['sup','Suplementos','O que entra e o que sai'],
+    ['micro','Micronutrientes','O que a dieta já cobre e o que falta'],
+    ['regras','Regras','Seis decisões já tomadas'],
+    ['exames','Exames','Linha de base e o que refazer']
+  ];
+  let h = `<div class="menu">`;
+  it.forEach(([k,t,s])=>{
+    h += `<button data-guide="${k}"><span class="body">${t}<span class="sub">${s}</span></span>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>`;
+  });
+  h += `</div>
+  <div class="foot">
+    <b>Plano alimentar — versão 3.</b> Frente 2 de 3 (Exercícios · Alimentação · Sono).<br><br>
+    Valores nutricionais são estimativas a partir das porções e servem como referência de trabalho, não como medida exata. Este app não substitui avaliação médica ou de nutricionista — em especial quanto aos achados de HbA1c, TGP e hemograma, que precisam de investigação clínica.
+  </div>`;
+  document.getElementById('v-guia').innerHTML = h;
+}
+
+/* ============ sheet ============ */
+const sheet = document.getElementById('sheet');
+function openSheet(title, html){
+  document.getElementById('sheetTitle').textContent = title;
+  document.getElementById('sheetBody').innerHTML = html;
+  document.getElementById('sheetBody').scrollTop = 0;
+  sheet.classList.add('open');
+  sheet.setAttribute('aria-hidden','false');
+  history.pushState({sheet:true},'');
+}
+function closeSheet(){
+  sheet.classList.remove('open');
+  sheet.setAttribute('aria-hidden','true');
+}
+function openMeal(id){
+  const m = meals().find(x=>x.id===id);
+  if (!m) return;
+  let h = `<div class="card" style="margin-bottom:14px;">
+    <div class="eyebrow">${m.time}${m.tag? ' · '+m.tag : ''}</div>
+    ${mealTable(m)}
+  </div>${accs(m.acc)}`;
+  if (m.alt){
+    h += `<h3 class="sec">${m.alt.name}</h3>
+      <div class="card" style="margin-bottom:14px;">${mealTable(m.alt)}</div>${accs(m.alt.acc)}`;
+  }
+  openSheet(m.name, h);
+}
+
+/* ============ navegação ============ */
+const TITLES = { agora:'Hoje', refeicoes:'Refeições', compras:'Compras', medidas:'Medidas', guia:'Guia' };
+function go(v){
+  view = v;
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('active'));
+  document.getElementById('v-'+v).classList.add('active');
+  document.querySelectorAll('.tabbar button').forEach(b=>{
+    if (b.dataset.go===v) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
+  });
+  document.getElementById('viewTitle').textContent = TITLES[v];
+  const dt = document.getElementById('dayToggle');
+  const relevant = (v === 'agora' || v === 'refeicoes');
+  dt.hidden = !relevant;
+  document.getElementById('main').scrollTop = 0;
+  if (v==='agora') renderAgora();
+  if (v==='refeicoes') renderRefeicoes();
+  if (v==='medidas') renderMedidas();
+}
+
+/* ============ topo: data e hora ============ */
+function renderTop(){
+  const d = new Date();
+  const dias = ['dom','seg','ter','qua','qui','sex','sáb'];
+  const mes = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const hh = String(d.getHours()).padStart(2,'0'), mm = String(d.getMinutes()).padStart(2,'0');
+  document.getElementById('todayLabel').textContent =
+    `${dias[d.getDay()]}, ${d.getDate()} ${mes[d.getMonth()]} · ${hh}:${mm}`;
+}
+
+function setDay(type){
+  dayType = type; DB.set('dayType', type);
+  document.getElementById('btTreino').setAttribute('aria-pressed', String(type==='treino'));
+  document.getElementById('btDescanso').setAttribute('aria-pressed', String(type==='descanso'));
+  renderTop(); renderAgora(); renderRefeicoes();
+}
+
+/* ============ eventos ============ */
+document.addEventListener('click', (e)=>{
+  const tab = e.target.closest('.tabbar button');
+  if (tab){ go(tab.dataset.go); return; }
+
+  const goBtn = e.target.closest('.card [data-go]');
+  if (goBtn){ go(goBtn.dataset.go); return; }
+
+  const seg = e.target.closest('[data-med]');
+  if (seg){ medTab = seg.dataset.med; renderMedidas(); return; }
+
+  if (e.target.closest('#savePeso')){
+    const el = document.getElementById('inPeso');
+    const v = parseFloat(String(el.value).replace(',','.'));
+    if (isFinite(v) && v >= 30 && v <= 200){ addM('peso', +v.toFixed(2)); renderMedidas(); renderAgora(); }
+    else { flagInvalid(el, 'Digite um peso entre 30 e 200 kg.'); }
+    return;
+  }
+  if (e.target.closest('#saveCint')){
+    const el = document.getElementById('inCint');
+    const v = parseFloat(String(el.value).replace(',','.'));
+    if (isFinite(v) && v >= 50 && v <= 150){ addM('cintura', +v.toFixed(1)); renderMedidas(); renderAgora(); }
+    else { flagInvalid(el, 'Digite uma medida entre 50 e 150 cm.'); }
+    return;
+  }
+  const del = e.target.closest('[data-del]');
+  if (del){
+    const [k,d] = del.dataset.del.split('|');
+    delM(k,d); renderMedidas(); renderAgora();
+    return;
+  }
+
+  const meal = e.target.closest('[data-meal]');
+  if (meal){ openMeal(meal.dataset.meal); return; }
+
+  const g = e.target.closest('[data-guide]');
+  if (g){ const s = GUIDE[g.dataset.guide]; openSheet(s.title, s.html); return; }
+
+  if (e.target.closest('#sheetBack')){ history.back(); return; }
+
+  if (e.target.closest('#clearShop')){
+    DB.set('shop',{}); renderCompras(); return;
+  }
+});
+
+document.addEventListener('change', (e)=>{
+  const cb = e.target.closest('[data-shop]');
+  if (!cb) return;
+  const st = DB.get('shop',{});
+  if (cb.checked) st[cb.dataset.shop]=1; else delete st[cb.dataset.shop];
+  DB.set('shop', st);
+  renderCompras();
+});
+
+document.addEventListener('change', (e)=>{
+  const inp = e.target.closest('#startInput');
+  if (!inp || !inp.value) return;
+  DB.set('start', inp.value);
+  renderAgora();
+});
+
+document.getElementById('btTreino').addEventListener('click', ()=>setDay('treino'));
+document.getElementById('btDescanso').addEventListener('click', ()=>setDay('descanso'));
+
+window.addEventListener('popstate', ()=>{ if (sheet.classList.contains('open')) closeSheet(); });
+
+/* re-render ao voltar para o app e a cada minuto */
+document.addEventListener('visibilitychange', ()=>{ if (!document.hidden){ renderTop(); renderAgora(); renderRefeicoes(); } });
+setInterval(()=>{ renderTop(); if (view==='agora') renderAgora(); }, 60000);
+
+/* ============ boot ============ */
+setDay(dayType);
+renderCompras();
+renderMedidas();
+renderGuia();
+go('agora');
+
+if ('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
 </script>
 </body>
 </html>
