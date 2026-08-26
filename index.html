@@ -381,7 +381,7 @@ ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;le
       <span>Compras</span><span class="badge" id="cartBadge" hidden></span>
     </button>
     <button data-go="medidas">
-      <svg viewBox="0 0 24 24"><path d="M4 15h16M6 15V9.5a6 6 0 0 1 12 0V15M12 15v4"/><path d="M9.5 12.5 12 10l2.5 2.5"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="2.5" y="7.5" width="19" height="9" rx="2.5"/><path d="M6 7.5v3.6M9.5 7.5v2.2M13 7.5v3.6M16.5 7.5v2.2M20 7.5v3.6"/></svg>
       <span>Medidas</span><span class="badge" id="measBadge" hidden>!</span>
     </button>
     <button data-go="guia">
@@ -981,7 +981,7 @@ function renderAgora(){
     const rotulo = ambos ? 'Registrar' : pend.peso ? 'Pesar' : 'Medir';
     h += `<div class="card prompt">
       <span class="ic">
-        <svg viewBox="0 0 24 24"><path d="M4 15h16M6 15V9.5a6 6 0 0 1 12 0V15M12 15v4"/><path d="M9.5 12.5 12 10l2.5 2.5"/></svg>
+        <svg viewBox="0 0 24 24"><rect x="2.5" y="7.5" width="19" height="9" rx="2.5"/><path d="M6 7.5v3.6M9.5 7.5v2.2M13 7.5v3.6M16.5 7.5v2.2M20 7.5v3.6"/></svg>
       </span>
       <span class="txt"><b>${titulo}</b><span>${dica}</span></span>
       <button class="go" data-go="medidas">${rotulo}</button>
