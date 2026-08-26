@@ -262,9 +262,14 @@ main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;background:v
 table{width:100%;border-collapse:collapse;font-size:15px;}
 th{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
   color:var(--muted);font-weight:500;text-align:left;padding:0 6px 8px 0;border-bottom:1px solid var(--line);}
-th.n,td.n{text-align:right;padding-right:0;white-space:nowrap;}
+th.n,td.n{text-align:right;padding-right:0;white-space:nowrap;
+  font-variant-numeric:tabular-nums;}
 td{padding:11px 6px 11px 0;border-bottom:1px solid #EDF0E8;vertical-align:top;}
 td.n{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);}
+/* separa as colunas numericas: o atalho `padding` de td zera o lado esquerdo */
+th.n,td.n{padding-left:20px;}
+td.n:last-child,th.n:last-child{min-width:44px;}
+td.n:not(:last-child){color:var(--ink);}
 tr.sum td{border-bottom:none;font-weight:700;padding-top:12px;}
 .qty{display:block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);margin-top:2px;}
 
