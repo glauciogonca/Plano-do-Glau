@@ -49,15 +49,20 @@ button{font-family:inherit;border:none;background:none;color:inherit;cursor:poin
   text-transform:uppercase;color:#9CB0A4;}
 .viewtitle{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:21px;
   letter-spacing:-.015em;margin:2px 0 0;}
-.daytoggle{margin-left:auto;display:flex;background:rgba(255,255,255,.10);border-radius:100px;padding:3px;}
+.daywrap{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.daywrap[hidden]{display:none;}
+.daylbl{font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:.16em;
+  text-transform:uppercase;color:#7E9186;padding-right:4px;}
+.daytoggle{display:flex;background:rgba(255,255,255,.10);border-radius:100px;padding:3px;}
 .daytoggle button{
-  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;
-  text-transform:uppercase;padding:7px 12px;border-radius:100px;color:#9CB0A4;
-  transition:background .16s,color .16s;
+  font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.04em;
+  text-transform:uppercase;padding:7px 9px;border-radius:100px;color:#9CB0A4;
+  transition:background .16s,color .16s;white-space:nowrap;
 }
+@media (max-width:370px){ .daytoggle button{font-size:8.5px;padding:7px 7px;} }
 .daytoggle button[aria-pressed="true"]{background:var(--turmeric);color:#fff;font-weight:600;}
 
-.daytoggle[hidden]{display:none;}
+
 
 /* ---------- medidas ---------- */
 .card.prompt{background:var(--teal);color:#fff;border-color:var(--teal);padding:15px 16px;
@@ -142,6 +147,20 @@ button{font-family:inherit;border:none;background:none;color:inherit;cursor:poin
   border:2px solid var(--line);box-sizing:border-box;z-index:1;}
 .tl-item.past .tl-dot{background:var(--turmeric);border-color:var(--turmeric);}
 .tl-item.cur .tl-dot{width:13px;height:13px;background:var(--turmeric);border-color:var(--turmeric);}
+.tl-tick{width:3px;height:15px;border-radius:2px;background:var(--line);margin:-1px 0;z-index:1;}
+.tl-item.past .tl-tick{background:var(--teal);}
+.tl-item.cur .tl-tick{background:var(--teal);width:4px;height:17px;margin:-2px 0;}
+.tl-item.train .tl-t{color:var(--muted);}
+.tl-item.train .tl-n{font-style:italic;letter-spacing:.02em;}
+.tl-item.train.cur .tl-t,.tl-item.train.cur .tl-n{color:var(--teal);font-weight:600;}
+
+.trainrow{display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  padding:12px 6px 14px;border-bottom:1px solid var(--line);margin:2px 0 12px;background:none;}
+.trainrow .t{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);flex:0 0 auto;}
+.trainrow .n{font-weight:600;font-size:15px;color:var(--ink-2);}
+.trainrow .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-left:auto;}
+.trainrow.cur .t,.trainrow.cur .n{color:var(--teal);}
 .tl-t{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);line-height:1;}
 .tl-n{font-size:10px;color:var(--muted);line-height:1.15;max-width:100%;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -352,9 +371,13 @@ ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;le
         <div class="today" id="todayLabel">—</div>
         <h1 class="viewtitle" id="viewTitle">Hoje</h1>
       </div>
-      <div class="daytoggle" id="dayToggle" role="group" aria-label="Tipo de dia">
-        <button id="btTreino" aria-pressed="true">Treino</button>
-        <button id="btDescanso" aria-pressed="false">Descanso</button>
+      <div class="daywrap" id="dayToggle">
+        <span class="daylbl">Treino de hoje</span>
+        <div class="daytoggle" role="group" aria-label="Quando é o treino de hoje">
+          <button data-day="manha" aria-pressed="false">manhã</button>
+          <button data-day="treino" aria-pressed="true">noite</button>
+          <button data-day="descanso" aria-pressed="false">nenhum</button>
+        </div>
       </div>
     </div>
   </header>
@@ -415,7 +438,7 @@ const A = (s)=>s; // atalho legibilidade
 
 const MEALS = {
   treino: [
-    { id:'cafe', time:'07:30', min:450, name:'Café da manhã', tag:'Opção A · padrão', kcal:780, ptn:49,
+    { id:'cafe', time:'08:45', min:525, name:'Café da manhã', tag:'Opção A · padrão', kcal:780, ptn:49,
       items:[
         ['4 ovos mexidos','sem óleo, antiaderente',280,'24 g'],
         ['Metade da pasta de sardinha','feita na véspera',145,'14 g'],
@@ -444,7 +467,7 @@ const MEALS = {
         ]
       }
     },
-    { id:'almoco', time:'12:00', min:720, name:'Almoço', tag:'marmita', kcal:795, ptn:57,
+    { id:'almoco', time:'12:30', min:750, name:'Almoço', tag:'marmita', kcal:795, ptn:57,
       items:[
         ['Frango desfiado ou carne moída','150 g',250,'45 g'],
         ['Arroz integral com cenoura e açafrão','200 g ≈ 5 col. sopa cheias',265,'5 g'],
@@ -514,7 +537,51 @@ MEALS.descanso = MEALS.treino
     return m;
   });
 
+/* dia de treino MATINAL: treino 07h–08h15, café depois, noite livre */
+MEALS.manha = (function(){
+  const src = MEALS.treino;
+  const cp = (id) => JSON.parse(JSON.stringify(src.find(m => m.id === id)));
+
+  const pre = { id:'pre', time:'06:30', min:390, name:'Pré-treino', tag:'ao acordar',
+    kcal:105, ptn:1,
+    items:[ ['1 banana','só ela — o resto vem no café, depois do treino',105,'1 g'] ],
+    acc:[
+      ['why','Por que só uma banana e sem whey','Meia hora entre comer e treinar é pouco para líquido volumoso, e você acabou de acordar. A banana entrega glicose rápida sem peso no estômago. A proteína chega logo depois, no café das 8h20 — e é o total do dia que importa, não a janela de 30 minutos.'],
+      ['prep','Deixe pronta na véspera','Banana descascável na bancada, ao lado do tênis. Reduzir atrito na hora de acordar é metade da batalha nas primeiras semanas.']
+    ]
+  };
+
+  const cafe = cp('cafe');
+  cafe.time = '08:20'; cafe.min = 500; cafe.tag = 'Opção A · depois do treino';
+  cafe.acc = cafe.acc.concat([['prep','Se a manhã apertar','Use a Opção B, que fica pronta na véspera e resolve em 30 segundos. Nas primeiras semanas de adaptação, ter essa saída evita pular o café — que é o pior desfecho possível.']]);
+
+  const almoco = cp('almoco');
+  almoco.time = '13:00'; almoco.min = 780;
+
+  const lanche = cp('lanche');
+  lanche.kcal = 480; lanche.ptn = 36;
+  lanche.items = lanche.items.filter(i => !/castanhas/.test(i[0]));
+  lanche.tag = 'no trabalho';
+
+  const jantar = { id:'jantar', time:'20:00', min:1200, name:'Jantar', tag:'a noite fica livre',
+    kcal:420, ptn:19,
+    items:[
+      ['2 ovos ou 80 g de frango desfiado','',140,'14 g'],
+      ['Batata-doce ou arroz','150 g',130,'2 g'],
+      ['Legumes + 1 col. sopa de azeite','',150,'3 g'],
+      ['Chá de camomila ou cidreira','depois, se quiser',0,'—']
+    ],
+    acc:[
+      ['why','Agora dá para jantar de verdade','No dia de treino noturno a última refeição é uma ceia líquida às 23h15, porque comida sólida perto de deitar atrapalha o sono. Treinando de manhã, a noite fica livre: às 20h você tem quatro horas até dormir e pode fazer uma refeição normal.'],
+      ['prep','Sai da mesma marmita','Use as porções do prep de domingo. Não precisa cozinhar à noite.']
+    ]
+  };
+
+  return [pre, cafe, almoco, lanche, jantar];
+})();
+
 const TARGETS = {
+  manha:    { kcal:2580, ptn:162, carb:275, gord:92 },
   treino:   { kcal:2550, ptn:165, carb:275, gord:92 },
   descanso: { kcal:2290, ptn:164, carb:215, gord:90 }
 };
@@ -577,9 +644,26 @@ function accs(list){
 }
 
 /* ============ linha do dia (rotulada) ============ */
-const SHORT = { cafe:'café', almoco:'almoço', lanche:'lanche', pre:'pré-treino', ceia:'ceia' };
+const SHORT = { cafe:'café', almoco:'almoço', lanche:'lanche', pre:'pré', ceia:'ceia', jantar:'jantar' };
+const DAYLBL = { manha:'treino de manhã', treino:'treino à noite', descanso:'dia sem treino' };
+const TRAIN = {
+  manha:    { time:'07:00', min:420,  dur:75 },
+  treino:   { time:'21:00', min:1260, dur:75 },
+  descanso: null
+};
 function timelineHTML(){
-  const list = meals(), t = nowMin(), n = list.length;
+  const t = nowMin();
+  const tr = TRAIN[dayType];
+
+  // refeições + treino, em ordem cronológica
+  const list = meals().map(m => ({
+    min:m.min, time:m.time, kind:'meal',
+    label: m.id==='ceia' ? (m.name==='Jantar'?'jantar':'ceia') : (SHORT[m.id]||m.name.toLowerCase())
+  }));
+  if (tr) list.push({ min:tr.min, time:tr.time, kind:'train', label:'treino', dur:tr.dur });
+  list.sort((a,b)=>a.min-b.min);
+
+  const n = list.length;
   const first = list[0].min, last = list[n-1].min;
 
   let f = 0;
@@ -596,21 +680,21 @@ function timelineHTML(){
   const lineLeft = (0.5/n)*100, lineW = ((n-1)/n)*100;
 
   let items = '';
-  list.forEach((m,i)=>{
-    const end = list[i+1] ? list[i+1].min : 1440;
-    const isNow = t >= m.min && t < end;
-    const past = t >= m.min && !isNow;
-    const label = m.id==='ceia' ? (m.name==='Jantar'?'jantar':'ceia') : (SHORT[m.id]||m.name.toLowerCase());
-    items += `<div class="tl-item ${isNow?'cur':''} ${past?'past':''}">
-      <span class="tl-dot"></span>
-      <span class="tl-t">${m.time}</span>
-      <span class="tl-n">${label}</span>
+  list.forEach((it,i)=>{
+    const end = it.kind==='train' ? it.min + it.dur : (list[i+1] ? list[i+1].min : 1440);
+    const isNow = t >= it.min && t < end;
+    const past = t >= it.min && !isNow;
+    const mark = it.kind==='train' ? '<span class="tl-tick"></span>' : '<span class="tl-dot"></span>';
+    items += `<div class="tl-item ${it.kind==='train'?'train':''} ${isNow?'cur':''} ${past?'past':''}">
+      ${mark}
+      <span class="tl-t">${it.time}</span>
+      <span class="tl-n">${it.label}</span>
     </div>`;
   });
 
   return `<div class="card timeline">
     <div class="tl-head">
-      <span class="eyebrow q">Sequência de hoje</span>
+      <span class="eyebrow q">Sequência de hoje · ${DAYLBL[dayType]}</span>
       <span class="legend"><i></i> já passou</span>
     </div>
     <div class="tl">
@@ -931,7 +1015,7 @@ function renderAgora(){
     h += `<div class="card now">
       <div class="eyebrow">O dia ainda não começou</div>
       <h2>Primeira refeição às ${first.time}</h2>
-      <div class="when">${dayType==='treino'?'dia de treino':'dia sem treino'}</div>
+      <div class="when">${DAYLBL[dayType]}</div>
       <div class="macroline">
         <div><b>${tg.kcal}</b><span>meta do dia</span></div>
         <div><b>${tg.ptn} g</b><span>proteína</span></div>
@@ -990,7 +1074,12 @@ function renderAgora(){
 
   h += milestoneHTML();
 
-  if (dayType === 'treino'){
+  if (dayType === 'manha'){
+    h += `<div class="card" style="border-color:var(--teal);">
+      <div class="eyebrow" style="color:var(--teal)">O que este dia compra</div>
+      <p style="margin:8px 0 0;font-size:15px;">Sem treino às 21h, a noite inteira fica livre: jantar às 20h, nada de cortisol às 23h, e quatro horas de folga até dormir. <b>Este é o dia que torna a meta de sono possível</b> — não desperdice ficando acordado.</p>
+    </div>`;
+  } else if (dayType === 'treino'){
     h += `<div class="card" style="border-color:var(--clay);">
       <div class="eyebrow" style="color:var(--clay)">Regra do dia</div>
       <p style="margin:8px 0 0;font-size:15px;">Café até <b>13h</b>. A meia-vida da cafeína é de 5 a 6 horas — o café das 13h ainda tem cerca de 25% ativo à meia-noite.</p>
@@ -1008,18 +1097,44 @@ function renderAgora(){
 /* ============ tela REFEIÇÕES ============ */
 function renderRefeicoes(){
   const list = meals(), t = nowMin(), tg = TARGETS[dayType];
-  let h = `<p class="lede">${dayType==='treino'
-      ? 'Dia de treino: cinco refeições, ' + tg.kcal + ' kcal.'
-      : 'Dia sem treino: quatro refeições, ' + tg.kcal + ' kcal. Sai o pré-treino e o arroz do almoço volta para 150 g.'}</p>`;
+  const LEDE = {
+    manha: 'Treino às 7h. Banana ao acordar, café depois do treino e jantar de verdade às 20h — a noite fica livre. ' + tg.kcal + ' kcal.',
+    treino: 'Treino às 21h. Cinco refeições, ' + tg.kcal + ' kcal.',
+    descanso: 'Sem treino. Quatro refeições, ' + tg.kcal + ' kcal — sai o pré-treino e o arroz do almoço volta para 150 g.'
+  };
+  let h = `<p class="lede">${LEDE[dayType]}</p>`;
+  const tr = TRAIN[dayType];
+  let trDone = false;
+
   list.forEach((m,i)=>{
     const end = list[i+1] ? list[i+1].min : 1440;
     const isNow = t >= m.min && t < end;
+
     h += `<button class="mealrow ${isNow?'now-row':''}" data-meal="${m.id}">
       <span class="time">${m.time}</span>
       <span class="body"><b>${m.name}${isNow?'<span class="tagnow">agora</span>':''}</b><span>${m.kcal} kcal · ${m.ptn} g proteína${m.tag?' · '+m.tag:''}</span></span>
       <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
     </button>`;
+
+    // o treino entra logo depois da refeição que o antecede, com peso visual menor
+    if (tr && !trDone && tr.min >= m.min && tr.min < end){
+      const trNow = t >= tr.min && t < tr.min + tr.dur;
+      h += `<div class="trainrow ${trNow?'cur':''}">
+        <span class="t">${tr.time}</span>
+        <span class="n">Treino</span>
+        <span class="k">${trNow ? 'agora' : tr.dur + ' min'}</span>
+      </div>`;
+      trDone = true;
+    }
   });
+
+  // treino antes da primeira refeição do dia
+  if (tr && !trDone){
+    const trNow = t >= tr.min && t < tr.min + tr.dur;
+    h = h.replace('</p>', `</p><div class="trainrow ${trNow?'cur':''}">
+      <span class="t">${tr.time}</span><span class="n">Treino</span>
+      <span class="k">${trNow ? 'agora' : tr.dur + ' min'}</span></div>`);
+  }
   h += `<div class="card" style="margin-top:14px;">
     <div class="eyebrow q">Meta do dia</div>
     <table style="margin-top:10px;">
@@ -1272,9 +1387,10 @@ function renderTop(){
 }
 
 function setDay(type){
+  if (!MEALS[type]) type = 'treino';
   dayType = type; DB.set('dayType', type);
-  document.getElementById('btTreino').setAttribute('aria-pressed', String(type==='treino'));
-  document.getElementById('btDescanso').setAttribute('aria-pressed', String(type==='descanso'));
+  document.querySelectorAll('#dayToggle button').forEach(b=>
+    b.setAttribute('aria-pressed', String(b.dataset.day === type)));
   renderTop(); renderAgora(); renderRefeicoes();
 }
 
@@ -1339,8 +1455,8 @@ document.addEventListener('change', (e)=>{
   renderAgora();
 });
 
-document.getElementById('btTreino').addEventListener('click', ()=>setDay('treino'));
-document.getElementById('btDescanso').addEventListener('click', ()=>setDay('descanso'));
+document.querySelectorAll('#dayToggle button').forEach(b=>
+  b.addEventListener('click', ()=>setDay(b.dataset.day)));
 
 window.addEventListener('popstate', ()=>{ if (sheet.classList.contains('open')) closeSheet(); });
 
