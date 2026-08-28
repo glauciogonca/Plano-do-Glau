@@ -1,6 +1,6 @@
 /* Service worker do Plano Alimentar — v3
    HTML: network-first (pega atualizacoes). Demais: cache-first. */
-const CACHE = 'plano-v4-6';
+const CACHE = 'plano-v4-7';
 const ASSETS = ['./','./index.html','./manifest.json',
   './icons/icon-192.png','./icons/icon-512.png','./icons/apple-touch-icon.png'];
 
