@@ -22,7 +22,7 @@
   color-scheme:light;
   --ink:#16211D; --ink-2:#31423B; --paper:#ECEFE6; --card:#FFFFFF; --line:#D3DACC;
   --turmeric:#C07C14; --amber:#9A6210; --amber-soft:#FBF2E3; --teal:#1F5E5B; --clay:#8A3A2E; --muted:#6C7A6F; --shade:#E1E6D9;
-  --tab-h:58px; --head-h:56px;
+  --tab-h:52px; --head-h:56px;
   --safe-b:env(safe-area-inset-bottom,0px);
   --safe-t:env(safe-area-inset-top,0px);
 }
@@ -175,7 +175,7 @@ button{font-family:inherit;border:none;background:none;color:inherit;cursor:poin
 
 main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--paper);
   overscroll-behavior:contain;
-  padding:18px 18px calc(var(--tab-h) + min(var(--safe-b), 34px) + 24px);}
+  padding:18px 18px calc(var(--tab-h) + 18px + 22px);}
 .view{display:none;}
 .view.active{display:block;animation:fade .22s ease;}
 @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
@@ -189,13 +189,16 @@ main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;background:v
   position:fixed; left:0; right:0; bottom:0; z-index:30;
   display:grid; grid-template-columns:repeat(5,1fr);
   background:var(--ink);
-  padding-bottom:min(var(--safe-b), 34px);
+  /* teto baixo e explicito: o indicador de home precisa de ~18pt de folga,
+     nao dos 90+ que o env() estava devolvendo neste contexto. */
+  padding-bottom:18px;
+  padding-bottom:min(env(safe-area-inset-bottom, 18px), 18px);
   box-shadow:0 -1px 0 rgba(255,255,255,.08);
 }
 .tabbar button{
   position:relative; min-width:0; padding:0 1px;
   height:var(--tab-h); display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:3px; color:#7E9186; transition:color .16s;
+  gap:2px; color:#7E9186; transition:color .16s;
 }
 .tabbar button[aria-current="page"]{color:var(--turmeric);}
 .tabbar svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;
