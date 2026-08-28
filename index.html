@@ -916,10 +916,123 @@ function renderMedidas(){
     }
   }
 
+  // --- backup e envio: unico caminho dos dados para fora do aparelho ---
+  if (w.length || c.length){
+    h += `<div class="card">
+      <div class="eyebrow q">Backup e envio</div>
+      <p class="lede" style="margin:8px 0 14px;font-size:13.5px;">
+        Os registros ficam só neste iPhone. Somem se você limpar o Safari ou trocar de aparelho — exporte de vez em quando.
+      </p>
+      <button class="btn quiet" id="btShare" style="margin-bottom:8px;">Enviar resumo</button>
+      <button class="btn quiet" id="btExport" style="margin-bottom:8px;">Copiar backup</button>
+      <button class="btn quiet" id="btImport">Restaurar backup</button>
+      <div id="ioMsg"></div>
+    </div>`;
+  }
+
   document.getElementById('v-medidas').innerHTML = h;
 
   const b = document.getElementById('measBadge');
   if (p.peso || p.cintura){ b.hidden = false; } else { b.hidden = true; }
+}
+
+/* ============ backup, resumo e restauração ============ */
+const brDate = (iso)=>{ const p=iso.split('-'); return `${p[2]}/${p[1]}/${p[0]}`; };
+
+function resumoTexto(){
+  const w = getW(), c = getC(), t = trend();
+  const L = [];
+  L.push('Acompanhamento — plano alimentar');
+  if (w.length) L.push(`Período: ${brDate(w[0].d)} a ${brDate(w[w.length-1].d)}`);
+  L.push('');
+
+  if (w.length){
+    const d = +(w[w.length-1].v - w[0].v).toFixed(2);
+    L.push(`PESO (${w.length} registros)`);
+    L.push(`  Inicial: ${w[0].v.toFixed(2)} kg`);
+    L.push(`  Atual:   ${w[w.length-1].v.toFixed(2)} kg  (${d>=0?'+':''}${d} kg)`);
+    if (t.ok){
+      L.push(`  Média 7 dias: ${t.atual.toFixed(2)} kg`);
+      L.push(`  Variação semanal: ${t.deltaG>=0?'+':''}${t.deltaG} g`);
+    }
+    L.push('');
+  }
+  if (c.length){
+    const d = +(c[c.length-1].v - c[0].v).toFixed(1);
+    L.push(`CINTURA (${c.length} registros)`);
+    L.push(`  Inicial: ${c[0].v.toFixed(1)} cm`);
+    L.push(`  Atual:   ${c[c.length-1].v.toFixed(1)} cm  (${d>=0?'+':''}${d} cm)`);
+    L.push('');
+  }
+
+  L.push('--- registros completos (CSV) ---');
+  L.push('tipo;data;valor');
+  w.forEach(x=>L.push(`peso;${x.d};${x.v.toFixed(2)}`));
+  c.forEach(x=>L.push(`cintura;${x.d};${x.v.toFixed(1)}`));
+  return L.join('\n');
+}
+
+function backupTexto(){
+  return JSON.stringify({ app:'plano', v:1, exportado:today(),
+    peso:getW(), cintura:getC(), inicio:startDate() });
+}
+
+function ioMsg(txt, erro){
+  const el = document.getElementById('ioMsg');
+  if (!el) return;
+  el.innerHTML = `<p class="lede" style="margin:12px 0 0;font-size:13.5px;color:${erro?'var(--clay)':'var(--teal)'}">${txt}</p>`;
+}
+
+async function copiar(txt, ok){
+  try {
+    await navigator.clipboard.writeText(txt);
+    ioMsg(ok);
+  } catch(e){
+    // Safari bloqueia a área de transferência fora de gesto direto: mostra para copiar à mão
+    const el = document.getElementById('ioMsg');
+    if (el) el.innerHTML = `<p class="lede" style="margin:12px 0 6px;font-size:13px;">Copie o texto abaixo:</p>
+      <textarea readonly style="width:100%;height:130px;padding:10px;border:1px solid var(--line);
+        border-radius:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;
+        background:#fff;color:var(--ink);">${txt.replace(/</g,'&lt;')}</textarea>`;
+  }
+}
+
+async function enviarResumo(){
+  const txt = resumoTexto();
+  if (navigator.share){
+    try { await navigator.share({ title:'Acompanhamento', text:txt }); return; }
+    catch(e){ if (e && e.name === 'AbortError') return; }
+  }
+  copiar(txt, 'Resumo copiado. Cole no WhatsApp ou no e-mail.');
+}
+
+function restaurar(){
+  const el = document.getElementById('ioMsg');
+  el.innerHTML = `<p class="lede" style="margin:12px 0 8px;font-size:13.5px;">
+      Cole o backup e toque em Restaurar. Isso <b>substitui</b> os registros atuais.</p>
+    <textarea id="impTxt" placeholder='{"app":"plano",...}'
+      style="width:100%;height:110px;padding:10px;border:1px solid var(--line);border-radius:9px;
+      font-family:'IBM Plex Mono',monospace;font-size:11px;background:#fff;color:var(--ink);"></textarea>
+    <button class="btn quiet" id="btDoImport" style="margin-top:8px;">Restaurar</button>`;
+}
+
+function aplicarImport(){
+  const el = document.getElementById('impTxt');
+  let o;
+  try { o = JSON.parse(el.value.trim()); }
+  catch(e){ return ioMsg('Não consegui ler o backup. Cole o texto completo, incluindo as chaves.', true); }
+  if (!o || o.app !== 'plano' || (!Array.isArray(o.peso) && !Array.isArray(o.cintura)))
+    return ioMsg('Esse texto não é um backup deste app.', true);
+
+  const limpo = (arr, min, max) => (Array.isArray(arr)?arr:[])
+    .filter(x => x && /^\d{4}-\d{2}-\d{2}$/.test(x.d) && typeof x.v === 'number' && x.v >= min && x.v <= max)
+    .map(x => ({ d:x.d, v:x.v }));
+
+  const p = limpo(o.peso, 30, 200), ci = limpo(o.cintura, 50, 150);
+  DB.set('peso', p); DB.set('cintura', ci);
+  if (o.inicio && /^\d{4}-\d{2}-\d{2}$/.test(o.inicio)) DB.set('start', o.inicio);
+  renderMedidas(); renderAgora();
+  ioMsg(`Restaurado: ${p.length} pesagens e ${ci.length} medidas de cintura.`);
 }
 
 /* ============ marcos do plano ============ */
@@ -1425,6 +1538,11 @@ document.addEventListener('click', (e)=>{
     else { flagInvalid(el, 'Digite uma medida entre 50 e 150 cm.'); }
     return;
   }
+  if (e.target.closest('#btShare')){ enviarResumo(); return; }
+  if (e.target.closest('#btExport')){ copiar(backupTexto(), 'Backup copiado. Guarde numa nota ou envie para você mesmo.'); return; }
+  if (e.target.closest('#btImport')){ restaurar(); return; }
+  if (e.target.closest('#btDoImport')){ aplicarImport(); return; }
+
   const del = e.target.closest('[data-del]');
   if (del){
     const [k,d] = del.dataset.del.split('|');
