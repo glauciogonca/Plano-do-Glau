@@ -186,15 +186,17 @@ main{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;background:v
    A altura excessiva nunca foi um vao: era esta propria padding-bottom
    usando env(safe-area-inset-bottom) sem limite. Agora tem teto. */
 .tabbar{
-  flex:0 0 auto;
-  display:grid; grid-template-columns:repeat(5,1fr);
+  /* altura travada: flex-basis fixo + height + box-sizing impedem que
+     qualquer coisa estique a barra depois do layout inicial. */
+  flex:0 0 68px; height:68px; box-sizing:border-box; overflow:hidden;
+  display:grid; grid-template-columns:repeat(5,1fr); align-content:center;
   background:var(--ink);
-  padding-bottom:10px;
+  padding-bottom:8px;
   box-shadow:0 -1px 0 rgba(255,255,255,.08);
 }
 .tabbar button{
   position:relative; min-width:0; padding:0 1px;
-  height:var(--tab-h); display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:60px; display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:2px; color:#7E9186; transition:color .16s;
 }
 .tabbar button[aria-current="page"]{color:var(--turmeric);}
@@ -1492,16 +1494,32 @@ renderGuia();
   const safeB = Math.round(probe.getBoundingClientRect().height);
   probe.remove();
 
-  const bar = document.querySelector('.tabbar');
-  const btn = document.querySelector('.tabbar button');
-  const r = bar.getBoundingClientRect(), b = btn.getBoundingClientRect();
-
   const p = document.createElement('p');
-  p.style.cssText = 'margin:14px 0 0;font-family:\'IBM Plex Mono\',monospace;font-size:11px;color:var(--muted);';
-  p.textContent = `diagnóstico · tela ${Math.round(window.innerHeight)} · barra ${Math.round(r.height)}`
-    + ` · botão ${Math.round(b.height)} · área segura ${safeB}`
-    + ` · sobra abaixo ${Math.round(window.innerHeight - r.bottom)}`;
+  p.style.cssText = 'margin:14px 0 0;font-family:\'IBM Plex Mono\',monospace;font-size:11px;'
+    + 'color:var(--muted);line-height:1.7;white-space:pre-line;';
   box.appendChild(p);
+
+  // mede depois do layout assentar, nao no boot
+  function ler(){
+    const bar = document.querySelector('.tabbar');
+    const btn = document.querySelector('.tabbar button');
+    const app = document.querySelector('.app');
+    const mn  = document.querySelector('main');
+    const r = bar.getBoundingClientRect(), b = btn.getBoundingClientRect();
+    const ra = app.getBoundingClientRect(), rm = mn.getBoundingClientRect();
+    const vv = window.visualViewport;
+    const cs = getComputedStyle(bar);
+    p.textContent = [
+      `tela ${Math.round(window.innerHeight)} · visual ${vv?Math.round(vv.height):'-'} · doc ${document.documentElement.clientHeight}`,
+      `app ${Math.round(ra.top)}→${Math.round(ra.bottom)} (${Math.round(ra.height)})`,
+      `main ${Math.round(rm.top)}→${Math.round(rm.bottom)} (${Math.round(rm.height)})`,
+      `barra ${Math.round(r.top)}→${Math.round(r.bottom)} (${Math.round(r.height)})`,
+      `botão ${Math.round(b.height)} · pad-b ${cs.paddingBottom} · área segura ${safeB}`
+    ].join('\n');
+  }
+  ler();
+  setTimeout(ler, 900);
+  window.addEventListener('resize', ler);
 })();
 go('agora');
 
