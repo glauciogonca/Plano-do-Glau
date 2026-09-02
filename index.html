@@ -454,92 +454,91 @@ const A = (s)=>s; // atalho legibilidade
 
 const MEALS = {
   treino: [
-    { id:'cafe', time:'08:45', min:525, name:'Café da manhã', tag:'Opção A · padrão', kcal:780, ptn:49,
+    { id:'cafe1', time:'08:30', min:510, name:'Café da manhã', tag:'parte 1 · em casa', kcal:245, ptn:19,
       items:[
-        ['4 ovos mexidos','sem óleo, antiaderente',280,'24 g'],
-        ['Metade da pasta de sardinha','feita na véspera',145,'14 g'],
-        ['2 fatias de pão integral','',140,'6 g'],
-        ['30 g de castanhas','caju ou amêndoa',180,'4 g'],
+        ['3 ovos mexidos','sem óleo, antiaderente',210,'18 g'],
         ['1 castanha-do-pará','uma. só uma.',35,'1 g'],
-        ['Chá verde','',0,'—']
+        ['Chá verde','hibisco, hortelã, canela ou gengibre',0,'—']
       ],
       acc:[
-        ['prep','Preparo','A pasta de sardinha é feita na noite anterior: 1 lata inteira (escorra o excesso de óleo) + 1 ovo cozido + limão, tudo amassado com garfo. Divida em dois potes — um para o café, outro para a bolsa. Três minutos, enquanto o chá da noite esquenta.'],
-        ['why','Por que ovo e não maionese','A gema é rica em lecitina — o mesmo emulsificante que faz a maionese existir. O ovo dá a liga que impede a sardinha de cair do pão e ainda adiciona proteína. Óleo sozinho não liga, apenas lubrifica.<br><br><b>Formato é livre.</b> Mesmos ingredientes e quantidades, monte como quiser: ovos mexidos com a pasta no pão, pasta na colher, omelete com pasta ao lado.'],
-        ['warn','Uma castanha-do-pará, nunca cinco','Cada unidade traz de 68 a 91 mcg de selênio. A recomendação diária é 55 mcg e o limite tolerável é 400. Cinco por dia, todo dia, entram na faixa de selenose crônica. Uma unidade já cobre 100% da necessidade.']
-      ],
-      alt:{ name:'Opção B · dia corrido', kcal:760, ptn:46,
-        items:[
-          ['60 g de aveia em flocos','',230,'8 g'],
-          ['300 ml de leite integral','',180,'10 g'],
-          ['1 scoop de whey','30 g',120,'24 g'],
-          ['1 banana média','',105,'1 g'],
-          ['15 g de castanhas + canela','',90,'2 g'],
-          ['1 castanha-do-pará','',35,'1 g']
-        ],
-        acc:[
-          ['prep','Preparo — é um mingau','Tudo junto, comido de colher.<br><br><b>Quente:</b> aveia + leite na panela, fogo médio, 3 a 4 min mexendo. Tire do fogo, <b>espere amornar</b> e só então misture o whey — no leite fervendo a proteína coagula e vira grumos. Banana, castanhas e canela por cima.<br><br><b>Frio (overnight):</b> na véspera, aveia + leite + whey num pote, mexe, tampa, geladeira. De manhã só adiciona banana e castanhas.'],
-          ['why','Por que a aveia','A beta-glucana é fibra solúvel com evidência consistente para atenuar o pico glicêmico e reduzir LDL. Com HbA1c em 6,1%, é escolha estratégica, não só calórica.']
-        ]
-      }
-    },
-    { id:'almoco', time:'12:30', min:750, name:'Almoço', tag:'marmita', kcal:795, ptn:57,
-      items:[
-        ['Frango desfiado ou carne moída','150 g',250,'45 g'],
-        ['Arroz integral com cenoura e açafrão','200 g ≈ 5 col. sopa cheias',265,'5 g'],
-        ['Feijão carioca com legumes','1 concha',70,'4 g'],
-        ['Berinjela + 1 legume rotativo','150 g',90,'3 g'],
-        ['Azeite','1–1½ col. sopa, contando o do preparo',120,'—']
-      ],
-      acc:[
-        ['prep','Salada em pote separado','Folhas, tomate, pepino, com <b>meio limão espremido</b> na hora. Vai crua, não aquece junto. Se o azeite for junto desde cedo, o arroz absorve tudo e fica pastoso — leve num potinho e regue na hora.'],
-        ['why','Conte o azeite, não o evite','Você está em superávit: gordura de qualidade entrega 9 kcal/g sem ocupar volume no estômago. A berinjela absorve e não solta — o azeite vai junto para a marmita. Se a berinjela veio encharcada, corte o azeite avulso; se veio seca, adicione.'],
-        ['why','Rotação e um detalhe grátis','Proteína: frango seg/qua/sex, carne moída ou peixe ter/qui. Carboidrato: alterne arroz integral e batata-doce. Puxe crucíferas (brócolis, couve-flor) ao lado da berinjela — elas têm sulforafano, que a berinjela não tem.<br><br>Uma pitada de pimenta-do-reino no arroz com açafrão: a piperina inibe o metabolismo hepático da curcumina e aumenta muito sua absorção.']
+        ['why','Por que o café virou duas partes','Você relatou plenitude prolongada e almoço sem fome. Em vez de cortar comida, o volume foi dividido: os ovos em casa, o pão com pasta no trabalho. Mesmo total, estômago distendido pela metade de cada vez — e o intervalo de 5 h até o almoço vira duas janelas menores.'],
+        ['warn','Uma castanha-do-pará, nunca mais','Cada unidade traz de 68 a 91 mcg de selênio. A recomendação diária é 55 mcg e o limite tolerável é 400. Uma unidade cobre 100% da necessidade.']
       ]
     },
-    { id:'lanche', time:'17:00', min:1020, name:'Lanche da tarde', tag:'no trabalho', kcal:600, ptn:39,
+    { id:'cafe2', time:'10:30', min:630, name:'Café da manhã', tag:'parte 2 · no trabalho', kcal:435, ptn:23,
+      items:[
+        ['2 fatias de pão integral','em saco separado',140,'6 g'],
+        ['Metade da pasta de sardinha','pote pequeno, feito na véspera',145,'14 g'],
+        ['25 g de castanhas','caju ou amêndoa',150,'3 g'],
+        ['Café expresso','o último do dia',0,'—']
+      ],
+      acc:[
+        ['prep','A pasta de sardinha, feita na noite anterior','1 lata inteira escorrida + 1 ovo cozido + limão + 1 pitada de sal + ½ col. chá de mostarda + 1 col. sopa de cebola roxa picada. Amasse tudo com garfo e divida em dois potes: um para aqui, outro para o lanche. Três minutos, enquanto o chá esquenta.'],
+        ['why','Por que a mostarda e o sal entraram','O ovo cozido é praticamente insosso e diluiu o sabor da sardinha. Sal devolve o que a diluição tirou, mostarda corta a gordura do peixe e a cebola resolve a textura uniforme.'],
+        ['warn','Este é o último café do dia','A meia-vida da cafeína é de 5 a 6 horas. Com o almoço às 13h30, um segundo expresso já cairia depois do corte. Se quiser dois, tome o segundo às 12h50 — mas com o estômago vazio.']
+      ]
+    },
+    { id:'almoco', time:'13:30', min:810, name:'Almoço', tag:'marmita', kcal:835, ptn:57,
+      items:[
+        ['Frango desfiado ou carne moída','150 g',250,'45 g'],
+        ['Arroz integral com cenoura e açafrão','200 g',265,'5 g'],
+        ['Feijão carioca com legumes','1 concha',70,'4 g'],
+        ['Berinjela + 1 legume rotativo','150 g',90,'3 g'],
+        ['Azeite','2 col. sopa, contando o do preparo',160,'—'],
+        ['Salada com vinagrete + limonada','ver preparo',0,'—']
+      ],
+      acc:[
+        ['why','Quando o limite é o estômago, a alavanca é gordura','Você relatou dificuldade para terminar 200 g de arroz. Aumentar carboidrato resolveria calorias com volume — o recurso que já está no limite. Gordura entrega 9 kcal/g contra 4 do carboidrato: <b>1 colher de sopa de azeite são 120 kcal que somem no prato</b>, enquanto 50 g de arroz são 65 kcal que você sente. Por isso o azeite subiu para 2 colheres e o arroz voltou a 200 g.<br><br><b>Se 200 g ainda for demais:</b> baixe para 150 g e adicione ½ colher de sopa de azeite. Comida que fica no prato não conta.'],
+        ['prep','Salada e limonada','Salada crua em pote separado, temperada na hora com <b>azeite e 1 col. sopa de vinagre</b>. E <b>1 limão inteiro espremido na água com gás</b>, bebido junto da refeição.'],
+        ['why','Por que vinagre e limão juntos','Agem por mecanismos diferentes e não competem. O <b>ácido acético</b> do vinagre inibe parcialmente a dissacaridase intestinal e retarda o esvaziamento gástrico, atenuando o pico de glicose dos 250 g de arroz. A <b>vitamina C</b> do limão reduz o ferro do feijão à forma absorvível — e essa reação precisa acontecer com o alimento presente, por isso junto e não depois.'],
+        ['why','Conte o azeite, não o evite','Você está em superávit: gordura de qualidade entrega 9 kcal/g sem ocupar volume. A berinjela absorve e não solta. Se veio encharcada, corte o azeite avulso; se veio seca, adicione.'],
+        ['prep','Rotação e um detalhe grátis','Proteína: frango seg/qua/sex, carne moída ou peixe ter/qui. Carboidrato: alterne arroz integral e batata-doce. Puxe crucíferas ao lado da berinjela — só elas têm sulforafano.<br><br>Uma pitada de pimenta-do-reino no arroz com açafrão: a piperina aumenta muito a absorção da curcumina.']
+      ]
+    },
+    { id:'lanche', time:'18:00', min:1080, name:'Lanche da tarde', tag:'no trabalho', kcal:570, ptn:31,
       items:[
         ['2 fatias de pão integral','em saco separado',140,'6 g'],
         ['Metade da pasta de sardinha','pote pequeno',145,'14 g'],
         ['1 fruta','goiaba, kiwi ou acerola quando tiver',90,'1 g'],
-        ['Quark Nuuv + 1 col. chá de psyllium','',105,'15 g'],
+        ['Quark Nuuv + 1 col. chá de psyllium','',75,'7 g'],
         ['20 g de castanhas','',120,'3 g']
       ],
       acc:[
-        ['warn','Leve o recheio, não o sanduíche montado','Sardinha amassada é úmida; em contato com o pão por 12 horas ele encharca. Pote pequeno com a pasta, pão à parte, monta em 20 segundos no trabalho.'],
         ['warn','Psyllium exige água','É fibra que forma gel por hidratação. Sem líquido suficiente o efeito se inverte e endurece o bolo fecal. Um copo cheio junto ou logo depois — não é preferência, é o mecanismo do produto.'],
-        ['why','Validade dos preparos','Ovo cozido <b>com casca</b> dura 7 dias na geladeira; descascado, 2 a 3. Sardinha fora da lata, em pote de vidro coberta pelo próprio óleo, dura 2 a 3 dias — nunca guarde na lata aberta, porque o revestimento interno exposto ao ar permite migração de metal.']
+        ['why','Por que 18h e não 17h','Você relatou não ter fome às 17h. O dia inteiro estava adiantado em relação à sua fome real, então foi movido em vez de forçado. O intervalo até o pré-treino fica em 2h15 — dentro da faixa útil.'],
+        ['prep','Validade dos preparos','Ovo cozido <b>com casca</b> dura 7 dias na geladeira; descascado, 2 a 3. Sardinha fora da lata, em pote de vidro coberta pelo próprio óleo, dura 2 a 3 dias — nunca guarde na lata aberta.']
       ]
     },
     { id:'pre', time:'20:15', min:1215, name:'Pré-treino', tag:'assim que chegar', kcal:210, ptn:2,
       items:[ ['2 bananas','zero preparo',210,'2 g'] ],
       acc:[
-        ['why','Por que só carboidrato','Às 20h15 você já acumulou cerca de 125 g de proteína no dia — mais 24 g não acrescentam nada, o platô passou há muito. O que falta neste momento é combustível para o treino.'],
-        ['why','Funciona chegando 19h40 ou 20h20','Horário fixo não sobreviveria à sua variação de chegada. Coma assim que entrar em casa e treine 20 a 40 min depois.<br><br><b>Sobre treinar em jejum:</b> sua experiência (às vezes bem, às vezes a fome atrapalha) é o problema. Hipertrofia depende de volume acumulado ao longo de meses; duas ou três sessões ruins por mês custam progresso real no ano.']
+        ['why','Por que só carboidrato','Às 20h15 você já acumulou cerca de 130 g de proteína no dia — o platô passou há muito. O que falta neste momento é combustível para o treino.'],
+        ['prep','Funciona chegando 19h40 ou 20h20','Coma assim que entrar em casa e treine 20 a 40 min depois. Sobre treinar em jejum: sua experiência (às vezes bem, às vezes a fome atrapalha) é o problema — hipertrofia depende de volume acumulado ao longo de meses.']
       ]
     },
-    { id:'ceia', time:'23:15', min:1395, name:'Pós-treino / ceia', tag:'', kcal:180, ptn:20,
+    { id:'ceia', time:'23:15', min:1395, name:'Ceia', tag:'', kcal:180, ptn:13,
       items:[
-        ['200 g de Quark + fruta picada + canela','',180,'20 g'],
-        ['ou 250 ml de leite morno + whey + canela','',250,'32 g'],
+        ['2 Quark Nuuv','200 g no total',120,'12 g'],
+        ['Fruta picada + canela','',60,'1 g'],
         ['Chá de camomila ou cidreira','junto ou depois',0,'—']
       ],
       acc:[
-        ['why','Por que cremoso e não refeição sólida','Você quer dormir até 00h e o treino acaba às 23h. Refeição sólida eleva a temperatura central — e o sono começa quando a temperatura <i>cai</i>. Líquido passa rápido e não gera termogênese relevante.'],
-        ['why','Por que caseína','O quark é rico em caseína, de digestão lenta, que libera aminoácidos por 5 a 7 h e cobre a janela noturna. Há evidência de que proteína pré-sono aumenta a síntese proteica noturna (Res et al., <i>Med Sci Sports Exerc</i> 2012; Snijders et al., <i>J Nutr</i> 2015).'],
-        ['warn','Fome aqui é diagnóstico, não problema','Quando o dia foi bem alimentado, ela não aparece — você mesmo notou. Se aparecer forte, alguma refeição falhou. Não compense à noite: descubra qual foi e corrija no dia seguinte.']
+        ['prep','Trocas equivalentes','A regra para escolher no mercado: <b>pelo menos 6 g de proteína por 100 g</b> e menos de 6 g de açúcar.<br><br><b>Skyr</b> (9–10 g/100 g) é melhor que o quark — mesma caseína, mais proteína.<br><b>Iogurte natural integral</b> (3,5 g) serve, com mais volume.<br><b>Grego tradicional brasileiro</b> (3–4 g) não serve: é leite com creme e açúcar, sobremesa disfarçada. Se tiver creme de leite entre os primeiros ingredientes, não é ceia.<br><b>Bebida de whey</b> não serve aqui — veja abaixo.'],
+        ['why','Por que caseína e não whey','O quark e o skyr são ricos em caseína, de digestão lenta, que libera aminoácidos por 5 a 7 h e cobre a janela noturna. Whey esvazia em 30 minutos e não cumpre essa função. Há evidência de que proteína pré-sono aumenta a síntese proteica noturna (Res et al., <i>Med Sci Sports Exerc</i> 2012; Snijders et al., <i>J Nutr</i> 2015).'],
+        ['why','Por que cremoso e não sólido','Você quer dormir até 00h e o treino acaba às 23h. Refeição sólida eleva a temperatura central — e o sono começa quando a temperatura <i>cai</i>.'],
+        ['warn','Fome aqui é diagnóstico, não problema','Quando o dia foi bem alimentado, ela não aparece. Se aparecer forte, alguma refeição falhou. Não compense à noite: descubra qual foi e corrija no dia seguinte.']
       ]
     }
   ]
 };
 
-/* dia de descanso = mesmas refeições, com duas subtrações */
+/* dia sem treino: sai o pré-treino, o arroz volta a 200 g e a ceia vira jantar cedo */
 MEALS.descanso = MEALS.treino
   .filter(m => m.id !== 'pre')
   .map(m => {
     if (m.id === 'almoco'){
       const c = JSON.parse(JSON.stringify(m));
-      c.kcal = 730;
+      c.kcal = 770; c.ptn = 56;
       c.items[1] = ['Arroz integral com cenoura e açafrão','150 g — reduzido no dia sem treino',200,'4 g'];
       c.acc = m.acc;
       return c;
@@ -547,40 +546,46 @@ MEALS.descanso = MEALS.treino
     if (m.id === 'ceia'){
       const c = JSON.parse(JSON.stringify(m));
       c.time = '20:30'; c.min = 1230; c.name = 'Jantar'; c.tag = 'a ceia, adiantada';
-      c.acc = [['why','Por que mais cedo','Sem treino às 21h, não há termogênese noturna nem cortisol elevado às 23h. A última refeição acontece às 20h30 — este é o dia mais fácil da semana para dormir cedo. Não desperdice ficando acordado até as 2h porque "não tem treino amanhã".']];
+      c.acc = m.acc.concat([['why','Por que mais cedo','Sem treino às 21h, não há termogênese noturna nem cortisol elevado às 23h. Este é o dia mais fácil da semana para dormir cedo.']]);
       return c;
     }
     return m;
   });
 
-/* dia de treino MATINAL: treino 07h–08h15, café depois, noite livre */
+/* dia de treino MATINAL: treino 07h–08h15, café inteiro depois, noite livre */
 MEALS.manha = (function(){
   const src = MEALS.treino;
   const cp = (id) => JSON.parse(JSON.stringify(src.find(m => m.id === id)));
 
-  const pre = { id:'pre', time:'06:30', min:390, name:'Pré-treino', tag:'ao acordar',
-    kcal:105, ptn:1,
-    items:[ ['1 banana','só ela — o resto vem no café, depois do treino',105,'1 g'] ],
+  const pre = { id:'pre', time:'06:30', min:390, name:'Pré-treino', tag:'ao acordar', kcal:105, ptn:1,
+    items:[ ['1 banana','o resto vem no café, depois do treino',105,'1 g'] ],
     acc:[
-      ['why','Por que só uma banana e sem whey','Meia hora entre comer e treinar é pouco para líquido volumoso, e você acabou de acordar. A banana entrega glicose rápida sem peso no estômago. A proteína chega logo depois, no café das 8h20 — e é o total do dia que importa, não a janela de 30 minutos.'],
-      ['prep','Deixe pronta na véspera','Banana descascável na bancada, ao lado do tênis. Reduzir atrito na hora de acordar é metade da batalha nas primeiras semanas.']
+      ['why','Por que só uma banana','Meia hora entre comer e treinar é pouco para volume, e você acabou de acordar. A banana entrega glicose rápida sem peso no estômago. A proteína chega logo depois.'],
+      ['prep','Deixe pronta na véspera','Banana na bancada, ao lado do tênis. Reduzir atrito na hora de acordar é metade da batalha nas primeiras semanas.']
     ]
   };
 
-  const cafe = cp('cafe');
-  cafe.time = '08:20'; cafe.min = 500; cafe.tag = 'Opção A · depois do treino';
-  cafe.acc = cafe.acc.concat([['prep','Se a manhã apertar','Use a Opção B, que fica pronta na véspera e resolve em 30 segundos. Nas primeiras semanas de adaptação, ter essa saída evita pular o café — que é o pior desfecho possível.']]);
+  const cafe = { id:'cafe1', time:'08:20', min:500, name:'Café da manhã', tag:'inteiro, depois do treino', kcal:650, ptn:42,
+    items:[
+      ['3 ovos mexidos','',210,'18 g'],
+      ['Metade da pasta de sardinha','',145,'14 g'],
+      ['2 fatias de pão integral','',140,'6 g'],
+      ['20 g de castanhas + 1 castanha-do-pará','',155,'4 g']
+    ],
+    acc:[
+      ['why','Aqui o café não se divide','Treinando de manhã, você já passou 2 h acordado quando senta para comer. A plenitude que aparecia às 8h30 em jejum não se repete depois do treino.'],
+      ['prep','Se a manhã apertar','Deixe a pasta e os ovos cozidos prontos na véspera. Pular o café é o pior desfecho possível nas primeiras semanas de adaptação.']
+    ]
+  };
 
-  const almoco = cp('almoco');
-  almoco.time = '13:00'; almoco.min = 780;
+  const almoco = cp('almoco'); almoco.time = '13:00'; almoco.min = 780;
 
   const lanche = cp('lanche');
-  lanche.kcal = 480; lanche.ptn = 36;
+  lanche.time = '17:30'; lanche.min = 1050;
+  lanche.kcal = 450; lanche.ptn = 28;
   lanche.items = lanche.items.filter(i => !/castanhas/.test(i[0]));
-  lanche.tag = 'no trabalho';
 
-  const jantar = { id:'jantar', time:'20:00', min:1200, name:'Jantar', tag:'a noite fica livre',
-    kcal:420, ptn:19,
+  const jantar = { id:'jantar', time:'20:00', min:1200, name:'Jantar', tag:'a noite fica livre', kcal:420, ptn:19,
     items:[
       ['2 ovos ou 80 g de frango desfiado','',140,'14 g'],
       ['Batata-doce ou arroz','150 g',130,'2 g'],
@@ -588,7 +593,7 @@ MEALS.manha = (function(){
       ['Chá de camomila ou cidreira','depois, se quiser',0,'—']
     ],
     acc:[
-      ['why','Agora dá para jantar de verdade','No dia de treino noturno a última refeição é uma ceia líquida às 23h15, porque comida sólida perto de deitar atrapalha o sono. Treinando de manhã, a noite fica livre: às 20h você tem quatro horas até dormir e pode fazer uma refeição normal.'],
+      ['why','Agora dá para jantar de verdade','No dia de treino noturno a última refeição é uma ceia cremosa às 23h15, porque comida sólida perto de deitar atrapalha o sono. Treinando de manhã, você tem quatro horas até dormir.'],
       ['prep','Sai da mesma marmita','Use as porções do prep de domingo. Não precisa cozinhar à noite.']
     ]
   };
@@ -596,36 +601,38 @@ MEALS.manha = (function(){
   return [pre, cafe, almoco, lanche, jantar];
 })();
 
+
 const TARGETS = {
-  manha:    { kcal:2580, ptn:162, carb:275, gord:92 },
-  treino:   { kcal:2550, ptn:165, carb:275, gord:92 },
-  descanso: { kcal:2290, ptn:164, carb:215, gord:90 }
+  manha:    { kcal:2460, ptn:147, carb:235, gord:105 },
+  treino:   { kcal:2475, ptn:145, carb:240, gord:105 },
+  descanso: { kcal:2200, ptn:142, carb:200, gord:100 }
 };
 
 const SHOP = [
   ['Proteína', [
     ['35 ovos','4–5/dia + 5 cozidos'],['1,2 kg de peito de frango',''],['500 g de patinho moído',''],
-    ['5 latas de sardinha em óleo','1 lata rende 2 refeições'],['4 potes de Quark Nuuv',''],
-    ['Whey concentrado','1 pote/mês']
+    ['5 latas de sardinha em óleo','1 lata rende 2 refeições'],
+    ['15 potes de Quark Nuuv','3/dia útil — lanche e ceia']
   ]],
   ['Carboidrato', [
     ['Arroz integral','1,5 kg'],['Feijão carioca','500 g'],['Aveia em flocos','500 g'],
     ['Pão integral','ver critérios no Guia'],['Batata-doce','1,5 kg']
   ]],
   ['Gordura e laticínio', [
-    ['Azeite extravirgem','1 garrafa/mês'],['Castanha de caju e/ou amêndoa','400 g'],
+    ['Azeite extravirgem','1 garrafa/mês'],['Castanha de caju e/ou amêndoa','350 g'],
     ['Castanha-do-pará','pacote pequeno — 1/dia'],['Leite','2–3 L']
   ]],
   ['Vegetais', [
     ['Berinjela','4–5 un'],['Abobrinha, cenoura',''],['Brócolis ou couve-flor',''],
-    ['Folhas, tomate, pepino',''],['Cebola, alho',''],['Limão','5 un — vitamina C do almoço']
+    ['Folhas, tomate, pepino',''],['Cebola roxa, cebola, alho','a roxa vai na pasta de sardinha'],['Limão','5 un — vitamina C do almoço']
   ]],
   ['Frutas', [
     ['Banana','16 un — 2 no pré-treino'],['Goiaba, kiwi, morango ou acerola','vitamina C'],
     ['Maçã, pera',''],['Tangerina, uva verde, manga','']
   ]],
   ['Despensa e suplementos', [
-    ['Psyllium',''],['Açafrão-da-terra e pimenta-do-reino',''],['Canela em pó e em pau',''],
+    ['Psyllium',''],['Vinagre','vinagrete do almoço'],['Mostarda','pasta de sardinha'],
+    ['Açafrão-da-terra e pimenta-do-reino',''],['Canela em pó e em pau',''],
     ['Chá verde, camomila, cidreira',''],['Chá preto, cravo, gengibre','chai caseiro'],
     ['Creatina monoidratada',''],['Vitamina D3 2.000 UI','ver critérios no Guia']
   ]]
@@ -660,7 +667,7 @@ function accs(list){
 }
 
 /* ============ linha do dia (rotulada) ============ */
-const SHORT = { cafe:'café', almoco:'almoço', lanche:'lanche', pre:'pré', ceia:'ceia', jantar:'jantar' };
+const SHORT = { cafe1:'café 1', cafe2:'café 2', almoco:'almoço', lanche:'lanche', pre:'pré', ceia:'ceia', jantar:'jantar' };
 const DAYLBL = { manha:'treino de manhã', treino:'treino à noite', descanso:'dia sem treino' };
 const TRAIN = {
   manha:    { time:'07:00', min:420,  dur:75 },
@@ -674,7 +681,9 @@ function timelineHTML(){
   // refeições + treino, em ordem cronológica
   const list = meals().map(m => ({
     min:m.min, time:m.time, kind:'meal',
-    label: m.id==='ceia' ? (m.name==='Jantar'?'jantar':'ceia') : (SHORT[m.id]||m.name.toLowerCase())
+    label: m.id==='ceia' ? (m.name==='Jantar'?'jantar':'ceia')
+           : (m.id==='cafe1' && dayType==='manha') ? 'café'
+           : (SHORT[m.id]||m.name.toLowerCase())
   }));
   if (tr) list.push({ min:tr.min, time:tr.time, kind:'train', label:'treino', dur:tr.dur });
   list.sort((a,b)=>a.min-b.min);
@@ -1114,9 +1123,9 @@ function renderAgora(){
 function renderRefeicoes(){
   const list = meals(), t = nowMin(), tg = TARGETS[dayType];
   const LEDE = {
-    manha: 'Treino às 7h. Banana ao acordar, café depois do treino e jantar de verdade às 20h — a noite fica livre. ' + tg.kcal + ' kcal.',
-    treino: 'Treino às 21h. Cinco refeições, ' + tg.kcal + ' kcal.',
-    descanso: 'Sem treino. Quatro refeições, ' + tg.kcal + ' kcal — sai o pré-treino e o arroz do almoço volta para 150 g.'
+    manha: 'Treino às 7h. Banana ao acordar, café inteiro depois do treino e jantar às 20h — a noite fica livre. ' + tg.kcal + ' kcal.',
+    treino: 'Treino às 21h. Café dividido em duas partes, ' + tg.kcal + ' kcal.',
+    descanso: 'Sem treino. Sai o pré-treino, o arroz volta a 200 g e a ceia vira jantar às 20h30. ' + tg.kcal + ' kcal.'
   };
   let h = `<p class="lede">${LEDE[dayType]}</p>`;
   const tr = TRAIN[dayType];
