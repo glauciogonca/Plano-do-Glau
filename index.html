@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-<title>Plano</title>
+<title>Plano do Glau</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Plano alimentar pessoal.">
 <meta name="theme-color" content="#16211D">
@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Plano">
+<meta name="apple-mobile-web-app-title" content="Plano do Glau">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -131,6 +131,40 @@ button{font-family:inherit;border:none;background:none;color:inherit;cursor:poin
 .hist .del:active{color:var(--clay);}
 
 .seg{display:flex;background:var(--shade);border-radius:10px;padding:3px;margin-bottom:14px;}
+.prow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:8px;}
+.prow:active{transform:scale(.99);}
+.prow .body{flex:1;min-width:0;}
+.prow .body b{display:block;font-size:15.5px;font-weight:700;}
+.prow .body span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);}
+.prow .pr{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:600;text-align:right;flex:0 0 auto;}
+.tag{display:block;font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;margin-top:4px;padding:2px 6px;border-radius:4px;}
+.tag.barato{background:#DCE8DA;color:#28513F;}
+.tag.justo{background:var(--shade);color:var(--muted);}
+.tag.caro{background:#F3DAD5;color:#7C3225;}
+.tag.novo{background:#F5E3C4;color:#7A5410;}
+.fl{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin:14px 0 6px;}
+.fi{width:100%;min-width:0;max-width:100%;padding:13px;border:1px solid var(--line);
+  border-radius:10px;font-size:16px;background:#fff;color:var(--ink);font-family:inherit;display:block;}
+/* o iOS dá largura intrínseca ao input de data e ele estoura o card */
+input[type="date"].fi{-webkit-appearance:none;appearance:none;text-align:left;min-height:48px;}
+.fi:focus{outline:none;border-color:var(--turmeric);}
+textarea.fi{min-height:150px;font-family:"IBM Plex Mono",monospace;font-size:13px;line-height:1.55;}
+.msg{margin:12px 0 0;font-size:14px;}
+.msg.ok{color:var(--teal);} .msg.err{color:var(--clay);}
+.card.hero{background:var(--amber);color:#fff;border-color:var(--amber);padding:22px;
+  box-shadow:0 6px 20px -8px rgba(154,98,16,.55);}
+.card.hero .eyebrow{color:rgba(255,255,255,.82);}
+.card.hero .v{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:38px;
+  line-height:1;letter-spacing:-.03em;margin:10px 0 4px;}
+.card.hero .s{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:rgba(255,255,255,.86);}
+.card.hero .st{display:flex;gap:10px;margin-top:16px;}
+.card.hero .st>div{flex:1;background:rgba(255,255,255,.14);border-radius:10px;padding:11px 12px;}
+.card.hero .st b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:18px;font-weight:800;}
+.card.hero .st span{font-family:"IBM Plex Mono",monospace;font-size:8.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.75);display:block;margin-top:4px;}
 .seg button{flex:1;padding:10px;border-radius:8px;font-size:14px;font-weight:600;color:var(--muted);}
 .seg button[aria-pressed="true"]{background:#fff;color:var(--ink);
   box-shadow:0 1px 3px rgba(0,0,0,.08);}
@@ -337,7 +371,23 @@ tr.sum td{border-bottom:none;font-weight:700;padding-top:12px;}
 .grp h3 .c{margin-left:auto;font-size:10px;color:var(--muted);letter-spacing:.04em;}
 .grp ul{list-style:none;margin:0;padding:0;}
 .grp li{margin:0;}
-.grp label{display:flex;gap:12px;align-items:flex-start;padding:9px 0;cursor:pointer;font-size:15.5px;}
+.grp li{display:flex;align-items:flex-start;gap:8px;}
+.grp label{display:flex;gap:12px;align-items:flex-start;padding:9px 0;cursor:pointer;font-size:15.5px;flex:1;min-width:0;}
+.pbtn{flex:0 0 auto;text-align:right;padding:9px 0 9px 8px;}
+.pbtn .pv{font-family:"IBM Plex Mono",monospace;font-size:13.5px;font-weight:600;color:var(--ink);white-space:nowrap;}
+.pbtn .tag{margin-top:3px;}
+.pbtn.vazio .pv{color:var(--turmeric);font-weight:600;font-size:12px;}
+.qf{background:var(--card);border:1px solid var(--turmeric);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
+.qf .lin{display:flex;gap:10px;align-items:flex-end;}
+.qf .lin>div{flex:1;min-width:0;}
+.qf .lin button{flex:0 0 auto;background:var(--turmeric);color:#fff;font-weight:700;font-size:15px;
+  padding:14px 18px;border-radius:10px;white-space:nowrap;}
+.qf .lin button:active{filter:brightness(.92);}
+.addbar{display:flex;gap:8px;margin-bottom:12px;}
+.addbar button{flex:1;background:var(--card);border:1px solid var(--line);border-radius:11px;
+  padding:13px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;
+  text-transform:uppercase;font-weight:600;color:var(--ink);}
+.addbar button:active{background:var(--shade);}
 .grp input{appearance:none;width:21px;height:21px;flex:0 0 21px;margin-top:1px;
   border:1.5px solid var(--muted);border-radius:6px;background:#fff;position:relative;transition:.14s;}
 .grp input:checked{background:var(--teal);border-color:var(--teal);}
@@ -606,6 +656,36 @@ const TARGETS = {
   manha:    { kcal:2460, ptn:147, carb:235, gord:105 },
   treino:   { kcal:2475, ptn:145, carb:240, gord:105 },
   descanso: { kcal:2200, ptn:142, carb:200, gord:100 }
+};
+
+/* liga cada item da lista ao produto na base de preços, para o preço
+   aparecer ali mesmo, na hora de olhar a prateleira */
+const LINK = {
+  "35 ovos":"Ovos|cartela 20 un",
+  "1,2 kg de peito de frango":"Frango peito|kg",
+  "500 g de patinho moído":"Patinho bovino|kg",
+  "5 latas de sardinha em óleo":"Sardinha em óleo 125g|lata",
+  "15 potes de Quark Nuuv":"Quark Nuuv 100g|pote",
+  "Arroz integral":"Arroz integral 1kg|pacote",
+  "Feijão carioca":"Feijão carioca 1kg|pacote",
+  "Aveia em flocos":"Aveia em flocos|pacote",
+  "Pão integral":"Pão integral Panutrir 500g|pacote",
+  "Batata-doce":"Batata-doce|kg",
+  "Azeite extravirgem":"Azeite extravirgem|garrafa",
+  "Castanha de caju e/ou amêndoa":"Castanha de caju|kg",
+  "Castanha-do-pará":"Castanha-do-pará Frunut|pacote",
+  "Leite":"Leite sem lactose 1L|litro",
+  "Berinjela":"Berinjela|kg",
+  "Abobrinha, cenoura":"Cenoura|kg",
+  "Brócolis ou couve-flor":"Brócolis 300g|bandeja",
+  "Folhas, tomate, pepino":"Tomate italiano 1kg|bandeja",
+  "Cebola roxa, cebola, alho":"Cebola roxa|kg",
+  "Limão":"Limão|unidade",
+  "Banana":"Banana|kg",
+  "Goiaba, kiwi, morango ou acerola":null,
+  "Maçã, pera":"Maçã|kg",
+  "Psyllium":"Psyllium|pote",
+  "Vinagre":"Vinagre de álcool|garrafa"
 };
 
 const SHOP = [
@@ -1174,10 +1254,229 @@ function renderRefeicoes(){
 
 /* ============ tela COMPRAS ============ */
 function shopKey(g,i){ return g+'|'+i; }
+
+/* ============ PREÇOS: base das notas fiscais ============ */
+const BRL = n => 'R$ ' + n.toFixed(2).replace('.',',');
+const fdia = iso => { const p=iso.split('-'); return p[2]+'/'+p[1]; };
+
+const PRECOS_SEED = [
+  ["Ovos","Proteína","cartela 20 un",10.06,"Roldão","2026-08-30"],
+  ["Ovos","Proteína","cartela 20 un",14.29,"Sonda","2026-09-07"],
+  ["Sardinha em óleo 125g","Proteína","lata",7.99,"DIA","2026-09-06"],
+  ["Sardinha em óleo 75g","Proteína","lata",5.39,"Sonda","2026-09-07"],
+  ["Atum ralado 170g","Proteína","lata",7.99,"DIA","2026-09-06"],
+  ["Atum sólido 120g","Proteína","lata",14.51,"Sonda","2026-09-07"],
+  ["Patinho bovino","Proteína","kg",63.60,"Roldão","2026-08-30"],
+  ["Quark Nuuv 100g","Proteína","pote",2.75,"Roldão","2026-08-30"],
+  ["Quark Nuuv 100g","Proteína","pote",3.39,"Pão de Açúcar","2026-08-30"],
+  ["Quark Nuuv 100g","Proteína","pote",3.19,"Pão de Açúcar","2026-09-06"],
+  ["Queijo parmesão ralado","Proteína","kg",99.92,"Sonda","2026-09-07"],
+  ["Pão integral Panutrir 500g","Mercearia","pacote",10.49,"Pão de Açúcar","2026-09-06"],
+  ["Pão Wickbold 100% 500g","Mercearia","pacote",14.83,"Roldão","2026-08-30"],
+  ["Pão caseiro Panco 500g","Mercearia","pacote",12.76,"Roldão","2026-08-30"],
+  ["Arroz integral 1kg","Mercearia","pacote",5.50,"Roldão","2026-08-30"],
+  ["Feijão carioca 1kg","Mercearia","pacote",8.47,"Roldão","2026-08-30"],
+  ["Azeite extravirgem","Mercearia","garrafa",23.21,"Roldão","2026-08-30"],
+  ["Castanha-do-pará Frunut","Mercearia","pacote",29.30,"Roldão","2026-08-30"],
+  ["Vinagre de álcool","Mercearia","garrafa",4.99,"Pão de Açúcar","2026-08-30"],
+  ["Leite sem lactose 1L","Mercearia","litro",5.89,"DIA","2026-09-06"],
+  ["Chá Leão","Mercearia","caixa",6.29,"Pão de Açúcar","2026-08-30"],
+  ["Chá Twinings","Mercearia","caixa",18.99,"Pão de Açúcar","2026-08-30"],
+  ["Maçã","Hortifruti","kg",9.99,"Pão de Açúcar","2026-09-06"],
+  ["Cenoura","Hortifruti","kg",11.99,"Pão de Açúcar","2026-08-30"],
+  ["Cenoura","Hortifruti","kg",11.99,"Pão de Açúcar","2026-09-06"],
+  ["Berinjela","Hortifruti","kg",14.99,"Pão de Açúcar","2026-08-30"],
+  ["Berinjela","Hortifruti","kg",14.99,"Pão de Açúcar","2026-09-06"],
+  ["Abobrinha italiana","Hortifruti","kg",8.99,"Pão de Açúcar","2026-08-30"],
+  ["Abobrinha italiana","Hortifruti","kg",5.79,"Pão de Açúcar","2026-09-06"],
+  ["Cebola roxa","Hortifruti","kg",13.99,"Pão de Açúcar","2026-08-30"],
+  ["Cebola roxa","Hortifruti","kg",10.49,"Pão de Açúcar","2026-09-06"],
+  ["Cebola comum","Hortifruti","kg",9.29,"Pão de Açúcar","2026-09-06"],
+  ["Beterraba","Hortifruti","kg",8.99,"Pão de Açúcar","2026-08-30"],
+  ["Alho","Hortifruti","kg",52.90,"Pão de Açúcar","2026-08-30"],
+  ["Pepino","Hortifruti","kg",7.99,"Pão de Açúcar","2026-08-30"],
+  ["Batata-doce","Hortifruti","kg",9.99,"Pão de Açúcar","2026-08-30"],
+  ["Tomate italiano 1kg","Hortifruti","bandeja",19.99,"Pão de Açúcar","2026-08-30"],
+  ["Brócolis 300g","Hortifruti","bandeja",12.90,"Pão de Açúcar","2026-08-30"],
+  ["Pimentão amarelo","Hortifruti","kg",29.99,"Pão de Açúcar","2026-09-06"],
+  ["Pimentão vermelho","Hortifruti","kg",29.99,"Pão de Açúcar","2026-09-06"],
+  ["Pimentão verde","Hortifruti","kg",17.99,"Pão de Açúcar","2026-09-06"],
+  ["Alface crespa","Hortifruti","unidade",6.99,"Pão de Açúcar","2026-09-06"],
+  ["Cebolinha","Hortifruti","maço",6.99,"Pão de Açúcar","2026-08-30"],
+  ["Cebolinha","Hortifruti","maço",6.99,"Pão de Açúcar","2026-09-06"]
+];
+/* só o que foi da dieta; limpeza, papel e cápsulas de café ficam de fora */
+const NOTAS_SEED = [
+  { data:"2026-08-30", mercado:"Roldão",        valor:196.08 },
+  { data:"2026-08-30", mercado:"Pão de Açúcar", valor:156.68 },
+  { data:"2026-09-06", mercado:"Pão de Açúcar", valor:148.96 },
+  { data:"2026-09-06", mercado:"DIA",           valor:31.85  },
+  { data:"2026-09-07", mercado:"Sonda",         valor:133.97 }
+];
+
+/* consumo semanal estimado, na mesma unidade da base de preços.
+   É isso que transforma preço em custo da semana. */
+const CONSUMO = [
+  ["Ovos","cartela 20 un",1.4],
+  ["Sardinha em óleo 125g","lata",7],
+  ["Pão integral Panutrir 500g","pacote",2],
+  ["Quark Nuuv 100g","pote",21],
+  ["Arroz integral 1kg","pacote",0.5],
+  ["Feijão carioca 1kg","pacote",0.3],
+  ["Azeite extravirgem","garrafa",0.4],
+  ["Castanha-do-pará Frunut","pacote",0.25],
+  ["Patinho bovino","kg",0.5],
+  ["Berinjela","kg",1.0],
+  ["Cenoura","kg",0.5],
+  ["Abobrinha italiana","kg",0.5],
+  ["Batata-doce","kg",0.5],
+  ["Cebola roxa","kg",0.3],
+  ["Alho","kg",0.05],
+  ["Pimentão verde","kg",0.25],
+  ["Tomate italiano 1kg","bandeja",0.5],
+  ["Brócolis 300g","bandeja",1],
+  ["Alface crespa","unidade",1],
+  ["Maçã","kg",1.5],
+  ["Leite sem lactose 1L","litro",1],
+  ["Vinagre de álcool","garrafa",0.25],
+  // ainda sem preço na base
+  ["Frango peito","kg",1.2],
+  ["Banana","kg",1.8],
+  ["Castanha de caju","kg",0.35],
+  ["Limão","unidade",7],
+  ["Aveia em flocos","pacote",0.5],
+  ["Psyllium","pote",0.25]
+];
+
+/* custo da semana a partir dos últimos preços registrados */
+function custoSemana(){
+  const ps = porProduto();
+  const idx = {}; ps.forEach(x=>{ idx[x.p+'|'+x.u] = x; });
+  const com = [], sem = [];
+  CONSUMO.forEach(([p,u,q])=>{
+    const x = idx[p+'|'+u];
+    if (x) com.push({p,u,q,preco:x.ult.v,total:x.ult.v*q,status:x.status});
+    else sem.push({p,u,q});
+  });
+  com.sort((a,b)=>b.total-a.total);
+  return {com, sem, total: com.reduce((s,x)=>s+x.total,0)};
+}
+
+/* devolvem sempre copias: sem isso, um push em notasf() mutava NOTAS_SEED
+   e o botao de restaurar passava a restaurar a base ja alterada. */
+const precos = () => DB.get('precos', PRECOS_SEED.map(o=>({p:o[0],c:o[1],u:o[2],v:o[3],m:o[4],d:o[5]})))
+                       .map(o=>({...o}));
+const notasf = () => DB.get('notasf', NOTAS_SEED).map(n=>({...n}));
+const mediana = a => { const s=[...a].sort((x,y)=>x-y), n=s.length;
+  return n%2 ? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; };
+
+function porProduto(){
+  const g = {};
+  precos().forEach(o=>{ const k=o.p+'|'+o.u; (g[k]=g[k]||{p:o.p,c:o.c,u:o.u,hist:[]}).hist.push(o); });
+  return Object.values(g).map(x=>{
+    x.hist.sort((a,b)=>a.d<b.d?-1:1);
+    const vals = x.hist.map(h=>h.v);
+    x.med=mediana(vals); x.min=Math.min(...vals); x.max=Math.max(...vals);
+    x.ult=x.hist[x.hist.length-1];
+    const b=x.hist.reduce((a,c)=>c.v<a.v?c:a); x.ondeBarato=b.m; x.precoBarato=b.v;
+    x.delta = x.med ? (x.ult.v-x.med)/x.med*100 : 0;
+    x.n = x.hist.length;
+    x.status = x.n<2 ? 'novo' : x.delta<=-8 ? 'barato' : x.delta>=8 ? 'caro' : 'justo';
+    return x;
+  }).sort((a,b)=>a.p.localeCompare(b.p,'pt'));
+}
+
+/* agrupa por rodada de compra (notas a ate 3 dias), nao por semana do calendario */
+function rodadas(){
+  const ns = notasf().slice().sort((a,b)=>a.data<b.data?-1:1);
+  const dia = iso => Math.round(new Date(iso+'T00:00:00').getTime()/86400000);
+  const out = [];
+  ns.forEach(n=>{
+    const u = out[out.length-1];
+    if (u && dia(n.data)-dia(u.fim) <= 3){
+      u.valor+=n.valor; u.notas.push(n); u.fim=n.data;
+    } else out.push({ini:n.data,fim:n.data,valor:n.valor,notas:[n]});
+  });
+  return out;
+}
+
+const numBR = s => parseFloat(String(s||'').trim().replace(/^R\$\s*/i,'').replace(/\./g,'').replace(',','.'));
+
+/* importador do bloco de texto gerado a partir da nota */
+function importarTexto(txt){
+  const linhas = txt.split('\n').map(l=>l.trim()).filter(Boolean);
+  let data=null, mercado=null, itens=[], dieta=null, erros=[];
+  linhas.forEach((l,i)=>{
+    const up = l.toUpperCase();
+    if (up.startsWith('COMPRA')){
+      const m = l.match(/COMPRA\s+(\d{4}-\d{2}-\d{2})\s+(.+)/i);
+      if (m){ data=m[1]; mercado=m[2].trim(); } else erros.push(`linha ${i+1}: cabeçalho inválido`);
+      return;
+    }
+    if (up.startsWith('TOTAL') || up.startsWith('DIETA')){
+      const m2 = l.match(/(?:TOTAL|DIETA)\s+([\d.,]+)/i);
+      if (m2) dieta = numBR(m2[1]);
+      return;
+    }
+    const p = l.split(';').map(x=>x.trim());
+    if (p.length < 3){ erros.push(`linha ${i+1}: esperado "produto; unidade; preço"`); return; }
+    const v = numBR(p[2]);
+    if (!isFinite(v) || v<=0){ erros.push(`linha ${i+1}: preço inválido`); return; }
+    itens.push({p:p[0], c:p[3]||'Outros', u:p[1], v:+v.toFixed(2)});
+  });
+  if (!data || !mercado) erros.push('falta a linha COMPRA com data e mercado');
+  if (erros.length) return {erro:erros};
+
+  const base = precos();
+  itens.forEach(it => base.push({p:it.p,c:it.c,u:it.u,v:it.v,m:mercado,d:data}));
+  DB.set('precos', base);
+
+  let nota = 0;
+  if (dieta !== null){
+    const nn = notasf();
+    nn.push({data, mercado, valor:+dieta.toFixed(2)});
+    DB.set('notasf', nn); nota = 1;
+  }
+  return {itens:itens.length, nota, mercado, data};
+}
+
+let compraAba = 'lista';
+let precoFiltro = '';
+
 function renderCompras(){
+  const seg = `<div class="seg" role="group">
+    <button data-caba="lista" aria-pressed="${compraAba==='lista'}">Lista</button>
+    <button data-caba="precos" aria-pressed="${compraAba==='precos'}">Preços</button>
+    <button data-caba="gastos" aria-pressed="${compraAba==='gastos'}">Gastos</button>
+  </div>`;
+  let h = seg;
+  if (compraAba === 'lista')  h += blocoLista();
+  if (compraAba === 'precos') h += blocoPrecos();
+  if (compraAba === 'gastos') h += blocoGastos();
+  document.getElementById('v-compras').innerHTML = h;
+  atualizaBadge();
+}
+
+function atualizaBadge(){
   const state = DB.get('shop',{});
   let total=0, done=0;
-  let h = ``;
+  SHOP.forEach(([grp,items])=>{
+    total += items.length;
+    done += items.filter((_,i)=>state[shopKey(grp,i)]).length;
+  });
+  const badge = document.getElementById('cartBadge');
+  const left = total - done;
+  if (done > 0 && left > 0){ badge.hidden=false; badge.textContent=left; }
+  else { badge.hidden=true; badge.textContent=''; }
+}
+
+function blocoLista(){
+  const state = DB.get('shop',{});
+  const ps = porProduto();
+  const idx = {}; ps.forEach((x,i)=>{ idx[x.p+'|'+x.u] = {x,i}; });
+  window.__precos = ps;
+  const ROT = {barato:'abaixo', justo:'normal', caro:'acima', novo:'1º registro'};
+  let total=0, done=0, h='';
   SHOP.forEach(([grp,items])=>{
     const marked = items.filter((_,i)=>state[shopKey(grp,i)]).length;
     total += items.length; done += marked;
@@ -1185,14 +1484,26 @@ function renderCompras(){
       <h3>${grp}<span class="c">${marked}/${items.length}</span></h3><ul>`;
     items.forEach(([n,q],i)=>{
       const k = shopKey(grp,i);
+      const chave = LINK[n];
+      const hit = chave ? idx[chave] : null;
+      const preco = hit
+        ? `<button class="pbtn" data-preco="${hit.i}">
+             <span class="pv">${BRL(hit.x.ult.v)}</span>
+             <span class="tag ${hit.x.status}">${ROT[hit.x.status]}</span></button>`
+        : chave ? `<button class="pbtn vazio" data-novo="${chave}"><span class="pv">+ preço</span></button>` : '';
       h += `<li><label><input type="checkbox" data-shop="${k}" ${state[k]?'checked':''}>
-        <span>${n}${q?`<span class="qty">${q}</span>`:''}</span></label></li>`;
+        <span>${n}${q?`<span class="qty">${q}</span>`:''}</span></label>${preco}</li>`;
     });
     h += `</ul></div>`;
   });
   h += `<button class="btn quiet" id="clearShop" style="margin-top:6px;">Desmarcar tudo</button>`;
 
-  const summary = done === 0
+  const atalho = `<div class="addbar">
+    <button id="addLivre">+ Registrar preço</button>
+  </div>`;
+  h = atalho + h;
+
+  const topo = done === 0
     ? `<p class="lede">Uma compra por semana, a mesma para dias de treino e de descanso. Marque conforme pegar — fica salvo mesmo se você fechar o app.</p>`
     : done === total
       ? `<div class="card" style="border-color:var(--teal);background:#F5F8F3;padding:16px 18px;">
@@ -1207,13 +1518,191 @@ function renderCompras(){
            </div>
            <p class="lede" style="margin:12px 0 0;font-size:13px;">Faltam ${total-done} itens — é esse número que aparece no ícone de Compras.</p>
          </div>`;
+  return topo + h;
+}
 
-  document.getElementById('v-compras').innerHTML = summary + h;
+function blocoPrecos(){
+  const ps = porProduto();
+  const f = precoFiltro.trim().toLowerCase();
+  const lista = ps.filter(x => !f || x.p.toLowerCase().includes(f));
+  window.__precos = lista;
 
-  const badge = document.getElementById('cartBadge');
-  const left = total - done;
-  if (done > 0 && left > 0){ badge.hidden = false; badge.textContent = left; }
-  else { badge.hidden = true; badge.textContent = ''; }
+  let h = `<input class="fi" id="pSearch" type="search" placeholder="Buscar produto"
+    value="${precoFiltro.replace(/"/g,'&quot;')}" autocomplete="off" style="margin-bottom:12px;">`;
+  if (!lista.length) return h + `<p class="lede">Nada encontrado.</p>`;
+
+  const ROT = {barato:'abaixo do normal', justo:'preço normal', caro:'acima do normal', novo:'sem histórico'};
+  lista.forEach((x,i)=>{
+    h += `<button class="prow" data-preco="${i}">
+      <span class="body"><b>${x.p}</b>
+        <span>por ${x.u} · ${x.n} ${x.n===1?'registro':'registros'} · melhor no ${x.ondeBarato}</span></span>
+      <span class="pr">${BRL(x.ult.v)}<span class="tag ${x.status}">${ROT[x.status]}</span></span>
+    </button>`;
+  });
+  return h;
+}
+
+/* formulário curto de preço, usado dentro da folha de detalhe e no cadastro novo */
+function formPreco(prod, un, cat){
+  const mercs = [...new Set(precos().map(o=>o.m))];
+  const ultimo = DB.get('ultimoMercado', mercs[0] || '');
+  return `<div class="qf" data-form="1" data-p="${prod}" data-u="${un}" data-c="${cat||'Outros'}">
+    <div class="eyebrow">Preço de hoje</div>
+    <p class="lede" style="margin:6px 0 12px;font-size:13.5px;">${prod} · por ${un}</p>
+    <div class="lin">
+      <div>
+        <label class="fl" for="qVal" style="margin-top:0;">Preço</label>
+        <input class="fi" id="qVal" type="text" inputmode="decimal" placeholder="14,99">
+      </div>
+      <button id="qSave">Salvar</button>
+    </div>
+    <label class="fl" for="qMerc">Mercado</label>
+    <input class="fi" id="qMerc" list="dMercQ" placeholder="Feira" autocomplete="off" value="${ultimo.replace(/"/g,'&quot;')}">
+    <datalist id="dMercQ">${mercs.concat(['Feira']).filter((v,i,a)=>a.indexOf(v)===i).map(n=>`<option value="${n}">`).join('')}</datalist>
+    <div id="qMsg"></div>
+  </div>`;
+}
+
+function novoPreco(prod, un, cat){
+  return formPreco(prod, un, cat) + `<div class="card">
+    <div class="eyebrow q">Sem histórico ainda</div>
+    <p style="margin:8px 0 0;font-size:15px;">Este é o primeiro registro deste item. O termômetro de caro ou barato começa a funcionar na segunda compra.</p>
+  </div>`;
+}
+
+function detalhePreco(i){
+  const x = window.__precos[i];
+  const faixa = x.max - x.min;
+  const pos = faixa ? (x.ult.v - x.min)/faixa*100 : 50;
+  const cor = x.status==='caro'?'var(--clay)':x.status==='barato'?'var(--teal)':'var(--turmeric)';
+  let h = formPreco(x.p, x.u, x.c);
+  h += `<div class="card"><div class="eyebrow q">${x.p} · por ${x.u}</div>
+    <table style="margin-top:10px;">
+      <tr><td>Última compra</td><td class="n"><b>${BRL(x.ult.v)}</b><span class="qty">${x.ult.m} · ${fdia(x.ult.d)}</span></td></tr>
+      <tr><td>Mediana</td><td class="n">${BRL(x.med)}</td></tr>
+      <tr><td>Mínimo</td><td class="n">${BRL(x.min)}</td></tr>
+      <tr><td>Máximo</td><td class="n">${BRL(x.max)}</td></tr>
+    </table>
+    <div class="track" style="margin-top:14px;"><i style="width:${pos.toFixed(0)}%;background:${cor}"></i></div>
+    <p class="lede" style="margin:8px 0 0;font-size:13px;">Onde a última compra caiu dentro da faixa já observada.</p>
+  </div>
+  <div class="card"><div class="eyebrow q">Histórico</div><table>
+    <tr><th>Data</th><th>Mercado</th><th class="n">Preço</th></tr>`
+    + x.hist.slice().reverse().map(o=>`<tr><td>${fdia(o.d)}</td><td>${o.m}</td><td class="n">${BRL(o.v)}</td></tr>`).join('')
+    + `</table></div>`;
+  if (x.n < 2) h += `<div class="card" style="border-color:var(--turmeric)">
+    <div class="eyebrow">Sem histórico ainda</div>
+    <p style="margin:8px 0 0;font-size:15px;">Com um registro só não dá para dizer se está caro. O termômetro começa a funcionar na segunda compra.</p></div>`;
+  return h;
+}
+
+function blocoGastos(){
+  const rs = rodadas();
+  const real = rs.length ? rs.reduce((s,x)=>s+x.valor,0)/rs.length : 0;
+  const cs = custoSemana();
+  const ps = porProduto();
+  const caros = ps.filter(x=>x.status==='caro'), baratos = ps.filter(x=>x.status==='barato');
+  const mercs = [...new Set(precos().map(o=>o.m))];
+  const hoje = new Date().toISOString().slice(0,10);
+
+  let h = `<div class="card hero">
+    <div class="eyebrow">Custo da semana · preços atuais</div>
+    <div class="v">${BRL(cs.total)}</div>
+    <div class="s">${cs.com.length} itens precificados${cs.sem.length?` · ${cs.sem.length} sem preço`:''}</div>
+    <div class="st">
+      <div><b>${BRL(cs.total*4.33)}</b><span>por mês</span></div>
+      <div><b>${BRL(cs.total/7)}</b><span>por dia</span></div>
+    </div>
+  </div>`;
+
+  h += `<div class="card"><div class="eyebrow q">De onde vem esse número</div>
+    <table><tr><th>Item</th><th class="n">Semana</th><th class="n">Custo</th></tr>`
+    + cs.com.map(x=>`<tr><td>${x.p}<span class="qty">${BRL(x.preco)} por ${x.u}</span></td>
+        <td class="n">${(+x.q.toFixed(2))} ${x.u==='kg'||x.u==='litro'?x.u:''}</td>
+        <td class="n"><b>${BRL(x.total)}</b></td></tr>`).join('')
+    + `<tr><td><b>Total</b></td><td class="n"></td><td class="n"><b>${BRL(cs.total)}</b></td></tr></table>`;
+  if (cs.sem.length){
+    h += `<p class="lede" style="margin:14px 0 0;font-size:13px;"><b>Fora da conta por falta de preço:</b>
+      ${cs.sem.map(x=>x.p).join(', ')}. Registre na próxima compra e eles entram.</p>`;
+  }
+  h += `</div>`;
+
+  h += `<div class="card"><div class="eyebrow q">O que você realmente gastou</div>
+    <table><tr><th>Quando</th><th>Onde</th><th class="n">Dieta</th></tr>`;
+  rs.slice().reverse().forEach(s=>{
+    const rot = s.ini===s.fim ? fdia(s.ini) : fdia(s.ini)+'–'+fdia(s.fim);
+    h += `<tr><td>${rot}</td><td>${s.notas.map(n=>n.mercado).join(', ')}</td>
+      <td class="n"><b>${BRL(s.valor)}</b></td></tr>`;
+  });
+  h += `<tr><td><b>Média</b></td><td></td><td class="n"><b>${BRL(real)}</b></td></tr></table>
+    <p class="lede" style="margin:14px 0 0;font-size:13px;">A estimativa acima usa consumo × preço atual. Esta tabela é o que saiu do bolso, e inclui estoque que dura mais de uma semana.</p></div>`;
+
+  if (caros.length || baratos.length){
+    h += `<div class="card"><div class="eyebrow q">Movimento desde a última compra</div><table>`;
+    caros.forEach(x=>h+=`<tr><td>${x.p}</td><td class="n" style="color:var(--clay)">+${x.delta.toFixed(0)}%</td></tr>`);
+    baratos.forEach(x=>h+=`<tr><td>${x.p}</td><td class="n" style="color:var(--teal)">${x.delta.toFixed(0)}%</td></tr>`);
+    h += `</table></div>`;
+  }
+
+  const comp = ps.filter(x=>x.n>1);
+  if (comp.length){
+    h += `<div class="card"><div class="eyebrow q">Onde saiu mais barato</div>
+      <table><tr><th>Produto</th><th>Mercado</th><th class="n">Dif.</th></tr>`
+      + comp.map(x=>`<tr><td>${x.p}<span class="qty">${BRL(x.precoBarato)} por ${x.u}</span></td>
+        <td>${x.ondeBarato}</td><td class="n">${((x.max-x.min)/x.min*100).toFixed(0)}%</td></tr>`).join('')
+      + `</table><p class="lede" style="margin:14px 0 0;font-size:13px;">Só entram produtos comprados mais de uma vez. Acima de 20% de diferença costuma justificar trocar de loja.</p></div>`;
+  }
+
+  h += `<h3 class="sec">Importar uma nota</h3>
+  <div class="card">
+    <p class="lede" style="margin:0 0 6px;">Mande a foto da notinha no chat, copie o bloco que voltar e cole aqui.</p>
+    <textarea class="fi" id="impTxt" placeholder="COMPRA 2026-09-14 Pão de Açúcar&#10;Berinjela; kg; 12,99&#10;Ovos; cartela 20 un; 11,49&#10;DIETA 151,00"></textarea>
+    <button class="btn quiet" id="impBtn" style="margin-top:10px;">Importar</button>
+    <div id="impMsg"></div>
+  </div>
+
+  <h3 class="sec">Registrar à mão</h3>
+  <div class="card">
+    <label class="fl" for="rProd">Produto</label>
+    <input class="fi" id="rProd" list="dProd" placeholder="Berinjela" autocomplete="off">
+    <datalist id="dProd">${[...new Set(CONSUMO.map(c=>c[0]).concat(ps.map(x=>x.p)))].sort((a,b)=>a.localeCompare(b,'pt')).map(n=>`<option value="${n}">`).join('')}</datalist>
+    <label class="fl" for="rUn">Unidade</label>
+    <input class="fi" id="rUn" list="dUn" placeholder="kg" autocomplete="off">
+    <datalist id="dUn">${['kg','litro','unidade','lata','pote','pacote','garrafa','bandeja','maço','cartela 20 un','caixa'].map(n=>`<option value="${n}">`).join('')}</datalist>
+    <label class="fl" for="rVal">Preço por unidade</label>
+    <input class="fi" id="rVal" type="text" inputmode="decimal" placeholder="14,99">
+    <label class="fl" for="rCat">Categoria</label>
+    <select class="fi" id="rCat">${['Hortifruti','Proteína','Mercearia','Suplemento','Outros'].map(c=>`<option>${c}</option>`).join('')}</select>
+    <label class="fl" for="rMerc">Mercado</label>
+    <input class="fi" id="rMerc" list="dMerc" placeholder="Pão de Açúcar" autocomplete="off">
+    <datalist id="dMerc">${mercs.map(n=>`<option value="${n}">`).join('')}</datalist>
+    <label class="fl" for="rData">Data</label>
+    <input class="fi" id="rData" type="date" value="${hoje}">
+    <button class="btn quiet" id="salvarProd" style="margin-top:14px;">Salvar produto</button>
+    <div id="msgProd"></div>
+  </div>
+
+  <h3 class="sec">Só o valor gasto</h3>
+  <div class="card">
+    <label class="fl" for="nData">Data</label>
+    <input class="fi" id="nData" type="date" value="${hoje}">
+    <label class="fl" for="nMerc">Mercado</label>
+    <input class="fi" id="nMerc" list="dMerc" placeholder="Sonda" autocomplete="off">
+    <label class="fl" for="nTot">Quanto foi da dieta</label>
+    <input class="fi" id="nTot" type="text" inputmode="decimal" placeholder="133,97">
+    <button class="btn quiet" id="salvarNota" style="margin-top:14px;">Salvar</button>
+    <div id="msgNota"></div>
+  </div>
+
+  <details class="acc warn" style="margin-top:18px;">
+    <summary><span class="ico">!</span>Apagar tudo e recomeçar<span class="plus">+</span></summary>
+    <div class="inner">
+      <p style="margin:0 0 12px;">Isso apaga <b>todos</b> os preços e valores que você registrou e devolve a base às 5 notas fiscais originais. Não dá para desfazer.</p>
+      <button class="btn quiet" id="resetPrecos" style="border-color:var(--clay);color:var(--clay);">Confirmar e apagar</button>
+      <div id="msgReset"></div>
+    </div>
+  </details>`;
+  return h;
 }
 
 /* ============ tela GUIA ============ */
@@ -1451,6 +1940,142 @@ document.addEventListener('click', (e)=>{
     return;
   }
 
+  const caba = e.target.closest('[data-caba]');
+  if (caba){ compraAba = caba.dataset.caba; renderCompras(); return; }
+
+  const novo = e.target.closest('[data-novo]');
+  if (novo){
+    e.preventDefault(); e.stopPropagation();
+    const [p,u] = novo.dataset.novo.split('|');
+    openSheet(p, novoPreco(p, u, 'Outros'));
+    return;
+  }
+
+  if (e.target.closest('#addLivre')){
+    const ps = porProduto();
+    const nomes = [...new Set(CONSUMO.map(c=>c[0]).concat(ps.map(x=>x.p)))].sort((a,b)=>a.localeCompare(b,'pt'));
+    const mercs = [...new Set(precos().map(o=>o.m))];
+    const ultimo = DB.get('ultimoMercado', mercs[0] || '');
+    openSheet('Registrar preço', `<div class="qf" data-form="1" data-livre="1">
+      <div class="eyebrow">Item avulso</div>
+      <p class="lede" style="margin:6px 0 12px;font-size:13.5px;">Para o que você comprou fora da lista, na feira ou no mercado.</p>
+      <label class="fl" for="qProd" style="margin-top:0;">Produto</label>
+      <input class="fi" id="qProd" list="dProdQ" placeholder="Berinjela" autocomplete="off">
+      <datalist id="dProdQ">${nomes.map(n=>`<option value="${n}">`).join('')}</datalist>
+      <label class="fl" for="qUn">Unidade</label>
+      <input class="fi" id="qUn" list="dUnQ" placeholder="kg" autocomplete="off">
+      <datalist id="dUnQ">${['kg','litro','unidade','lata','pote','pacote','garrafa','bandeja','maço','cartela 20 un','caixa'].map(n=>`<option value="${n}">`).join('')}</datalist>
+      <div class="lin" style="margin-top:14px;">
+        <div><label class="fl" for="qVal" style="margin-top:0;">Preço</label>
+          <input class="fi" id="qVal" type="text" inputmode="decimal" placeholder="14,99"></div>
+        <button id="qSave">Salvar</button>
+      </div>
+      <label class="fl" for="qMerc">Mercado</label>
+      <input class="fi" id="qMerc" list="dMercQ" placeholder="Feira" autocomplete="off" value="${ultimo.replace(/"/g,'&quot;')}">
+      <datalist id="dMercQ">${mercs.concat(['Feira']).filter((v,i,a)=>a.indexOf(v)===i).map(n=>`<option value="${n}">`).join('')}</datalist>
+      <div id="qMsg"></div>
+    </div>`);
+    return;
+  }
+
+  if (e.target.closest('#qSave')){
+    const box = document.querySelector('[data-form="1"]');
+    const msg = document.getElementById('qMsg');
+    const v = numBR(document.getElementById('qVal').value);
+    const m = document.getElementById('qMerc').value.trim();
+    const livre = box.dataset.livre === '1';
+    const p = livre ? document.getElementById('qProd').value.trim() : box.dataset.p;
+    const u = livre ? document.getElementById('qUn').value.trim()   : box.dataset.u;
+    const c = box.dataset.c || 'Outros';
+    if (!p || !u){ msg.className='msg err'; msg.textContent='Informe produto e unidade.'; return; }
+    if (!isFinite(v) || v<=0){ msg.className='msg err'; msg.textContent='Preço inválido.'; return; }
+    if (!m){ msg.className='msg err'; msg.textContent='Informe o mercado.'; return; }
+
+    const a = precos();
+    a.push({p, c, u, v:+v.toFixed(2), m, d:new Date().toISOString().slice(0,10)});
+    DB.set('precos', a);
+    DB.set('ultimoMercado', m);
+    renderCompras();
+
+    // reabre a folha já com o novo registro dentro
+    const ps = porProduto();
+    const k = ps.findIndex(x=>x.p===p && x.u===u);
+    window.__precos = ps;
+    if (k >= 0){
+      document.getElementById('sheetTitle').textContent = p;
+      document.getElementById('sheetBody').innerHTML = detalhePreco(k);
+      document.getElementById('sheetBody').scrollTop = 0;
+      const m2 = document.getElementById('qMsg');
+      if (m2){ m2.className='msg ok'; m2.textContent = `${BRL(v)} em ${m} registrado.`; }
+    }
+    return;
+  }
+
+  const pdet = e.target.closest('[data-preco]');
+  if (pdet){
+    e.preventDefault(); e.stopPropagation();
+    const i=+pdet.dataset.preco; openSheet(window.__precos[i].p, detalhePreco(i)); return;
+  }
+
+  if (e.target.closest('#impBtn')){
+    const el = document.getElementById('impTxt');
+    const msg = document.getElementById('impMsg');
+    const r = importarTexto(el.value);
+    if (r.erro){
+      msg.className='msg err';
+      msg.innerHTML = 'Não consegui ler:<br>' + r.erro.slice(0,4).join('<br>');
+      return;
+    }
+    el.value='';
+    renderCompras();
+    const m2 = document.getElementById('impMsg');
+    if (m2){ m2.className='msg ok';
+      m2.textContent = `${r.itens} ${r.itens===1?'item':'itens'} de ${r.mercado} em ${fdia(r.data)}`
+        + (r.nota ? ', mais o valor gasto.' : '. Sem linha DIETA, o histórico de gasto não mudou.'); }
+    return;
+  }
+
+  if (e.target.closest('#salvarProd')){
+    const p=document.getElementById('rProd').value.trim();
+    const u=document.getElementById('rUn').value.trim();
+    const v=numBR(document.getElementById('rVal').value);
+    const m=document.getElementById('rMerc').value.trim();
+    const d=document.getElementById('rData').value;
+    const c=document.getElementById('rCat').value;
+    const msg=document.getElementById('msgProd');
+    if(!p||!u||!m||!d||!isFinite(v)||v<=0){
+      msg.className='msg err'; msg.textContent='Preencha produto, unidade, preço, mercado e data.'; return;
+    }
+    const a=precos(); a.push({p,c,u,v:+v.toFixed(2),m,d}); DB.set('precos',a);
+    ['rProd','rUn','rVal'].forEach(id=>document.getElementById(id).value='');
+    msg.className='msg ok'; msg.textContent=`${p} a ${BRL(v)} por ${u} registrado.`;
+    return;
+  }
+
+  if (e.target.closest('#salvarNota')){
+    const d=document.getElementById('nData').value;
+    const m=document.getElementById('nMerc').value.trim();
+    const t=numBR(document.getElementById('nTot').value);
+    const msg=document.getElementById('msgNota');
+    if(!d||!m||!isFinite(t)||t<=0){ msg.className='msg err'; msg.textContent='Preencha data, mercado e valor.'; return; }
+    const a=notasf(); a.push({data:d,mercado:m,valor:+t.toFixed(2)});
+    DB.set('notasf',a);
+    document.getElementById('nTot').value='';
+    renderCompras();
+    const m2=document.getElementById('msgNota');
+    if(m2){ m2.className='msg ok'; m2.textContent=`${BRL(t)} no ${m} registrado.`; }
+    return;
+  }
+
+  if (e.target.closest('#resetPrecos')){
+    DB.set('precos', PRECOS_SEED.map(o=>({p:o[0],c:o[1],u:o[2],v:o[3],m:o[4],d:o[5]})));
+    DB.set('notasf', NOTAS_SEED);
+    renderCompras();
+    const m2=document.getElementById('msgReset') || document.getElementById('msgNota');
+    if(m2){ m2.className='msg ok'; m2.textContent='Base restaurada para as 5 notas originais.'; }
+    return;
+  }
+
   const meal = e.target.closest('[data-meal]');
   if (meal){ openMeal(meal.dataset.meal); return; }
 
@@ -1470,7 +2095,7 @@ document.addEventListener('change', (e)=>{
   const st = DB.get('shop',{});
   if (cb.checked) st[cb.dataset.shop]=1; else delete st[cb.dataset.shop];
   DB.set('shop', st);
-  renderCompras();
+  if (compraAba === 'lista') renderCompras(); else atualizaBadge();
 });
 
 document.addEventListener('change', (e)=>{
@@ -1482,6 +2107,16 @@ document.addEventListener('change', (e)=>{
 
 document.querySelectorAll('#dayToggle button').forEach(b=>
   b.addEventListener('click', ()=>setDay(b.dataset.day)));
+
+document.addEventListener('input', (e)=>{
+  if (e.target && e.target.id === 'pSearch'){
+    precoFiltro = e.target.value;
+    const pos = e.target.selectionStart;
+    renderCompras();
+    const el = document.getElementById('pSearch');
+    if (el){ el.focus(); try{ el.setSelectionRange(pos,pos); }catch(_){} }
+  }
+});
 
 window.addEventListener('popstate', ()=>{ if (sheet.classList.contains('open')) closeSheet(); });
 
